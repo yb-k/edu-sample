@@ -4,11 +4,11 @@
     <lang>ko</lang>
     <resource>
         <base_version>000000</base_version>
-        <target>app</target>
+        <target>sdcard</target>
         <update>
             <server/>
             <trcode/>
-            <mode/>
+            <mode>dev</mode>
         </update>
     </resource>
     <startpage>
