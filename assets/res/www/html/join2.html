@@ -54,7 +54,7 @@
 							이름
 						</span>
 						<div class="ipt-form-col">
-							<input type="text" id="userNm" placeholder="본인 이름 입력"/>
+							<input type="text" id="user-name" placeholder="본인 이름 입력"/>
 						</div>
 					</div>
 					<div class="ipt-form-gender">
@@ -77,9 +77,9 @@
 							생년월일
 						</span>
 						<div class="ipt-form-row">
-							<input type="number" id="year" data-date-format="YYYY" placeholder="년"/>
-							<input type="number" id="month" data-date-format="MM" placeholder="월"/>
-							<input type="number" id="date" data-date-format="DD" placeholder="일"/>
+							<input type="number" id="year" data-date-format="YYYY" placeholder="년" maxlength ="4"/>
+							<input type="number" id="month" data-date-format="MM" placeholder="월" maxlength ="2"/>
+							<input type="number" id="date" data-date-format="DD" placeholder="일" maxlength ="2"/>
 						</div>
 					</div>
 					<div class="ipt-form-type1">
@@ -87,13 +87,13 @@
 							휴대폰 번호(숫자만)
 						</span>
 						<div class="ipt-form-col">
-							<input type="number" id="cellPhone" pattern="[^0-9]" maxlength ="11" placeholder="예)01022334455"/>
+							<input type="number" id="cell-phone" pattern="[^0-9]" maxlength ="11" placeholder="예)01022334455"/>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="btn-wrap pd">
-				<button type="button" id="nextBtn" class="btn-point-color">
+				<button type="button" id="next-btn" class="btn-point-color">
 					다음
 				</button>
 			</div>

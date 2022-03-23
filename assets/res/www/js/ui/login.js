@@ -53,7 +53,7 @@
       M.data.storage('AUTO_LOGIN_AUTH', {id: id, pw: pw});
     },
 
-    unsetAutoLogin: function(id, pw){
+    unsetAutoLogin: function(){
       M.data.removeStorage('AUTO_LOGIN_AUTH');
     },
     
@@ -69,6 +69,8 @@
       if (pw == '') {
         return alert('비밀번호를 입력해주세요');
       }
+      
+      
 
       MNet.sendHttp({
         path: SERVER_PATH.LOGIN,
