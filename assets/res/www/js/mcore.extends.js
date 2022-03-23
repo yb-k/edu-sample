@@ -1,4 +1,11 @@
 
+
+/**
+* 공통 라이브러리는 importFiles 배열에 선언한다.
+* 선언된 라이브러리들은 html 파일에서
+* <script src="../js/mcore.min.js"></script>
+* 가 추가된곳 자동으로 임포트된다.
+*/
 (function(window, undefined) {
 
 var 
@@ -10,6 +17,7 @@ importFiles = [
 	"wnInterface.extends.js",
   "common/ui.js",
   "common/definition.js",
+  "common/jquery.plugin.js",
   "common/setup.js",
 ];
 
