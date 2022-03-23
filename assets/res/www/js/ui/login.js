@@ -34,9 +34,19 @@
     initEvent: function initEvent() {
       // Dom Event 바인딩
       var self = this;
-      this.els.$loginBtn.on('click', function () {
+      this.els.$loginBtn.on('click', function (){
         self.login();
-      })
+      });
+      this.els.$findIdBtn.on('click', function(){
+        M.page.html('./findId.html');
+      });
+      this.els.$findPwBtn.on('click', function(){
+        M.page.html('./findPw1.html');
+      });
+      this.els.$joinBtn.on('click', function(){
+        M.page.html('./join1.html');
+      });
+      
     },
     setAutoLogin: function(id, pw){
       //자동로그인기능
@@ -45,6 +55,7 @@
     unsetAutoLogin: function(id, pw){
       M.data.removeStorage('AUTO_LOGIN_AUTH');
     },
+    
     login: function () {
       var self = this;
       var id = this.els.$loginIdIpt.val().trim(); // 로그인 아이디 가져오기
@@ -54,7 +65,11 @@
       if (id == '') {
         return alert('아이디를 입력해주세요');
       }
-
+      if (pw == ''){
+        return alert('비밀빈호를 입력해주세요');
+      }
+      
+      
       MNet.sendHttp({
         path: SERVER_PATH.LOGIN,
         data: {
@@ -68,6 +83,8 @@
         }
       });
     }
+
+        
   };
 
   window.__page__ = page;

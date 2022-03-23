@@ -17,7 +17,7 @@
       this.els.$percent = $('#percent');
       this.els.$progressBar = $('#progress-bar');
     },
-
+    
     /*
     진행도를 표시한다
     @param {function} succCallback

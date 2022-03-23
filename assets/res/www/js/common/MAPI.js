@@ -27,7 +27,7 @@
       }
       else{
         //실패
-        alert(data.rsltMsg);
+        //alert(data.rsltMsg);
         if(typeof options.error === 'function'){
           options.error(data);
         }
