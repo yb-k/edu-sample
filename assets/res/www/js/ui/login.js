@@ -79,7 +79,13 @@
         succ: function (data) {
           //로그인이 성공했을 때 콜백
           if(isAutoLogin) self.setAutoLogin(id, pw);
-          M.page.html('./main.html');
+          console.log(data.userNm);
+          M.page.html({
+            url: "./main.html",
+            param: {
+              "loginId": id
+            }
+          });
         }
       });
     }

@@ -1,7 +1,7 @@
 /**
  * @file : findPw1.js 비밀번호 찾기
  * @author : 심수현
- * @date : 2022-03-22
+ * @date : 2022-03-23
  */
 
  (function ($, M, MNet, config, SERVER_PATH, window){
@@ -54,8 +54,18 @@
                 cellPhone : phone
             },
             succ: function(data){
+              if(data.existYn == 'Y'){
                 alert("본인인증에 성공했습니다.\n비밀번호 변경페이지로 이동합니다.")
-                M.page.html("./findPw2.html");
+                M.page.html({
+                  path: "./findPw2.html",
+                  param: {
+                    "loginId" : id
+                  }
+                });
+              }
+              else{
+                return alert("본인 인증에 실패했습니다. 올바른 정보를 입력해 주세요.")
+              }
             },
             error: function(data){
                 alert("본인 인증에 실패했습니다.");
