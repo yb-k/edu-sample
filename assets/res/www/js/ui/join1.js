@@ -12,16 +12,18 @@
       $chk2:null,
       $chk3:null,
       $chk4:null,
+      $chked:null,
       
     },
     data: {},
     init : function init() {
       this.els.$nextBtn = $('#nextBtn');
       this.els.$allchkBtn = $('#chk1');
+
       this.els.$chk2 = $('#chk2');
       this.els.$chk3 = $('#chk3');
-      this.els.$chk4 = $('#chk4');
-      
+      this.els.$chk4 = $('#chk4');  
+      this.els.$chked = $("input[type=checkbox]");    
     },
    
     initView : function initView() {
@@ -33,22 +35,48 @@
       var self = this;
       
       this.els.$nextBtn.on('click', function() {
-         M.page.html('./join2.html');
+         self.next();
       });
       
-      this.els.$allchkBtn.on('click', function(){
-        if(this.els.$allchkBtn.prop('checked')) {
-          this.els.$chk2.prop("checked", true);
-          this.els.$chk3.prop("checked", true);
-          this.els.$chk4.prop("checked", true);
+      this.els.$allchkBtn.on('click', function() {
+        if($("input:checkbox[id='chk1']").prop("checked")) {
+          $("input[type=checkbox]").prop("checked", true);
         } else {
-          this.els.$chk2.prop("checked", false);
-          this.els.$chk3.prop("checked", false);
-          this.els.$chk4.prop("checked", false);
+          $("input[type=checkbox]").prop("checked", false);
         }
       });
-      
+     
+      this.els.$chked.on('click', function(){
+        var total =  $("input[type=checkbox]").length;
+        var checked = $("input[type=checkbox]:checked").length;
+
+        if(total != checked) $("input:checkbox[id='chk1']").prop("checked", false);
+        else $("input:checkbox[id='chk1']").prop("checked", true);
+      });
+     
     },
+    
+    next:function () {
+      var self = this;
+      var ischecked1 = this.els.$chk2.prop('checked');
+      var ischecked2 = this.els.$chk3.prop('checked');
+     
+      
+      if(ischecked1){
+      } else { // 첫번째 체크박스가 체크 되어있지 않은 경우
+        alert("필수 첫번째 항목을 체크 해주세요.")
+        return false;
+      }
+      
+      if(ischecked2){
+      } else { // 두번째 체크박스가 체크 되어있지 않은 경우
+        alert("필수 두번째 항목을 체크 해주세요.");
+        return false;
+      }
+      
+      M.page.html('./join2.html');
+      
+    }
     
     
   };

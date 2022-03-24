@@ -22,6 +22,7 @@
 
     initView: function initView() {
       // 화면에서 세팅할 동적데이터
+      this.els.$loginId.val(M.data.param('loginId'));
 
     },
     initEvent: function initEvent() {
@@ -61,7 +62,10 @@
             succ: function (data) {
               console.log(data);
               alert('비밀번호가 변경되었습니다.');
-              M.page.html('./login.html');
+              M.page.html({
+                url: "./login.html",
+                actionType: "CLEAR_TOP"
+              });
             },
             error: function (data) {
               console.log(data);
