@@ -22,6 +22,9 @@
       },
       initView: function initView(){
         // 화면에서 세팅할 동적 데이터
+      },
+      initEvent: function initEvent(){
+        // DOM Event 바인딩
         this.els.$ellipsis.on('click', function() {
             alert($(this).text());
         });
@@ -34,9 +37,6 @@
         this.els.$noticeBtn.on('click', function() {
             M.page.html('./list.html');
         });
-      },
-      initEvent: function initEvent(){
-        // DOM Event 바인딩
       },
       
   //    method: {},
