@@ -18,7 +18,52 @@
 
     initView: function initView() {
       // 화면에서 세팅할 동적데이터
+      MNet.sendHttp({
 
+        path: SERVER_PATH.NOTICE_LIST,
+        data: {
+          "loginId": M.data.global('myId'),
+          "lastSeqNo": '100000000000', //물어보기,,
+          "cnt": '10',
+        },        
+        
+        succ: function (data) {
+          console.log(data);
+          var items = "";
+          $.each(data.list, function (index, item) {
+            items += "<li>";
+            items += "<div class='thumbnail-wrap'>";
+            items += "<div class='thumbnail'>";
+//            items += "<img src=";
+//            items += item.imgUrl;
+//            items += "alt=''/>";
+            items += "</div>";
+            items += "<span class='label-info none'>";
+//            items += "<img src=" ;
+//            items += item.imgUrl;
+//            items += "alt='50%'/>";
+            items += "</span>";
+            items += "</div>";
+            items += "<div class='info-box'>";
+            items += "<div class='info-box-top'>";
+            items += "<strong class='ellipsis_1'>";
+            items += item.title;
+            items += "</strong>";
+            items += "<div class='info-box-btm'>";
+            items += "<p style='text-align:left;' class='ellipsis_1'>";
+            items += item.content;
+            items += "</p>";
+            items += "</div>";
+            items += "</div>";
+            items += "</li>";
+          });
+          $("#card").html(items);
+        },
+        error: function (data) {
+          console.log(data);
+          alert("리스트를 가져오지 못했습니다.");
+        },
+      });
     },
     initEvent: function initEvent() {
       // Dom Event 바인딩
@@ -27,21 +72,6 @@
       this.els.$writeBtn.on('click', function () {
         M.page.html('./write.html');
       });
-
-//      $(window).scroll(function () {
-//        if ($(this).scrollTop() > 100) {
-//          this.els.$topBtn.addClass("on");
-//        } else {
-//          this.els.$topBtn.removeClass("on");
-//        }
-//      });
-//
-//      this.els.$topBtn.on('click', function () {
-//        window.scrollTo({
-//          top: 0,
-//          behavior: 'smooth'
-//        });
-//      });
     },
   };
 

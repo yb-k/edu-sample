@@ -51,10 +51,6 @@
           alert("유저 정보를 가져오지 못했습니다.");
         }
       });
-      this.els.$userNm.val(M.data.param('name'));
-      this.els.$birth.val(M.data.param('birth'));
-      this.els.$emailIpt.val(M.data.param('email'));
-      this.els.$phoneIpt.val(M.data.param('phone'));
     },
 
     initEvent: function initEvent() {
