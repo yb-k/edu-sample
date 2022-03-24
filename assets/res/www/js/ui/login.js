@@ -82,6 +82,7 @@
           //로그인이 성공했을 때 콜백
           if(isAutoLogin) self.setAutoLogin(id, pw);
           else self.unsetAutoLogin();
+          M.data.global("loginId", id);
           M.page.html('./main.html');
         }
       });

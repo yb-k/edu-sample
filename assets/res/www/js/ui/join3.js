@@ -65,7 +65,7 @@
 
       if (id == '') {
         return alert('아이디를 입력해주세요');
-      } else if (id.length > 5) {
+      } else if (id.length < 5) {
         return alert('아이디는 최소 5자 이상입니다');
       }
       if (pw == '') {
@@ -104,7 +104,7 @@
     },
 
     checkPW: function () {
-
+      var self = this;
       var pw = this.els.$password.val().trim();
       var num = pw.search(/[0-9]/g);
       var eng = pw.search(/[a-z]/ig);
