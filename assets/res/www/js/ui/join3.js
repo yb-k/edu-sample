@@ -63,10 +63,10 @@
       var pwCon = this.els.$passwordCon.val().trim();
       var email = this.els.$email.val().trim();
 
-      alert(M.data.param("userNm") + M.data.param("birthDate") + M.data.param("gender") + M.data.param("cellPhone"));
-
       if (id == '') {
         return alert('아이디를 입력해주세요');
+      } else if (id.length > 5) {
+        return alert('아이디는 최소 5자 이상입니다');
       }
       if (pw == '') {
         return alert('비밀번호를 입력해주세요.');

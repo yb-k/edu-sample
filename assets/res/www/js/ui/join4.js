@@ -18,18 +18,13 @@
     },
     initEvent: function initEvent() {
       // DOM Event 바인딩
-      var self = this;
       this.els.$loginBtn.on('click', function () {
-        self.moveLoginPage();
+        M.page.html({
+          url: "./login.html",
+          actionType: "CLEAR_TOP"
+        });
       })
     },
-    moveLoginPage : function() {
-        M.page.html({
-            url: "./login.html",
-            actionType: "CLEAR_TOP"
-          });
-    }
-
     //    method: {},
   };
   window.__page__ = page;
