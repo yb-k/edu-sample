@@ -79,6 +79,7 @@
           //로그인이 성공했을 때 콜백
           if(isAutoLogin) self.setAutoLogin(id, pw);
           console.log(data);
+          M.data.global({'myId':id});
           M.page.html('./main.html');
           //alert('로그인 성공')
         }, 

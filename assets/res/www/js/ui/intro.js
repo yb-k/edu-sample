@@ -53,6 +53,7 @@
             },
             succ: function (data) {
               //로그인이 성공했을 때 콜백
+              M.data.global({'myId':existLoginData.id});
               M.page.html('./main.html');
             },
             error: function () {

@@ -130,11 +130,7 @@
           return true;
         }
       }
-
-
     },
-
-
   };
 
   window.__page__ = page;
