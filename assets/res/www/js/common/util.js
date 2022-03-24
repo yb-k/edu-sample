@@ -227,37 +227,38 @@
       return str;
     }
   };
-  
+
   /**
    * password rule
    * @param str
    * @returns boolean
    * 1. At least one digit [0-9]
    * 2. At least one lowercase character [a-z]
-   * 3. At least one special character [!@#$%^&*=.+-]
+   * 3. At least one uppercase character [A-Z]
+   * 4. At least one special character [!@#$%^&*=.+-]
    * */
   var isCorrectPasswordRule = module.isCorrectPasswordRule = function (str) {
     if (str == null) {
       str = "";
     }
-    console.log(str);
-    var _str = /^(?=.+[0-9])(?=.+[a-z])(?=.+[!@#$%^&*=.+-]){8,}/.test(str);
+    console.log(str);// 1        2,3                4
+    var _str = /^(?=.+[0-9])(?=.+[a-zA-Z])(?=.+[!@#$%^&*=.+-]){8,}/.test(str);
     console.log(_str);
     return _str;
   };
   
   /**
    * password 와 repassword 가 같은지 확인
-   * @param {string} pass 
+   * @param {string} pass
    * @param {string} repass
    * */
-  var confirmPasswordAndRePassword = module.confirmPasswordAndRePassword = function (pass,repass,callbackFunction) {
+  var confirmPasswordAndRePassword = module.confirmPasswordAndRePassword = function (pass, repass, callbackFunction) {
     var password = pass.trim();
-    if (isCorrectPasswordRule(password) == false){
+    if (isCorrectPasswordRule(password) == false) {
       return alert('비밀번호는 숫자,영문,특수문자를 포함한 8자 이상이어야합니다.');
     }
     var rePassword = repass.trim();
-    if (password != rePassword){
+    if (password != rePassword) {
       return alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
     }
     callbackFunction();
