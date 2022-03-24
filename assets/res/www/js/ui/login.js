@@ -80,12 +80,13 @@
           //로그인이 성공했을 때 콜백
           if(isAutoLogin) self.setAutoLogin(id, pw);
           console.log(data.userNm);
-          M.page.html({
-            url: "./main.html",
-            param: {
-              "loginId": id
-            }
-          });
+          M.data.global({"loginId":id});
+          M.page.html("./main.html");
+        },
+        err: function(data){
+          if(data.rsltCode == '2001'){
+            alert("아이디 혹은 비밀번호가 틀립니다.");
+          }
         }
       });
     }

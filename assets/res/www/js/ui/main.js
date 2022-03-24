@@ -27,7 +27,7 @@
       // 정보수정 페이지
       var self = this;
       this.els.$menuBtn.on('click', function () {
-        self.update();
+        M.page.html("./userInfo.html");
       });
 
       //공지사항 목록 페이지
@@ -54,30 +54,7 @@
       });
     },
 
-    update: function () {
-      var loginId = M.data.param("loginId");
-
-      MNet.sendHttp({
-        path: SERVER_PATH.INFO,
-        data:{
-          loginId: M.data.param("loginId")
-        },
-        succ: function(data){
-          M.page.html({
-            url: "./userInfo.html",
-            param:{
-              "loginId" : M.data.param("loginId"),
-              "userNm" : M.data.param("userNm"),
-              "birthDate" : M.data.param("birthDate"),
-              "email" : M.data.param("email"),
-              "cellPhone" : M.data.param("cellPhone")
-            }
-          });
-        }
-      });
-      
-
-    }
+    
 
     //    method: {},
   };
