@@ -4,6 +4,7 @@
     var ect2 = $(".exception2");
     var ect3 = $(".exception3");
 
+
     var allH = $("body").outerHeight(true);
     var hadH = $(".header").outerHeight(true);
     var btmH = $(".btm-wrap").outerHeight(true);
@@ -21,27 +22,27 @@
             $(".cont-wrap").addClass("scroll");
         }
         //    if(hadH>0 && btmH>0 && tabH > 0){//header,footer,tab메뉴 고정
-        //    	console.log("if 1");
+        //       console.log("if 1");
         //        allH = allH - hadH - btmH - tabH;
         //        $(".cont-wrap").css("height",allH);
         //        $(".cont-wrap").addClass("scroll");
         //    }else if(hadH>0 && btmH>0){//header,footer 고정
-        //    	console.log("if 2");
+        //       console.log("if 2");
         //        allH = allH - hadH - btmH;
         //        $(".cont-wrap").css("height",allH);
         //        $(".cont-wrap").addClass("scroll");
         //    }else if(hadH>0  && tabH > 0){//tab메뉴 있는경우
-        //    	console.log("if 3");
+        //       console.log("if 3");
         //        allH = allH - hadH - tabH; 
         //        $(".container").css("height",allH);
         //        $(".container").addClass("scroll");
         //    }else if(hadH > 0){//hader고정
-        //    	console.log("if 4");
+        //       console.log("if 4");
         //        allH = allH - hadH; 
         //        $(".container").css("height",allH);
         //        $(".container").addClass("scroll");
         //    }else if(btmH > 0){//footer고정
-        //    	console.log("if 5");
+        //       console.log("if 5");
         //        allH = allH - btmH; 
         //        $(".cont-wrap").css("height",allH);
         //        $(".cont-wrap").addClass("scroll");
@@ -86,7 +87,7 @@
 
     //footer고정이 아닐때
     //    var viewH = $(".wrapper").outerHeight(true);
-    //	var allH = $(".container").outerHeight(true);
+    //   var allH = $(".container").outerHeight(true);
     //    if( allH > viewH){
     //        $(".btm-fix").css("position","relative");
     //    }

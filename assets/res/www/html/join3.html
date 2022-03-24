@@ -1,86 +1,86 @@
 <!doctype html>
 <html lang="ko">
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-	<title>Hello! Mobile!</title>
-	<link rel="stylesheet" href="../css/morpheus-style.css" />
-	<link rel="stylesheet" href="../css/swiper.min.css" />
-	<link rel="stylesheet" href="../css/muikit.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Hello! Mobile!</title>
+  <link rel="stylesheet" href="../css/morpheus-style.css" />
+  <link rel="stylesheet" href="../css/swiper.min.css" />
+  <link rel="stylesheet" href="../css/muikit.css" />
 </head>
 
 <body>
-	<div class="wrapper">
-		<header class="header line">
-			<!-- 하단에 라인이 있는경우 class="line"추가 -->
-			<h1>
-				회원가입
-			</h1>
-			<button type="button" class="btn-back l-fix">
-				뒤로가기
-			</button>
-		</header>
-		<div class="container">
-			<div class="cont-wrap pd">
-				<div class="info-wrap">
-					<!-- 로고 없이 사용할 경우:class="none"삭제 -->
-					<h2 class="sub-tit">
-						정보입력
-					</h2>
-					<div class="step">
-						<ul>
-							<li class="ok">
-								1
-								<!-- class="on"추가:해당 단계 / class="ok"추가:완료 단계 -->
-							</li>
-							<li class="ok">
-								2
-							</li>
-							<li class="on">
-								3
-							</li>
-							<li>
-								4
-							</li>
-						</ul>
-					</div>
-					<div class="logo none">
-						<img src="../img/logo-header.png" alt="Education"/>
-					</div>
-				</div>
-				<div class="ipt-wrap">
-					<div class="ipt-form-type2">
-						<span>
-							아이디/비밀번호
-						</span>
-						<div class="ipt-form-row">
-							<input type="text" id="loginId" placeholder="아이디 입력"/>
-							<button type="button" id="dupBtn" class="btn-line">
-								중복확인
-							</button>
-						</div>
-						<div class="ipt-form-col">
-							<input type="password" id="password" placeholder="패스워드 입력"/>
-							<input type="password" id="repassword" placeholder="패스워드 확인"/>
-						</div>
-					</div>
-					<div class="ipt-form-type1">
-						<span>
-							메일
-						</span>
-						<div class="ipt-form-col">
-							<input type="text" id="email" placeholder="예)edu@education.co.kr"/>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="btn-wrap pd">
-				<button type="button" id="joinBtn" class="btn-point-color">
-					가입하기
-				</button>
-			</div>
-		</div>
-	</div>
+<div class="wrapper">
+  <header class="header line">
+    <!-- 하단에 라인이 있는경우 class="line"추가 -->
+    <h1>
+      회원가입
+    </h1>
+    <button type="button" class="btn-back l-fix" id="back-btn">
+      뒤로가기
+    </button>
+  </header>
+  <div class="container">
+    <div class="cont-wrap pd">
+      <div class="info-wrap">
+        <!-- 로고 없이 사용할 경우:class="none"삭제 -->
+        <h2 class="sub-tit">
+          정보입력
+        </h2>
+        <div class="step">
+          <ul>
+            <li class="ok">
+              1
+              <!-- class="on"추가:해당 단계 / class="ok"추가:완료 단계 -->
+            </li>
+            <li class="ok">
+              2
+            </li>
+            <li class="on">
+              3
+            </li>
+            <li>
+              4
+            </li>
+          </ul>
+        </div>
+        <div class="logo none">
+          <img src="../img/logo-header.png" alt="Education"/>
+        </div>
+      </div>
+      <div class="ipt-wrap">
+        <div class="ipt-form-type2">
+                  <span>
+                     아이디/비밀번호
+                  </span>
+          <div class="ipt-form-row">
+            <input type="text" id="login-id" placeholder="아이디 입력"/>
+            <button type="button" id="dup-btn" class="btn-line">
+              중복확인
+            </button>
+          </div>
+          <div class="ipt-form-col">
+            <input type="password" id="password" placeholder="패스워드 입력"/>
+            <input type="password" id="repassword" placeholder="패스워드 확인"/>
+          </div>
+        </div>
+        <div class="ipt-form-type1">
+                  <span>
+                     메일
+                  </span>
+          <div class="ipt-form-col">
+            <input type="text" id="email" placeholder="예)edu@education.co.kr"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="btn-wrap pd">
+      <button type="button" id="join-btn" class="btn-point-color">
+        가입하기
+      </button>
+    </div>
+  </div>
+</div>
 </body>
 
 <script type="text/javascript" src="../js/mcore.min.js"></script>
