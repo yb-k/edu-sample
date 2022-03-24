@@ -5,28 +5,30 @@
  */
 // 페이지 단위 모듈
 (function ($, M, MNet, config, SERVER_PATH, window) {
+  var seqNum;
   var page = {
     els: {
       $writeBtn: null,
       $topBtn: null,
+      $moreBtn: null,
     },
     data: {},
     init: function init() {
       this.els.$writeBtn = $('#write-btn');
       this.els.$topBtn = $('#top-btn');
+      this.els.$moreBtn = $('#more-btn');
+
     },
 
     initView: function initView() {
       // 화면에서 세팅할 동적데이터
       MNet.sendHttp({
-
         path: SERVER_PATH.NOTICE_LIST,
         data: {
           "loginId": M.data.global('myId'),
           "lastSeqNo": '100000000000', //물어보기,,
-          "cnt": '10',
-        },        
-        
+          "cnt": '6',
+        },
         succ: function (data) {
           console.log(data);
           var items = "";
@@ -34,14 +36,14 @@
             items += "<li>";
             items += "<div class='thumbnail-wrap'>";
             items += "<div class='thumbnail'>";
-//            items += "<img src=";
-//            items += item.imgUrl;
-//            items += "alt=''/>";
+            //            items += "<img src=";
+            //            items += item.imgUrl;
+            //            items += "alt=''/>";
             items += "</div>";
             items += "<span class='label-info none'>";
-//            items += "<img src=" ;
-//            items += item.imgUrl;
-//            items += "alt='50%'/>";
+            //            items += "<img src=" ;
+            //            items += item.imgUrl;
+            //            items += "alt='50%'/>";
             items += "</span>";
             items += "</div>";
             items += "<div class='info-box'>";
@@ -56,6 +58,7 @@
             items += "</div>";
             items += "</div>";
             items += "</li>";
+            seqNum = item.seqNo;
           });
           $("#card").html(items);
         },
@@ -72,6 +75,15 @@
       this.els.$writeBtn.on('click', function () {
         M.page.html('./write.html');
       });
+
+      this.els.$topBtn.on("click", function () {
+        $('.cont-wrap').scrollTop(0);
+      });
+      
+      this.els.$moreBtn.on("click", function () {
+        
+      });
+      
     },
   };
 

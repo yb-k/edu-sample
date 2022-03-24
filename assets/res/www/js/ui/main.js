@@ -9,19 +9,47 @@
     els: {
       $userMenuBtn: null,
       $allViewBtn: null,
-      $noticeBtn: null
+      $noticeBtn: null,
+
     },
     data: {},
     init: function init() {
       this.els.$userMenuBtn = $('#userMenu-btn');
       this.els.$allViewBtn = $('#allView-btn');
       this.els.$noticeBtn = $('#notice-btn');
+
     },
 
     initView: function initView() {
-      // 화면에서 세팅할 동적데이터
-
-    },
+      var self = this;
+          // 화면에서 세팅할 동적데이터
+          MNet.sendHttp({
+            path: SERVER_PATH.NOTICE_LIST,
+            data: {
+              "loginId": M.data.global('myId'),
+              "lastSeqNo": '100000000000', //물어보기,,
+              "cnt": '4',
+            },        
+            succ: function (data) {
+              console.log(data);
+              var items = "";
+              $.each(data.list, function (index, item) {
+                items += "<li class='ellipsis'>";
+                items += item.title;
+                items += "</li>";
+                console.log(item.seqNo);
+                $('.ellipsis').attr("id", "notice"+index);
+                var asdf = $('.ellipsis').attr('id');
+                console.log(asdf);
+              });
+              $("#noti-list").html(items);
+            },
+            error: function (data) {
+              console.log(data);
+              alert("리스트를 가져오지 못했습니다.");
+            },
+          });
+        },
     initEvent: function initEvent() {
       // Dom Event 바인딩
       var self = this;
@@ -35,7 +63,9 @@
       this.els.$noticeBtn.on('click', function () {
         M.page.html('./list.html');
       });
-      console.log(M.data.global('myId'));
+      $('#noti-list').on('click', '.ellipsis', function () {
+        M.page.html('./detail.html');
+      });
 
     },
 

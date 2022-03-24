@@ -38,21 +38,20 @@
         self.next();
       });
       
+      
+      
     },
     
     next:function () {
       var self = this;
-      var name = this.els.$userNmIpt.val().trim();
-      
-      var gender = this.els.$genderSelected.val().trim();
-
-      console.log(gender);
+      var name = this.els.$userNmIpt.val().trim();      
+      var gender = $('input[name=gender]:checked').val();
       var year = this.els.$yearIpt.val().trim();
       var month = this.els.$monthIpt.val().trim();
       var date = this.els.$dateIpt.val().trim();
-            
       var birth = year+month+date;
       var phone = this.els.$cellphoneIpt.val().trim();
+      console.log(gender);
       
       if(name == '') {
         return alert('이름을 입력해주세요');
