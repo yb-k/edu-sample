@@ -4,7 +4,8 @@
  * @date : 
  */
 // 페이지 단위 모듈
-(function ($, M, MNet, config, SERVER_PATH, window) {
+(function ($, M, CONFIG, window){
+  var SERVER_PATH = CONFIG.SERVER_PATH;
   var page = {
     els: {
       $userNm: null,
@@ -34,7 +35,7 @@
     initView: function initView() {
       var self = this;
       this.els.$loginId.val(M.data.global('myId'));
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.INFO,
         data: {
           "loginId": M.data.global('myId'),
@@ -42,8 +43,8 @@
         succ: function (data) {
           console.log(data);
           self.els.$userNm.val(data.userNm);
-          self.els.$birth.val(data.birthDate);
-          self.els.$phoneIpt.val(data.cellPhone);
+          self.els.$birth.val(data.birthDate.substring(0,4)+"-"+data.birthDate.substring(4,6)+"-"+data.birthDate.substring(6,8));
+          self.els.$phoneIpt.val(data.cellPhone.substring(0,3)+"-"+data.cellPhone.substring(3,7)+"-"+data.cellPhone.substring(7,));
           self.els.$emailIpt.val(data.email);
         },
         error: function (data) {
@@ -82,7 +83,7 @@
     outUser:function () {
       var self = this;
       var id = this.els.$loginId.val().trim();
-       MNet.sendHttp({
+       $.sendHttp({
               path: SERVER_PATH.OUT,
               data: {
                 loginId: id,
@@ -110,7 +111,7 @@
       if (email == '') {
         return alert('이메일을 입력해주ㅁㄴㅇ세요');
       }
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.UPDATE,
         data: {
           loginId: id,
@@ -133,7 +134,7 @@
       var self = this;
       var id = this.els.$loginId.val().trim();
       var pw = this.els.$passwordIpt.val().trim();
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.CHECK_PASSWORD,
         data: {
           loginId: id,
@@ -159,7 +160,7 @@
       var self = this;
       var id = this.els.$loginId.val().trim();
       var pw = this.els.$passwordIpt.val().trim();
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.CHECK_PASSWORD,
         data: {
           loginId: id,
@@ -181,7 +182,7 @@
   };
 
   window.__page__ = page;
-})(jQuery, M, __mnet__, __config__, __serverpath__, window);
+})(jQuery, M,  __config__, window);
 
 // 해당 페이지에서 실제 호출
 (function ($, M, pageFunc, window) {

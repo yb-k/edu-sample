@@ -4,7 +4,9 @@
  * @date : 
  */
 // 페이지 단위 모듈
-(function ($, M, SERVER_PATH, MNet, window) {
+(function ($, M, CONFIG, window) {
+  var CONSTANT = CONFIG.CONSTANT;
+  var SERVER_PATH = CONFIG.SERVER_PATH;
   var page = {
     els: {
       $percent: null,
@@ -39,13 +41,19 @@
         actionType: "CLEAR_TOP"
       });
     },
+    moveMainPage: function moveMainPage() {
+          $.movePage({
+            url: "./main.html",
+            actionType: "CLEAR_TOP"
+          });
+        },
     initView: function initView() {
       // 화면에서 세팅할 동적데이터
       var self = this;
       var existLoginData = M.data.storage('AUTO_LOGIN_AUTH');
       if (existLoginData) {
         this.startProgress(function () {
-          MNet.sendHttp({
+          $.sendHttp({
             path: SERVER_PATH.LOGIN,
             data: {
               loginId: existLoginData.id,
@@ -54,7 +62,8 @@
             succ: function (data) {
               //로그인이 성공했을 때 콜백
               M.data.global({'myId':existLoginData.id});
-              M.page.html('./main.html');
+//              M.page.html('./main.html');
+              self.moveMainPage();
             },
             error: function () {
               self.moveLoginPage();
@@ -64,16 +73,13 @@
       } else {
         this.startProgress(this.moveLoginPage);
       }
-
-
     },
     initEvent: function initEvent() {
       // Dom Event 바인딩
     },
   };
-
   window.__page__ = page;
-})(jQuery, M, __serverpath__, __mnet__, window);
+})(jQuery, M,  __config__, window);
 
 // 해당 페이지에서 실제 호출
 (function ($, M, pageFunc, window) {
