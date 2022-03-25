@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Document</title>
+</head>
+<body>
+<h1>hello world</h1>
+<input id="chk1" name="chk" type="checkbox">
+<select id="sel1">
+    <option value="">default</option>
+    <option value="1">1</option>
+    <option selected value="2">2</option>
+</select>
+</body>
+<script src="./jquery-3.6.0.min.js"></script>
+<script src="./test.js"></script>
+<script>
+    console.log($('h1').html());
+    $('h1').html('content');
+    $('#chk1').on('change', function(){
+        console.log(this);
+        console.log($(this).prop('checked'));
+    })
+    $('#sel1').on('change', function(){
+        console.log(this);
+        console.log($(this).val());
+    })
+
+</script>
+</html>

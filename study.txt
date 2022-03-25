@@ -1,0 +1,49 @@
+jquery
+
+1. 선택 또는 엘리먼트 검색
+https://api.jquery.com/category/selectors/
+$(); // 문자열을 (selector)
+.after
+.find
+.parent
+.children
+.sibillings
+$('<div>'+title+'</div>') => divElement 생성
+$('#list').append() / 또는 html
+
+2. 속성 / attribute, properties
+.attr()
+.prop()
+.css
+
+3. 세팅
+.val()
+.html
+.text
+.append
+
+4. 이벤트 리스너
+.on()
+click, dbclick, (touched), change, keydown, keypress, keyup
+focusin, focusout, scroll, 
+
+resize
+
+.off()
+
+css / hover
+콘텐츠 위에 커서가 있을때
+div: hover {
+    background-color : ''
+}
+lodash / momentjs / swiper / bootstrap
+
+CSS FRAMEWORK
+
+5. 컬랙션 함수
+.each()
+.extend()
+
+6. 기타
+.show
+.hide
