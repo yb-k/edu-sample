@@ -57,6 +57,7 @@
         pw: pw
       });
 
+
     },
     unsetAutoLogin: function () {
       M.dat.removeStorage('AUTO_LOGIN_AUTH');
@@ -79,7 +80,8 @@
         succ: function (data) {
           // 로그인이 성공했을 때 콜백
           if(isAutoLogin) self.setAutoLogin(id, pw); 
-            M.page.html('./main.html');
+          M.data.global("userId", id);  
+          M.page.html('./main.html');
           
         },
 
