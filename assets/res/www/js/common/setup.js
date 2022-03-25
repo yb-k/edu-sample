@@ -14,14 +14,14 @@
         //	M.plugin("push").remote.enabled(true);
         //개발모드의 경우 하단에 페이지명 현시
         if (definition.isDev) {
-            $("body").append("<div style=\"z-index:9999; position:fixed; bottom:.5rem; left:.5rem; font-size:1rem; background-color:#000000; color:#ffffff\">" + Global.pageName + "</div>");
+//            $("body").append("<div style=\"z-index:9999; position:fixed; bottom:.5rem; left:.5rem; font-size:1rem; background-color:#000000; color:#ffffff\">" + Global.pageName + "</div>");
         }
 
         //customizing _onReady 함수 호출
         if (typeof _onReady != 'undefined') {
             _onReady();
             if (definition.isDev) {
-                $("body").append("<div style=\"z-index:9999; position:fixed; bottom:.5rem; left:.5rem; font-size:1rem; background-color:#000000; color:#ffffff\">" + Global.pageName + "</div>");
+//                $("body").append("<div style=\"z-index:9999; position:fixed; bottom:.5rem; left:.5rem; font-size:1rem; background-color:#000000; color:#ffffff\">" + Global.pageName + "</div>");
             }
         }
     });

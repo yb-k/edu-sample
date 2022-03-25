@@ -16,7 +16,7 @@
 			<h1>
 				게시글 작성
 			</h1>
-			<button type="button" class="btn-back l-fix">
+			<button type="button" class="btn-back l-fix" id="back">
 				뒤로가기
 			</button>
 			<button type="button" class="btn-menu r-fix">
@@ -34,7 +34,7 @@
 							제목
 						</span>
 						<div class="ipt-form-col">
-							<input type="text" placeholder="게시글 제목(50자까지)" maxlength="50"/>
+							<input type="text" placeholder="게시글 제목(50자까지)" maxlength="50" id="subject"/>
 						</div>
 					</div>
 					<div class="ipt-form-type1">
@@ -42,7 +42,7 @@
 							내용
 						</span>
 						<div class="ipt-form-col">
-							<input type="text" placeholder="게시글 내용(50자까지)" maxlength="50"/>
+							<input type="text" placeholder="게시글 내용(50자까지)" maxlength="50" id="content" />
 						</div>
 					</div>
 					<div class="ipt-form-type2">
@@ -50,7 +50,7 @@
 							첨부 이미지
 						</span>
 						<div class="ipt-form-row">
-							<input type="text" readonly placeholder="이미지 파일명 (자동입력)"/>
+							<input type="text" readonly placeholder="이미지 파일명 (자동입력)" id="file"/>
 							<button type="button" class="btn-line">
 								이미지 선택
 							</button>
@@ -62,7 +62,7 @@
 				</div>
 			</div>
 			<div class="btn-wrap btm-wrap pd">
-				<button type="button" class="btn-point-color">
+				<button type="button" class="btn-point-color" id="writeRegist">
 					작성하기
 				</button>
 			</div>

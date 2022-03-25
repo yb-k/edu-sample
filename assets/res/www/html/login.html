@@ -20,31 +20,31 @@
 				<form>
 					<!-- 아이디/패스워드 입력 영역 (input창+버튼 디자인에 따라 바꿔치기 가능) -->
 					<div class="ipt-form-col pd-b20">
-						<input type="text" class="id" id="loginId" placeholder="아이디"/>
+						<input type="text" class="id" id="loginid" placeholder="아이디"/>
 						<input type="password" class="pw" id="password" placeholder="비밀번호"/>
 					</div>
 					<div class="btn-wrap">
 						<!-- 버튼요소가 2개인 경우 class="count2"추가 -->
 						<!-- button 색 채운 디자인: btn-point-color / 라인 디자인 : btn-line -->
 						<!-- button 높이 얇게: class에 h80 추가 -->
-						<button type="button" id="loginBtn" class="btn-point-color">
+						<button type="button" id="login-btn" class="btn-point-color">
 							로그인
 						</button>
 					</div>
 					<div class="chk-wrap">
 						<div>
 							<!-- 뒤에 다른 요소 들어오는 경우 div감싸기 -->
-							<input type="checkbox" id="chk" class="chk"/>
-							<label for="chk">
+							<input type="checkbox" id="auto-login-chk" class="chk"/>
+							<label for="auto-login-chk">
 								자동로그인
 							</label>
 						</div>
 						<div class="txt-btn-wrap">
 							<ul>
-								<li id="findId">
+								<li id="find-Id">
 									아이디 찾기
 								</li>
-								<li id="findPw">
+								<li id="find-Pw">
 									비밀번호 찾기
 								</li>
 							</ul>
@@ -62,6 +62,8 @@
 	</div>
 </body>
 
+
 <script type="text/javascript" src="../js/mcore.min.js"></script>
+<script type="text/javascript" src="../js/common/MAPI.js"></script>
 <script type="text/javascript" src="../js/ui/login.js"></script>
 </html>
