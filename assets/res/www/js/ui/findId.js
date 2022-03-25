@@ -3,7 +3,7 @@
  * @author :
  * @date : 
  */
- 
+
 // 페이지 단위 모듈
 (function ($, M, MNet, SERVER_PATH, window){
   var page = {
@@ -26,10 +26,14 @@
     },
     initEvent : function initEvent() {
       // Dom Event 바인딩
+      
       var self = this;
       this.els.$findIdBtn.on('click', function(){
         self.findId();
-      });
+      })
+      this.els.$findPw.on('click', function(){
+        M.page.html('./findPw1.html');
+      })
     },
     
     findId : function(){

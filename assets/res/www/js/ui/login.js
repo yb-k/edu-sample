@@ -44,8 +44,8 @@
         M.page.html('./findPw1.html');
       })
       this.els.$joinBtn.on('click', function(){
-              M.page.html('./join1.html');
-            })
+        M.page.html('./join1.html');
+      })
     }, 
     setAutoLogin : function(id, pw){
       // 자동로그인 기능
