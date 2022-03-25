@@ -73,23 +73,28 @@
           if(module.isEmpty(content)){
             return alert('내용을 입력해주세요.');
           }
-          MNet.sendHttp({
-            path : SERVER_PATH.NOTICE_UPDATE,
-            data: {
-              loginId : M.data.global('id'),
-              seqNo : sn,
-              title : title,
-              content : content,
-            },
-            succ: function(data){
-              if(data.rsltCode == '0000'){
-                alert('수정 완료');
-                M.page.html('./list.html');
-              }else{
-                return alert('수정에 실패하셨습니다.');
+          if(!module.isEmpty(imgPath)){
+            self.modifyWithUpload(title, content, self.data.imgPath);
+          }else{
+            MNet.sendHttp({
+              path : SERVER_PATH.NOTICE_UPDATE,
+              data: {
+                loginId : M.data.global('id'),
+                seqNo : sn,
+                title : title,
+                content : content,
+              },
+              succ: function(data){
+                if(data.rsltCode == '0000'){
+                  alert('수정 완료');
+                  M.page.html('./list.html');
+                }else{
+                  return alert('수정에 실패하셨습니다.');
+                }
               }
-            }
-          });        
+            });          
+          }
+        
         }else{
           self.writeOk();
         }
@@ -107,7 +112,7 @@
         return alert('내용을 입력해주세요.');
       }
       if(!module.isEmpty(imgPath)){
-        self.writeWithUpload(title, content, imgPath);
+        self.writeWithUpload(title, content, self.data.imgPath);
       }else{
         MNet.sendHttp({
           path : SERVER_PATH.NOTICE_WRITE,
@@ -148,7 +153,34 @@
         },
         error : function (head) {
           console.log(head);
-          alert('에러!');
+          alert('등록 에러!');
+        }
+      })
+    },  
+    modifyWithUpload: function modifyWithUpload(title, content, imgPath) {
+      var sn = M.data.param('seqNo');
+      var body = [
+        { name: "file", content: imgPath, type: "FILE" },
+        { name: "content", content: content, type: "TEXT" },
+        { name: "title", content: title, type: "TEXT" },
+        { name: "loginId", content: M.data.global('id'), type: "TEXT" },
+        { name: "seqNo", content: sn, type: "TEXT" },
+      ]
+      console.log(body);
+      MNet.fileHttpSend({
+        path: SERVER_PATH.NOTICE_UPDATE_IMG,
+        body: body,
+        succ: function () {
+          alert('이미지를 포함한 게시글 수정이 완료되었습니다.');
+          M.page.html('./list.html');
+        },
+        progress: function () {
+          console.log(head);
+          console.log(status);
+        },
+        error : function () {
+          console.log(head);
+          alert('수정 에러!');
         }
       })
     },  

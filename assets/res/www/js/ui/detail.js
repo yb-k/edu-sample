@@ -39,6 +39,7 @@
         succ: function (data) {
           $( '#title' ).text( data.title );
           $( '#content' ).text( data.content );
+          $('#imgUrl').attr('src',data.imgUrl);
           if(data.isMyNoticeYn === 'Y'){
             $('.btn-wrap').show();
           }
