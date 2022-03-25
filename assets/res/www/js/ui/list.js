@@ -24,6 +24,7 @@
       this.els.$dataMore = $('.btn-point-color');
       this.els.$btnModify = $('.btn-modify');
       this.els.$btnTop = $("button[class='btn-top']");
+      
 
     },
 
