@@ -82,3 +82,4 @@
     pageFunc.initView();
   });
 })(jQuery, M, __page__, window);
+
