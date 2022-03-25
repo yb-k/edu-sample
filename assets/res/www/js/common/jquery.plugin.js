@@ -10,7 +10,42 @@
   var MSG = CONFIG.MSG;
   var CONSTANT = CONFIG.CONSTANT;
   var SERVER_CODE = CONFIG.SERVER_CODE;
-
+  
+  $.fileHttpSend = function (options) {
+    // body: [
+    // { content: "파일업로드", type: "TEXT" },
+    // { name: "imgs", content: "test.zip", type: "FILE" },
+    // ],
+    var fileUploadFinish = function (status, header, body, setting) {
+      var _body = null;
+      try {
+        var _body = JSON.parse(body);
+      } catch(e) {
+        _body = body;
+      }
+      
+      if (status == '200' && $.isFunction(options.succ) && _body.rsltCode == SERVER_CODE.SUC) {
+        options.succ(_body.body);
+      } else if ($.isFunction(options.error)) {
+        options.error(status, body)
+      }
+    }
+    var fileUploadProgress = function (total, current) {
+      if($.isFunction(options.progress)) {
+        options.progress(total, current)
+      }
+    }
+    var _options = {
+      url: ENV.UPLOAD_URL + options.path,
+      header: options.header || {},
+      params: options.params || {},
+      body: options.body || [],
+      encoding: "UTF-8",
+      finish: fileUploadFinish,
+      progress: fileUploadProgress
+    }
+    M.net.http.upload(_options);
+  };
   /**
    * 함수 여부 확인
    * @param {any} target 
@@ -206,4 +241,4 @@
    }
  }
 
-})(jQuery, M, __config__);
+})(jQuery, M, __difinition__);

@@ -43,17 +43,14 @@
           console.log(self.data.lastSeqNum);
           $.each(data.list, function (index, item) {
             console.log(item);
+            console.log(item.imgUrl);
             items += "<li id='"+ item.seqNo +"' class ='test'>";
             items += "<div class='thumbnail-wrap'>";
             items += "<div class='thumbnail'>";
-            //            items += "<img src=";
-            //            items += item.imgUrl;
-            //            items += "alt=''/>";
+            items += "<img src='" +item.imgUrl +" ' alt=''/>";
             items += "</div>";
             items += "<span class='label-info none'>";
-            //            items += "<img src=" ;
-            //            items += item.imgUrl;
-            //            items += "alt='50%'/>";
+            items += "<img src= '" + item.imgUrl + "' alt='50%'/>";
             items += "</span>";
             items += "</div>";
             items += "<div class='info-box'>";
@@ -133,14 +130,10 @@
               items += "<li id='"+ item.seqNo +"' class ='test'>";
               items += "<div class='thumbnail-wrap'>";
               items += "<div class='thumbnail'>";
-              //            items += "<img src=";
-              //            items += item.imgUrl;
-              //            items += "alt=''/>";
+              items += "<img src='" +item.imgUrl +" ' alt=''/>";
               items += "</div>";
               items += "<span class='label-info none'>";
-              //            items += "<img src=" ;
-              //            items += item.imgUrl;
-              //            items += "alt='50%'/>";
+              items += "<img src= '" + item.imgUrl + "' alt='50%'/>";
               items += "</span>";
               items += "</div>";
               items += "<div class='info-box'>";

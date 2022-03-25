@@ -4,8 +4,7 @@
  * @date : 
  */
 
-(function ($, M,CONFIG, module, MNet, SERVER_PATH, window){
-  var ENV = CONFIG.ENV;
+(function ($, M, module, MNet, SERVER_PATH,CONFIG, window){
   var page = {
     els:  {
       $iptTitle : null,
@@ -65,7 +64,7 @@
       // 작성버튼
         var title = self.els.$iptTitle.val().trim();
         var content = self.els.$iptContent.val().trim();
-        var img = self.els.$iptImg.val().trim(); 
+        var imgPath = self.els.$iptImg.val().trim(); 
         var sn = M.data.param('seqNo');
         if(!module.isEmpty(sn)){
           if(module.isEmpty(title)){
@@ -100,15 +99,15 @@
       var self = this;
       var title = self.els.$iptTitle.val().trim();
       var content = self.els.$iptContent.val().trim();
-      var img = self.els.$iptImg.val();
+      var imgPath = self.els.$iptImg.val();
       if(module.isEmpty(title)){
         return alert('제목을 입력해주세요.');
       }
       if(module.isEmpty(content)){
         return alert('내용을 입력해주세요.');
       }
-      if(!module.isEmpty(img)){
-        self.writeWithUpload();
+      if(!module.isEmpty(imgPath)){
+        self.writeWithUpload(title, content, imgPath);
       }else{
         MNet.sendHttp({
           path : SERVER_PATH.NOTICE_WRITE,
@@ -135,62 +134,26 @@
         { name: "title", content: title, type: "TEXT" },
         { name: "loginId", content: M.data.global('id'), type: "TEXT" },
       ]
-      // { content: "파일업로드", type: "TEXT" },
-    // { name: "imgs", content: "test.zip", type: "FILE" },
-      $.fileHttpSend = function (options) {
-        // body: [
-        // { content: "파일업로드", type: "TEXT" },
-        // { name: "imgs", content: "test.zip", type: "FILE" },
-        // ],
-        var fileUploadFinish = function (status, header, body, setting) {
-          var _body = null;
-          try {
-            var _body = JSON.parse(body);
-          } catch(e) {
-            _body = body;
-          }
-          
-          if (status == '200' && $.isFunction(options.succ) && _body.rsltCode == SERVER_CODE.SUC) {
-            options.succ(_body.body);
-          } else if ($.isFunction(options.error)) {
-            options.error(status, body)
-          }
-        }
-        var fileUploadProgress = function (total, current) {
-          if($.isFunction(options.progress)) {
-            options.progress(total, current)
-          }
-        }
-        var _options = {
-          url: ENV.UPLOAD_URL + options.path,
-          header: options.header || {},
-          params: options.params || {},
-          body: options.body || [],
-          encoding: "UTF-8",
-          finish: fileUploadFinish,
-          progress: fileUploadProgress
-        }
-        M.net.http.upload(_options);
-      };
-      $.fileHttpSend({
+      console.log(body);
+      MNet.fileHttpSend({
         path: SERVER_PATH.NOTICE_WRITE_IMG,
-        body:body,
-        succ: function () {
-          console.log(arguments);
-          if(data.rsltCode == '0000'){
-            return alert('이미지 포함 등록 완료');
-          }else{
-            return alert('이미지등록에 실패하셨습니다.');
-          }
+        body: body,
+        succ: function (head) {
+          alert('이미지를 포함한 게시글등록이 완료되었습니다.');
+          M.page.html('./list.html');
         },
-        progress: function () {
-          console.log(arguments);
+        progress: function (head) {
+          console.log(head);
+          console.log(status);
+        },
+        error : function (head) {
+          console.log(head);
+          alert('에러!');
         }
       })
     },  
     setImagePath(){
       var self = this;
-      
       M.media.picker({
         mode: "SINGLE",
         media: "PHOTO",
@@ -208,7 +171,7 @@
     }
   };
   window.__page__ = page;
-})(jQuery, M,__config__, __util__, __mnet__, __serverPath__, window);
+})(jQuery, M, __util__, __mnet__, __serverPath__,__difinition__, window);
 
 // 해당 페이지에서 실제 호출
 (function($,M,pageFunc,window){
