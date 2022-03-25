@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <manifest useDirectView="false">
+
     <log>y</log>
     <lang>ko</lang>
     <resource>
@@ -17,6 +18,7 @@
         <orient-tablet>default</orient-tablet>
     </startpage>
     <settings/>
+
     <default_action>
         <orient>default</orient>
         <orient-tablet>default</orient-tablet>

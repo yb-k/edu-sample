@@ -9,19 +9,19 @@
      * 페이지가 시작될때 호출된다.
      * (실제적으로 페이지가 완전히 로드후 불려진다)
      */
-    $(function (e) {
-        console.log("readey");
-        //	M.plugin("push").remote.enabled(true);
-        //개발모드의 경우 하단에 페이지명 현시
-        if (definition.isDev) {
-            $("body").append("<div style=\"z-index:9999; position:fixed; bottom:.5rem; left:.5rem; font-size:1rem; background-color:#000000; color:#ffffff\">" + Global.pageName + "</div>");
-        }
+     M.onReady(function (e) {
+           console.log("ready");
+           //   M.plugin("push").remote.enabled(true);
+           //개발모드의 경우 하단에 페이지명 현시
+           if (definition.isDev) {
+          //     $("body").append("<div style=\"z-index:9999; position:fixed; bottom:.5rem; left:.5rem; font-size:1rem; background-color:#000000; color:#ffffff\">" + Global.pageName + "</div>");
+           }
 
         //customizing _onReady 함수 호출
         if (typeof _onReady != 'undefined') {
             _onReady();
             if (definition.isDev) {
-                $("body").append("<div style=\"z-index:9999; position:fixed; bottom:.5rem; left:.5rem; font-size:1rem; background-color:#000000; color:#ffffff\">" + Global.pageName + "</div>");
+    //            $("body").append("<div style=\"z-index:9999; position:fixed; bottom:.5rem; left:.5rem; font-size:1rem; background-color:#000000; color:#ffffff\">" + Global.pageName + "</div>");
             }
         }
     });
