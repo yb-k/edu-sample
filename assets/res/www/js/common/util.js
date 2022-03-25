@@ -38,6 +38,33 @@
             return obj;
         }
     }
+    /*
+    비밀번호 입력제한
+    return 함수
+    */
+    var isCorrectPassword = module.isCorrectPassword = function isCorrectPassword(pw, rpw, format){
+      var reg = /^(?=.*?[A-Za-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
+      var password = pw.trim();
+      var repassword = rpw.trim();
+      if( !reg.test(password) ) {
+        return alert('비밀번호는 영문 대,소문자와 숫자, 특수기호를 포함한 8자이상 입력하시오.');
+      }
+      if(password != repassword){
+        return alert('비밀번호와 확인이 다릅니다.')
+      }
+      format();
+    }
+    /*
+      휴대폰 번호 입력제한
+      return 형식이 옳다면 true / 틀렸다면 false
+    */
+    var isRightPhoneNum = module.isRightPhoneNum = function isRightPhoneNum(cellPhone){
+      var num = cellPhone;
+      var regPhone = /^01([0|1|6|7|8|9])?([0-9]{3,4})?([0-9]{4})$/;
+      if( !regPhone.test(num) ) {
+        return false;
+      }else return true;
+    }
 
     /*
      * html 내의 찾고자 하는 Tag가 존재하는지 확인한다.
@@ -179,7 +206,7 @@
     //현재의 날짜와 전달 받은 날짜의 차이가 특정 시간 이내인지...체크하는 함수
     var timeCheck = module.timeCheck = function timeCheck(dt, checkTime) {
         var min = 60 * 1000;
-        var c = new Date()
+        var c = new Date();
         var d = new Date(dt);
         var minsAgo = Math.floor((c - d) / (min));
         var result = false;
