@@ -31,6 +31,8 @@
 		// Definition.UPLOAD_URL = M.info.app("manifest.network.http")[Definition.SERVER_NAME].address;
 	}*/
 	console.log("     SERVER URL: " + Definition.UPLOAD_URL);
+	
+
 
 	//서버 전문 요청 목록
 	var ServerPath = module.serverPath = {

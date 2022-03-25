@@ -34,7 +34,7 @@
           console.log(data);
           var items = "";
           $.each(data.list, function (index, item) {
-            items += "<li id='info-box'>";
+            items += "<li id='"+ item.seqNo +"' class ='test'>";
             items += "<strong class='ellipsis_1'>";
             items += item.title;
             items += "</strong>";
@@ -50,6 +50,7 @@
     },
     initEvent : function initEvent(){
       var self = this;
+      var id = M.data.global('id');
       this.els.$btnTxt.on('click', function(){
         M.page.html('./list.html');
       });
@@ -58,6 +59,27 @@
       });
       this.els.$btnMenu.on('click', function(){
         M.page.html('./userInfo.html');
+      });
+      $('#noti-wrap').on('click', '.test', function( ) {
+        var seqNo = $(this).attr('id' );
+        MNet.sendHttp({
+          path: SERVER_PATH.NOTICE_DETAIL,
+          data: {
+            loginId: id,
+            seqNo	: seqNo,
+          },
+          succ: function (data) {
+            if (data.rsltCode == '0000') {
+              M.page.html('./detail.html',{param : {seqNo	: seqNo}} );
+            } else {
+              alert('페이지를 열 수 없습니다.');
+            }
+          },
+          error: function (data) {
+            console.log(data);
+            alert('에러!');
+          }
+        });
       });
     }
   };

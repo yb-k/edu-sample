@@ -10,15 +10,17 @@
     els:  {
       $btnModify : null,
       $btnTop : null,
-      $infoBox : null,
+      $infoDetail : null,
       $btnWrap : null,
     },
-    data: {},
+    data: {
+      lastSeqNum : null,
+    },
     init: function init(){
       this.els.$btnModify = $('#btn-modify');
       this.els.$btnTop = $('.btn-top');
-      this.els.$infoBox = $('#info-box');
-      this.els.$btnWrap = $('.btn-wrap');
+      this.els.$infoBox = $('#info-detail');
+      this.els.$btnWrap = $('#btn-more');
     },
     /*
       진행도를 표시한다.
@@ -26,18 +28,22 @@
     */
     initView : function initView(){
       // 화면에서 세팅할 동적데이터
+      var self = this;
       MNet.sendHttp({
         path: SERVER_PATH.NOTICE_LIST,
         data: {
           "loginId": M.data.global('id'),
-          "lastSeqNo": '100000000000', //물어보기,,
+          "lastSeqNo": '1000000',
           "cnt": '6',
         },
         succ: function (data) {
           console.log(data);
           var items = "";
+          self.data.lastSeqNum = data.lastSeqNo;
+          console.log(self.data.lastSeqNum);
           $.each(data.list, function (index, item) {
-            items += "<li id='info-box'>";
+            console.log(item);
+            items += "<li id='"+ item.seqNo +"' class ='test'>";
             items += "<div class='thumbnail-wrap'>";
             items += "<div class='thumbnail'>";
             //            items += "<img src=";
@@ -61,9 +67,10 @@
             items += "</p>";
             items += "</div>";
             items += "</div>";
+            items += "</a>";
             items += "</li>";
           });
-          $("#card").html(items);
+          $("#card").append(items);
         },
         error: function (data) {
           console.log(data);
@@ -73,30 +80,57 @@
 
     },
     initEvent : function initEvent(){
-      var cnt = 0;
+      var self = this;
+      var id = M.data.global('id');
+      M.data.param({'cnt' : '0'});
       this.els.$btnModify.on('click', function(){
         M.page.html('./write.html');
       });
       this.els.$btnTop.on('click', function () {
         $('.cont-wrap').scrollTop(0);
       });
-      this.els.$infoBox.on("click", function(){
-        M.page.html('./detail.html');
+      $('#card').on('click', '.test', function( ) {
+        var seqNo = $(this).attr('id' );
+        MNet.sendHttp({
+          path: SERVER_PATH.NOTICE_DETAIL,
+          data: {
+            loginId: id,
+            seqNo	: seqNo,
+          },
+          succ: function (data) {
+            if (data.rsltCode == '0000') {
+              M.page.html('./detail.html',{param : {seqNo	: seqNo}} );
+            } else {
+              alert('페이지를 열 수 없습니다.');
+            }
+          },
+          error: function (data) {
+            console.log(data);
+            alert('에러!');
+          }
+        });
       });
+      /*  
+        $('.wrapper').on('click', '.test', function( ) {
+          var seqNo = $(this).attr('id' );
+          alert(seqNo);
+        });
+      */
       this.els.$btnWrap.on("click", function(){
-        var cnt = cnt + 6;
+        console.log('클릭');
         MNet.sendHttp({
           path: SERVER_PATH.NOTICE_LIST,
           data: {
             "loginId": M.data.global('id'),
-            "lastSeqNo": '100000000000', //물어보기,,
-            "cnt": cnt,
+            "lastSeqNo": self.data.lastSeqNum,
+            "cnt": '6',
           },
           succ: function (data) {
-            console.log(data);
             var items = "";
+            self.data.lastSeqNum = data.lastSeqNo;
+            console.log(self.data.lastSeqNum);
             $.each(data.list, function (index, item) {
-              items += "<li id='info-box'>";
+              items += "<li id='"+ item.seqNo +"' class ='test'>";
               items += "<div class='thumbnail-wrap'>";
               items += "<div class='thumbnail'>";
               //            items += "<img src=";
@@ -122,7 +156,7 @@
               items += "</div>";
               items += "</li>";
             });
-            $("#card").html(items);
+            $("#card").append(items);
           },
           error: function (data) {
             console.log(data);
