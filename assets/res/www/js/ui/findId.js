@@ -13,6 +13,7 @@
       $cellPhoneIpt:null,
       $findIdBtn: null,
       $findPw:null,
+      
     },
     data: {},
     init: function init(){
@@ -44,7 +45,6 @@
       var self = this;
       var userNm = this.els.$userNmIpt.val().trim(); // 이름 가져오기
       var cellPhone = this.els.$cellPhoneIpt.val().trim(); // 전화번호 가져오기
-      var chknum = checkNumber(cellPhone);
       if (userNm == '') {
         return alert('이름을 입력해주세요.');
       }
