@@ -4,7 +4,7 @@
  * @date : 
  */
 // 페이지단위 모듈
-(function ($, M, MNet, SERVER_PATH, window){
+(function ($, M, window){
 
 
   var page = {
@@ -58,7 +58,7 @@
     },
   };
   window.__page__ = page;
-})(jQuery, M, __mnet__, __serverpath__, window);
+})(jQuery, M, window);
 
 
 // 해당 페이지에서 실제 호츌
