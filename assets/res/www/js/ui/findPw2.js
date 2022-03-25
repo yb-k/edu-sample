@@ -34,7 +34,7 @@
       },
     
     findPw : function(){
-      var self = this;
+//      var self = this;
       var id = M.data.param("loginId"); // param은 여기서 받기!
       var password = this.els.$passwordIpt.val().trim();
       var repassword = this.els.$repasswordIpt.val().trim();

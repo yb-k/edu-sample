@@ -76,7 +76,7 @@
         var password = this.els.$password.val().trim();
         var repassword = this.els.$repassword.val().trim();
         var email = this.els.$email.val().trim();
-        // 나머지도 다 찍어봐야지요....
+        // 
         console.log("345 " + id + password + repassword + email);
         
         if(id.length < 5) {
@@ -113,7 +113,7 @@
           error : function(data) {
             alert('error');
           }
-        });// 어디?
+        });
       }
   };
   

@@ -3,7 +3,14 @@
  * @author : 
  * @date : 22.03.22
  */
- 
+ /*
+  * Page 상세정보 추출
+  * Page 상세 정보를 추출할 수 있다.
+  *
+  * M.page.info
+  * @param {select} 상세 정보를 알고자 하는 Key 값 [action:화면 스택 관리 방법,alias:화면의 Alias 경로,browser:브라우저 이름,browserVer:브라우저 버전,device:Device 정보,filename:화면의 파일명,orient:화면 방향,os:디바이스 os, 소문자출력,osVer:디바이스 os 버전,params:화면의 parameter 데이타,path:화면의 경로값,screenHeight:화면 높이,screenWidth:화면 넓이,scrollHeight:컨텐트 높이,scrollWidth:컨텐트 넓이,source:화면의 source 경로,stack:스택 정보,tabStack:현재 스택의 tab 정보,time:화면이 생성되고 경과된 시간, millisecond 단위]
+  */
+ M.page.info("action");
 // 페이지 단위모듈
 (function ($, M, MNet, config, SERVER_PATH, window){
   var page = {
@@ -44,8 +51,8 @@
         M.page.html('./findPw1.html');
       })
       this.els.$joinBtn.on('click', function(){
-              M.page.html('./join1.html');
-            })
+        M.page.html('./join1.html');
+      })
     }, 
     setAutoLogin : function(id, pw){
       // 자동로그인 기능
@@ -63,18 +70,24 @@
       var pw = this.els.$passwordIpt.val(); // 비밀번호 가져오기 
       // 자동로그인
       var isAutoLogin = this.els.$autoLoginChk.prop('checked'); // true거나 false
-      if (id==''){
+      if (id == ''){
         return alert('아이디를 입력해주세요.');
       }
+      if (pw == ''){
+        return alert('비밀번호를 입력해주세요.');
+      }
+     
      MNet.sendHttp({
       path : SERVER_PATH.LOGIN,
       data : {
         loginId : id, 
         password : pw
       },
+      
       succ : function(data){
+        M.data.global('loginId', id);
         console.log(data); 
-        alert("로그인 성공");
+//        alert("로그인 성공");
         // 자동로그인 
         if (isAutoLogin)  self.setAutoLogin(id, pw);
         M.page.html('./main.html');

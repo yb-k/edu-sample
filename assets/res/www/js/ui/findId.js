@@ -33,7 +33,7 @@
     },
     
     findId : function(){
-      var self = this;
+//      var self = this;
       var name = this.els.$userNmIpt.val().trim();
       var phone = this.els.$cellPhoneIpt.val().trim();
   
