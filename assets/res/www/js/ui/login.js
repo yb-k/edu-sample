@@ -51,7 +51,6 @@
     setAutoLogin: function(id, pw){
       //자동로그인 기능
       M.data.storage('AUTO_LOGIN_AUTH', { id: id, pw: pw });
-      M.data.global('loginId', id);
     },
     unsetAutoLogin: function(){
       M.data.removeStorage('AUTO_LOGIN_AUTH');
@@ -73,14 +72,16 @@
         succ: function(data){
           //로그인이 성공했을 때 콜백
           if(isAutoLogin) self.setAutoLogin(id, pw);
-          console.log(data);  
+          console.log(data);
+          M.data.global("loginId", id);
           M.page.html({
             path: './main.html'
           });
-          M.data.global("loginId", id);
         }
       });
-    }   
+    },
+    
+    
     
     
   };

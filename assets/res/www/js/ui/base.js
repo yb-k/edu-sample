@@ -11,8 +11,7 @@
     init : function init() {},
     initView : function initView() {
       // 화면에서 세팅할 동적데이터
-     
-      
+
     },
     initEvent : function initEvent() {
       // Dom Event 바인딩
