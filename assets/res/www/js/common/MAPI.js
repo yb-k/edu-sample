@@ -2,7 +2,7 @@
 //namespace 모듈
 //M-API 기능을 확장 / 기본옵션값을 핸들링하기위해 객체를 하나 만들어서 관리
 
-(function(M, config, Util, window){
+(function($, M, config, Util, window){
   var MNet = {
     /*
     HTTP 통신 모듈
@@ -15,6 +15,7 @@
     @param {function} options.succ 성공시 콜백
     @param {function} options.error 실패 시 콜백
     */
+   
     sendHttp: function sendHttp(options){
     if(Util.isEmpty(options.path)) throw new Error('sendHttp :: 옵션의 path값은 필수입니다.')
      
@@ -59,4 +60,4 @@
   };
  
  window.__mnet__ = MNet;
-})(M, __config__, __util__, window);
+})(jQuery, M, __config__, __util__, window);

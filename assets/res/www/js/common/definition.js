@@ -11,7 +11,7 @@
 		SERVER_NAME: "GW_SERVER" //바라볼 서버 이름 (Manifest.xml에 설정되어있는 이름)
 			,
 		UPLOAD_URL: "",
-		INDICATOR_MSG: "디져가는중...으앙 내 위장 정신차려 왜그래 정말" //서버통신시 default indicator_msg 
+		INDICATOR_MSG: "통신중.." //서버통신시 default indicator_msg 
 			,
 		INDICATOR: true //서버통신시 indicator 여부 
 			,
