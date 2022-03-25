@@ -27,7 +27,7 @@
         count = count + 10;
         $percent.html(count);
         $progressBar.css('width', count + '%');
-        if (count >= 100) {
+        if (count >= 0) {               // 테스트중 로딩속도를 빠르게하기 위해 0
           clearInterval(interval);
           successCallback();
         }
@@ -52,6 +52,7 @@
             },
             succ: function () {
               console.log('로그인 성공');
+              M.data.global("LOGIN_INFO",{id : existLoginData.id});
               M.page.html('./main.html');
             },
             error: function () {

@@ -71,8 +71,12 @@
           if (isAutoLogin) self.setAutoLogin(id, pw);
           else self.unsetAutoLogin();
           console.log(data);
-          alert('로그인 성공');
-          M.page.html('./main.html');
+          if (data.rsltCode == '0000'){
+            M.data.global("LOGIN_INFO",{id : id});
+            M.page.html('./main.html');
+          }else {
+            alert('패스워드가 틀립니다.');
+          }
         }
       });
     },

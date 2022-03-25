@@ -246,7 +246,7 @@
     console.log(_str);
     return _str;
   };
-  
+
   /**
    * password 와 repassword 가 같은지 확인
    * @param {string} pass
@@ -262,6 +262,22 @@
       return alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
     }
     callbackFunction();
+  }
+
+  /**
+   * [id]배열에 이벤트를 등록
+   * @param {Array} id
+   * @param {string} event
+   * @param {string} destination
+   * */
+  var setEventAllIds = module.setEventAllIds = function setEventAllIds(id, event, destination) {
+    for (var i = 0; i < id.length; i++) {
+      var temp = id[i];
+      console.log(temp);
+      $(temp).on(event, function () {
+        M.page.html(destination);
+      });
+    }
   }
   window.__util__ = module;
 })();
