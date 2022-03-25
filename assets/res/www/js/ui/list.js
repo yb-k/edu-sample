@@ -7,19 +7,20 @@
 (function ($, M, CONFIG, window) {
   var SERVER_PATH = CONFIG.SERVER_PATH;
   M.data.removeGlobal('seqNo');
-  var seqNum='';
+  var seqNum;
   var page = {
     els: {
       $writeBtn: null,
       $topBtn: null,
       $moreBtn: null,
+      $backBtn: null,
     },
     data: {},
     init: function init() {
       this.els.$writeBtn = $('#write-btn');
       this.els.$topBtn = $('#top-btn');
       this.els.$moreBtn = $('#more-btn');
-
+      this.els.$backBtn = $('#backBtn');
     },
 
     initView: function initView() {
@@ -79,6 +80,10 @@
       console.log(M.data.global('seqNo'));
       M.page.html('./detail.html');
       });
+      
+      this.els.$backBtn.on('click', function () {
+              M.page.back();
+            });
 
       this.els.$writeBtn.on('click', function () {
         M.page.html('./write.html');
@@ -89,7 +94,6 @@
       });
       
       this.els.$moreBtn.on("click", function () {
-        var count = 6
         $.sendHttp({
                 path: SERVER_PATH.NOTICE_LIST,
                 data: {
@@ -98,9 +102,11 @@
                   "cnt": '6',
                 },
                 succ: function (data) {
+                  
                   console.log(data);
                   var items = "";
                   $.each(data.list, function (index, item) {
+                    var count = 6;
                     items += "<li class='noticeBoard' id='"+ item.seqNo +"'>";
                     items += "<div class='thumbnail-wrap'>";
                     items += "<div class='thumbnail'>";
@@ -128,7 +134,7 @@
                   });
                   $("#card").append(items);
                   console.log(seqNum);
-                  if(count != 0) {
+                  if(count == 0 || seqNum <= 6) {
                     document.getElementById("more-btn").style.display = "none";
                   }
                 },

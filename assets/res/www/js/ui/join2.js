@@ -13,7 +13,8 @@
       $dateIpt:null,
       $cellphoneIpt:null,
       $nextBtn:null,
-      $genderSelected:null,      
+      $genderSelected:null,
+      $backBtn: null,      
     },
     data: {},
     init : function init() {
@@ -24,6 +25,7 @@
       this.els.$cellphoneIpt = $('#cellPhone');
       this.els.$nextBtn = $('#nextBtn');
       this.els.$genderSelected = $("input[name=gender]");
+      this.els.$backBtn = $('#backBtn');
     },
    
     initView : function initView() {
@@ -38,6 +40,9 @@
         self.next();
       });
       
+      this.els.$backBtn.on('click', function () {
+              M.page.back();
+            });
       
       
     },

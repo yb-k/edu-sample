@@ -10,11 +10,13 @@
     els: {
       $modiBtn: null,
       $delBtn: null,
+      $backBtn: null,
     },
     data: {},
     init: function init() {
       this.els.$modiBtn = $('#modiBtn');
       this.els.$delBtn = $('#delBtn');
+      this.els.$backBtn = $('#backBtn');
     },
 
     initView: function initView() {
@@ -26,6 +28,7 @@
           "seqNo": M.data.global('seqNo'),
         },
         succ: function (data) {
+          console.log(M.data.global('seqNo'));
           console.log(data);
           var items = "";
           items += "<div class='detail-tit'>";
@@ -37,10 +40,15 @@
           items += "</span>";
           items += "</div>";
           items += "<div class='detail-cont'>";
-          if(data.imgUrl != '') {
+          if(data.imgUrl != null) {
             items += "<div class='img-wrap'>";
             items += "<img id='imgUrl' src='" + data.imgUrl +"'/>";
             items += "</div>";
+            M.data.global("imgUrl", data.imgUrl);
+            var split = data.imgUrl.lastIndexOf('/');
+            var imgName = data.imgUrl.toString().substring(split+1,);
+            M.data.global("imgName", imgName);
+            console.log(imgName);
           }
           items += "<p id='content'>";
           items += data.content;
@@ -49,11 +57,7 @@
           M.data.global("isMyYn", data.isMyNoticeYn);
           M.data.global("title", data.title);
           M.data.global("content", data.content);
-          M.data.global("imgUrl", data.imgUrl);
-          var split = data.imgUrl.lastIndexOf('/');
-          var imgName = data.imgUrl.toString().substring(split+1,);
-          M.data.global("imgName", imgName);
-          console.log(imgName);
+          
           $("#notice-select").html(items);
           console.log(M.data.global('isMyYn'));
           if (data.isMyNoticeYn == 'Y') {
@@ -79,6 +83,10 @@
 
       this.els.$modiBtn.on('click', function () {
         self.modify();
+      });
+      
+      this.els.$backBtn.on('click', function () {
+        M.page.back();
       });
 
     },
@@ -117,8 +125,8 @@
           console.log(data);
           alert('게시글이 삭제되었습니다.');
           M.page.html({
-            url: "./list.html",
-          });
+           url:'./list.html',
+           'action': 'CLEAN_TOP',});
         },
         error: function (data) {
           console.log(data);

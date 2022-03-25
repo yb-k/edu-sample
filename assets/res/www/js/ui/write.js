@@ -13,6 +13,7 @@
       $fileIpt: null,
       $fileBtn: null,
       $writeBtn: null,
+      $backBtn: null,
     },
     data: {},
     init: function init() {
@@ -21,6 +22,7 @@
       this.els.$fileIpt = $('#file');
       this.els.$fileBtn = $('#fileBtn');
       this.els.$writeBtn = $('#writeBtn');
+      this.els.$backBtn = $('#backBtn');
     },
 
     initView: function initView() {
@@ -36,6 +38,10 @@
       this.els.$fileBtn.on('click', function () {
         self.getfile();
       });
+      
+      this.els.$backBtn.on('click', function () {
+              M.page.back();
+            });
 
       this.els.$writeBtn.on('click', function () {
         if (M.data.global('seqNo') == '') {
@@ -79,7 +85,9 @@
                 succ: function () {
                   console.log(body);
                   alert('성공');
-                  M.page.html('./list.html');
+                  M.page.html({
+                    url:'./list.html',
+                    'action': 'CLEAN_TOP',});
                 },
                 progress: function () {
                   console.log(body);

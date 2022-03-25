@@ -13,7 +13,7 @@
       $chk3:null,
       $chk4:null,
       $chked:null,
-      
+      $backBtn: null,
     },
     data: {},
     init : function init() {
@@ -23,7 +23,8 @@
       this.els.$chk2 = $('#chk2');
       this.els.$chk3 = $('#chk3');
       this.els.$chk4 = $('#chk4');  
-      this.els.$chked = $("input[type=checkbox]");    
+      this.els.$chked = $("input[type=checkbox]");
+      this.els.$backBtn = $('#backBtn');    
     },
    
     initView : function initView() {
@@ -53,6 +54,10 @@
         if(total != checked) $("input:checkbox[id='chk1']").prop("checked", false);
         else $("input:checkbox[id='chk1']").prop("checked", true);
       });
+      
+      this.els.$backBtn.on('click', function () {
+              M.page.back();
+            });
      
     },
     

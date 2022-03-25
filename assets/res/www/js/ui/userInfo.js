@@ -17,6 +17,7 @@
       $saveBtn: null,
       $outBtn: null,
       $changePwBtn: null,
+      $backBtn: null,
     },
     data: {},
     init: function init() {
@@ -29,6 +30,7 @@
       this.els.$saveBtn = $('#saveBtn');
       this.els.$outBtn = $('#outBtn');
       this.els.$changePwBtn = $('#changePw');
+      this.els.$backBtn = $('#backBtn');
 
     },
 
@@ -68,6 +70,10 @@
         else
           $('#saveBtn').prop("disabled", true);
       });
+      
+      this.els.$backBtn.on('click', function () {
+              M.page.back();
+            });
 
       this.els.$saveBtn.on('click', function () {
         //self.confirmPw();
@@ -109,7 +115,7 @@
         return alert('전화번호를 입력해주세요');
       }
       if (email == '') {
-        return alert('이메일을 입력해주ㅁㄴㅇ세요');
+        return alert('이메일을 입력해주세요');
       }
       $.sendHttp({
         path: SERVER_PATH.UPDATE,

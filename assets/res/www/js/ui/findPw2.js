@@ -33,6 +33,10 @@
       this.els.$changePwBtn.on('click', function () {
         self.changePw();
       });
+      
+      this.els.$backBtn.on('click', function () {
+              M.page.back();
+            });
     },
 
     changePw: function () {

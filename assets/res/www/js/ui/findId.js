@@ -36,6 +36,7 @@
       this.els.$findPwBtn.on('click', function() {
          M.page.html('./findPw1.html');
       });
+ 
     },
     
     findId: function () {

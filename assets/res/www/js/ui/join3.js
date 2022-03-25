@@ -15,7 +15,7 @@
       $repasswordIpt: null,
       $emailIpt: null,
       $joinBtn: null,
-
+      $backBtn: null,
     },
     data: {},
     init: function init() {
@@ -25,7 +25,7 @@
       this.els.$repasswordIpt = $('#repassword');
       this.els.$emailIpt = $('#email');
       this.els.$joinBtn = $('#joinBtn');
-
+      this.els.$backBtn = $('#backBtn');
     },
 
     initView: function initView() {
@@ -47,6 +47,10 @@
           alert("다시 중복체크 하세요.");       
         }
       });
+      
+      this.els.$backBtn.on('click', function () {
+              M.page.back();
+            });
 
     },
 

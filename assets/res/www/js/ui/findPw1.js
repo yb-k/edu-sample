@@ -32,6 +32,9 @@
       this.els.$findPwBtn.on('click', function () {
         self.findPw();
       });
+      this.els.$backBtn.on('click', function () {
+              M.page.back();
+            });
     },
 
     findPw: function () {
