@@ -4,7 +4,8 @@
  * @date : 2022-03-24
  */
  
-(function ($, M, MNet, config, SERVER_PATH, window) {
+(function ($, M, CONFIG, window) {
+  var SERVER_PATH = CONFIG.SERVER_PATH;
   var seqNo = [];
   var page = {
     els: {
@@ -17,14 +18,13 @@
     data: {},
     init: function init() {
       this.els.$ellipsis = $('li.ellipsis'); // 최근 공지사항 목록
-      this.els.$allNoticeBtn = $('.main-box-03 .tit-wrap .btn-txt'); // 모두보기
       this.els.$menuBtn = $('.btn-menu'); // 상단 메뉴 (회원수정)
-      this.els.$noticeBtn = $('.main-menu-box li:last'); // 공지사항
+      this.els.$noticeBtn = $('[data-more]'); // 공지사항
     },
     initView: function initView() {
       // 화면에서 세팅할 동적 데이터
       var self = this;
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.NOTICE_LIST,
         data: {
           loginId: M.data.global("loginId"),
@@ -32,12 +32,8 @@
           cnt: "4"
         },
         succ: function (data) {
-          $('li.ellipsis:eq(0)').text(data.list[0].title);
-          $('li.ellipsis:eq(1)').text(data.list[1].title);
-          $('li.ellipsis:eq(2)').text(data.list[2].title);
-          $('li.ellipsis:eq(3)').text(data.list[3].title);
-
-          for (var i = 0; i < 4; i++) {
+          for(var i = 0; i < 4; i++) {
+            $('li.ellipsis:eq('+i+')').text(data.list[i].title);
             seqNo[i] = data.list[i].seqNo;
           }
         },
@@ -57,9 +53,6 @@
           }
         }
       });
-      this.els.$allNoticeBtn.on('click', function () {
-        M.page.html('./list.html');
-      });
       this.els.$menuBtn.on('click', function () {
         M.page.html('./userInfo.html');
       });
@@ -71,7 +64,7 @@
     //    method: {},
   };
   window.__page__ = page;
-})(jQuery, M, __mnet__, __config__, __serverpath__, window);
+})(jQuery, M,  __config__, window);
 
 (function ($, M, pageFunc, window) {
   M.onReady(function () {

@@ -4,7 +4,8 @@
  * @date : 2022-03-24
  */
 
-(function ($, M, MNet, config, SERVER_PATH, window) {
+(function ($, M, CONFIG, window) {
+  var SERVER_PATH = CONFIG.SERVER_PATH;
   var page = {
     els: {
       $userNm: null,
@@ -33,7 +34,7 @@
       // 화면에서 세팅할 동적 데이터
       var id = M.data.global("loginId");
       var self = this;
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.INFO,
         data: {
           loginId: id
@@ -75,7 +76,7 @@
         var phone = self.els.$cellPhone.val().trim();
         var email = self.els.$email.val().trim();
 
-        MNet.sendHttp({
+        $.sendHttp({
           path: SERVER_PATH.UPDATE,
           data: {
             loginId: id,
@@ -103,14 +104,14 @@
               return false;
             }
             if (index == 1) {
-              MNet.sendHttp({
+              $.sendHttp({
                 path: SERVER_PATH.CHECK_PASSWORD,
                 data: {
                   loginId: id,
                   password: pw
                 },
                 succ: function (data) {
-                  MNet.sendHttp({
+                  $.sendHttp({
                     path: SERVER_PATH.OUT,
                     data: {
                       loginId: id
@@ -141,7 +142,7 @@
     //    method: {},
   };
   window.__page__ = page;
-})(jQuery, M, __mnet__, __config__, __serverpath__, window);
+})(jQuery, M,  __config__, window);
 
 (function ($, M, pageFunc, window) {
   M.onReady(function () {

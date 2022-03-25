@@ -4,7 +4,8 @@
  * @date : 2022-03-23
  */
 
-(function ($, M, MNet, config, SERVER_PATH, window) {
+(function ($, M, CONFIG, window) {
+  var SERVER_PATH = CONFIG.SERVER_PATH;
   var page = {
     els: {
       $userNm: null,
@@ -48,7 +49,7 @@
       if (phone == '') {
         return alert('번호를 입력해주세요.');
       }
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.FIND_ID,
         data: {
           userNm: name,
@@ -65,7 +66,7 @@
   };
 
   window.__page__ = page;
-})(jQuery, M, __mnet__, __config__, __serverpath__, window);
+})(jQuery, M,  __config__, window);
 
 (function ($, M, pageFunc, window) {
   M.onReady(function () {

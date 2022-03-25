@@ -5,7 +5,8 @@
  * 게시글 작성 / 수정 같이 구현
  */
 
-(function ($, M, MNet, config, SERVER_PATH, window) {
+(function ($, M, CONFIG, window) {
+  var SERVER_PATH = CONFIG.SERVER_PATH;
   var page = {
     els: {
       $title: null,
@@ -14,7 +15,11 @@
       $imgSrc: null,
       $writeBtn: null,
     },
-    data: {},
+    data: { 
+      title: '',
+      content : '',
+      imgPath : ''
+  },
     init: function init() {
       this.els.$title = $('#title');
       this.els.$content = $('#content');
@@ -57,6 +62,46 @@
         else self.write();
       });
     },
+    // 파일 업로드가 포함된 게시글 등록
+    writeWithUpload : function writeWithUpload(title, content, imgPath) {
+      var body = [
+        { name : "file", content : imgPath, type : "FILE"},
+        { name  : "content", type : "TEXT"},
+        { name : "title", type : "TEXT"},
+      ]
+      $.fileHttpSend({
+        
+        path : SERVER_PATH.NOTICE_WRITE_IMG,
+        body : body,
+        succ : function() {
+          console.log(arguments);
+        },
+        progress : function() {
+          console.log(arguments);
+        }
+      });
+    },
+
+    setImagePath() {
+      M.media.picker({
+        mode: "SINGLE",
+        media: "PHOTO",
+        path: "/media",
+        detail: true,
+        column: 3,
+        maxCount: 1,
+        callback: function( status, result ) {
+                // result.fullpath img url
+                var fileList = [], fileCont = {};
+                if(status === 'SUCCESS')
+
+                console.log( status + ", " + result.path + ", " + result.name);
+                imgName = "http://211.241.199.241:28040/resources/img/"+result.name;
+                self.els.$imgSrc.val(result.name);
+                M.data.param("img", result);
+        }
+      });
+    },
 
     //    method: {},
 
@@ -82,7 +127,7 @@
             }
         });
 
-          MNet.sendHttp({
+          $.sendHttp({
             path: SERVER_PATH.NOTICE_UPDATE_IMG,
             data: {
               loginId: id,
@@ -98,7 +143,7 @@
             }
           });
         } else {
-          MNet.sendHttp({
+          $.sendHttp({
             path: SERVER_PATH.NOTICE_UPDATE,
             data: {
               loginId: id,
@@ -139,7 +184,7 @@
 
             }
         });
-          MNet.sendHttp({
+          $.sendHttp({
             path: SERVER_PATH.NOTICE_WRITE_IMG,
             data: {
               loginId: id,
@@ -155,7 +200,7 @@
             }
           });
         } else {
-          MNet.sendHttp({
+          $.sendHttp({
             path: SERVER_PATH.NOTICE_WRITE,
             data: {
               loginId: id,
@@ -175,7 +220,7 @@
 
     inputModify : function () {
       var self = this;
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.NOTICE_DETAIL,
         data: {
           loginId: M.data.global("loginId"),
@@ -196,7 +241,7 @@
     }
   };
   window.__page__ = page;
-})(jQuery, M, __mnet__, __config__, __serverpath__, window);
+})(jQuery, M,  __config__, window);
 
 (function ($, M, pageFunc, window) {
   M.onReady(function () {

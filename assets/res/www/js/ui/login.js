@@ -4,7 +4,8 @@
  * @date :  22-03-22
  */
 // 페이지 단위 모듈
-(function ($, M, MNet, config, SERVER_PATH, window) {
+(function ($, M, CONFIG, window) {
+  var SERVER_PATH = CONFIG.SERVER_PATH;
   var page = {
     els: {
       $loginIdIpt: null,
@@ -72,11 +73,11 @@
       
       
 
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.LOGIN,
         data: {
-          loginId: id,
-          password: pw
+          loginId : id,
+          password : pw
         },
         succ: function (data) {
           //로그인이 성공했을 때 콜백
@@ -90,7 +91,7 @@
   };
 
   window.__page__ = page;
-})(jQuery, M, __mnet__, __config__, __serverpath__, window);
+})(jQuery, M,  __config__, window);
 
 // 해당 페이지에서 실제 호출
 (function ($, M, pageFunc, window) {

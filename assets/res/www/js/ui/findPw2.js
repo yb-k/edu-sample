@@ -4,7 +4,8 @@
  * @date : 2022-03-23
  */
 
-(function ($, M, MNet, config, SERVER_PATH, window) {
+(function ($, M, CONFIG, window) {
+  var SERVER_PATH = CONFIG.SERVER_PATH;
   var page = {
     els: {
       $loginId: null,
@@ -52,7 +53,7 @@
       }
 
       if(self.checkPw(pw)){
-        MNet.sendHttp({
+        $.sendHttp({
           path: SERVER_PATH.PASSWORD,
           data: {
             loginId: id,
@@ -88,7 +89,7 @@
   }
   };
   window.__page__ = page;
-})(jQuery, M, __mnet__, __config__, __serverpath__, window);
+})(jQuery, M,  __config__, window);
 
 (function ($, M, pageFunc, window) {
   M.onReady(function () {

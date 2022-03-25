@@ -4,7 +4,8 @@
  * @date : 2022-03-24
  */
 
- (function ($,M, MNet, config, SERVER_PATH, window){
+ (function ($, M, CONFIG, window){
+    var SERVER_PATH = CONFIG.SERVER_PATH;
     var page = {
       els:{
         $title : null,
@@ -26,7 +27,7 @@
       initView: function initView(){
         // 화면에서 세팅할 동적 데이터
         var self = this;
-        MNet.sendHttp({
+        $.sendHttp({
           path: SERVER_PATH.NOTICE_DETAIL,
           data: {
             loginId: M.data.global("loginId"),
@@ -74,7 +75,7 @@
                         return false;
                     }
                     if (index == 1) {
-                        MNet.sendHttp({
+                        $.sendHttp({
                             path: SERVER_PATH.NOTICE_DELETE,
                             data: {
                               loginId: M.data.global("loginId"),
@@ -99,7 +100,7 @@
   //    method: {},
     };
     window.__page__ = page;
-  })(jQuery,M, __mnet__, __config__, __serverpath__, window);
+  })(jQuery, M,  __config__, window);
   
   (function($,M,pageFunc,window){
     M.onReady(function(){

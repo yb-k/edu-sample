@@ -4,7 +4,8 @@
  * @date : 2022-03-23
  */
 
-(function ($, M, MNet, config, SERVER_PATH, window) {
+(function ($, M, CONFIG, window){
+  var SERVER_PATH = CONFIG.SERVER_PATH;
   var page = {
     els: {
       $loginId: null,
@@ -39,7 +40,7 @@
     dupId: function () {
       var id = this.els.$loginId.val().trim();
 
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.DUPLICATE,
         data: {
           loginId: id
@@ -83,7 +84,7 @@
 
       self.checkPW
 
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.JOIN,
         data: {
           loginId: id,
@@ -129,7 +130,7 @@
     //    method: {},
   };
   window.__page__ = page;
-})(jQuery, M, __mnet__, __config__, __serverpath__, window);
+})(jQuery, M,  __config__, window);
 
 (function ($, M, pageFunc, window) {
   M.onReady(function () {

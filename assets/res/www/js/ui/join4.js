@@ -4,7 +4,7 @@
  * @date : 2022-03-23
  */
 
-(function ($, M, window) {
+(function ($, M, CONFIG, window) {
   var page = {
     els: {
       $loginBtn: null,
@@ -28,7 +28,7 @@
     //    method: {},
   };
   window.__page__ = page;
-})(jQuery, M, window);
+})(jQuery, M,  __config__, window);
 
 (function ($, M, pageFunc, window) {
   M.onReady(function () {
