@@ -5,8 +5,9 @@
  */
 // 페이지단위 모듈
 (function ($, M, MNet, SERVER_PATH, window) {
-
-
+  
+  var id;
+  var seqNum='0';
   var page = {
     els: {
       $btnTop: null,
@@ -20,8 +21,8 @@
     data: {},
     init: function init() {
       this.els.$btnBack = $('.btn-back');
-      this.els.$dataMore = $("[data-more]");
-      this.els.$btnModify = $("button[class='btn-modify r-fix']");
+      this.els.$dataMore = $('.btn-point-color');
+      this.els.$btnModify = $('.btn-modify');
       this.els.$btnTop = $("button[class='btn-top']");
 
     },
@@ -29,7 +30,7 @@
 
     initView: function initView() {
       // 화면에서 세팅할 동적데이터
-      var id;
+
       if (M.data.storage("AUTO_LOGIN_AUTH")) {
         id = M.data.storage("AUTO_LOGIN_AUTH").id;
       } else {
@@ -40,23 +41,23 @@
         path: SERVER_PATH.NOTICE_LIST,
         data: {
           loginId: id,
-          lastSeqNo: "100000",
-          cnt: "6"
+          lastSeqNo: seqNum,
+          cnt: "6",
         },
         succ: function (data) {
           var items = "";
           $.each(data.list, function (index, item) {
-            items += "<li>";
+            items += "<li data='" + item.seqNo + "' class='numSend'>";
             items += "<div class='thumbnail-wrap'>";
             items += "<div class='thumbnail'>";
-            //            items += "<img src=";
-            //            items += item.imgUrl;
-            //            items += "alt=''/>";
+            // items += "<img src='";
+            // items += item.imgUrl;
+            // items += "' alt=''/>";
             items += "</div>";
             items += "<span class='label-info none'>";
-            //            items += "<img src=" ;
-            //            items += item.imgUrl;
-            //            items += "alt='50%'/>";
+            // items += "<img src='";
+            // items += item.imgUrl;
+            // items += "' alt='50%'/>";
             items += "</span>";
             items += "</div>";
             items += "<div class='info-box'>";
@@ -71,20 +72,18 @@
             items += "</div>";
             items += "</div>";
             items += "</li>";
+            seqNum = item.seqNo;
           });
-
-          $(".metro-wrap").html(items);
-
-
-
+          $(".metro-wrap").append(items);
+          
         },
-        error: function(data){
-          alert("에러임");
-        },
-
+        error: function (data) {
+          $(".btn-point-color").css("display", "none");
+          console.log(data);
+        }
       });
 
-
+     
     },
     initEvent: function initEvent() {
       // initEvent 바인딩
@@ -93,9 +92,18 @@
         M.page.back();
       });
       self.els.$btnTop.on('click', function () {
-        $('html').scrollTop(0);
+        $('.cont-wrap').scrollTop(0);
       });
-    }
+      self.els.$dataMore.on('click', function (){
+        self.initView();
+      });
+      this.els.$btnModify.on('click', function (){
+        M.page.html('write.html');
+      });
+    },
+
+ 
+
   };
   window.__page__ = page;
 })(jQuery, M, __mnet__, __serverpath__, window);
