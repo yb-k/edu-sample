@@ -112,7 +112,7 @@
           alert("특수문자, 숫자, 영문이 포함된 8가지 이상의 비밀번호를 넣으세요.");
           return false;
         } else {
-          MNet.sendHttp({
+          $.sendHttp({
             path: SERVER_PATH.JOIN,
             data: {
               loginId: id,

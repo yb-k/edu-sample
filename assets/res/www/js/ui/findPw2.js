@@ -41,7 +41,7 @@
 
     changePw: function () {
       var self = this;
-      var id = M.data.param('loginId');
+      var id = this.els.$loginId.val().trim();
       var pw = this.els.$passwordIpt.val().trim();
       var pwCon = this.els.$repasswordIpt.val().trim();
       if (pw == '') {

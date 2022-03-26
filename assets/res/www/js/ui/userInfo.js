@@ -108,7 +108,7 @@
     save: function () {
       var self = this;
       var id = this.els.$loginId.val().trim();
-      var phone = this.els.$phoneIpt.val().trim();
+      var phone = this.els.$phoneIpt.val().trim().replace('-','');
       var email = this.els.$emailIpt.val().trim();
       var pw = this.els.$passwordIpt.val().trim();
       if (phone == '') {

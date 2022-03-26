@@ -45,7 +45,7 @@
 
       this.els.$writeBtn.on('click', function () {
         if (M.data.global('seqNo') == '') {
-          if(self.data.imgPath == '') {
+          if(self.data.imgPath == '' || self.data.imgPath == null) {
             self.write();
           } else {
             console.log(self.data.imgPath);
@@ -53,7 +53,7 @@
           }
         } else {
             console.log(M.data.param('seqNo'));
-            if(self.data.imgPath == '') {
+            if(self.data.imgPath == '' || self.data.imgPath == null) {
               self.modify();
             } else {
               console.log(self.data.imgPath);
@@ -69,6 +69,12 @@
               var title = this.els.$titleIpt.val();
               var content = this.els.$contentIpt.val();
               var seqNo = M.data.global('seqNo'); 
+              if (title == '') {
+                      return alert('제목을 입력해주세요');
+                    }
+                    if (content == '') {
+                      return alert('내용을 입력해주세요');
+                    }
               var body = [
                 { name: "file", content: imgPath, type: "FILE" },
                 { name: "content", content: content, type: "TEXT" },
@@ -87,7 +93,7 @@
                   alert('성공');
                   M.page.html({
                     url:'./list.html',
-                    'action': 'CLEAN_TOP',});
+                    action: 'CLEAN_TOP',});
                 },
                 progress: function () {
                   console.log(body);
@@ -105,6 +111,12 @@
           var id =  M.data.global('myId');
           var title = this.els.$titleIpt.val();
           var content = this.els.$contentIpt.val();
+          if (title == '') {
+                  return alert('제목을 입력해주세요');
+                }
+                if (content == '') {
+                  return alert('내용을 입력해주세요');
+                }
           var body = [
             { name: "file", content: imgPath, type: "FILE" },
             { name: "content", content: content, type: "TEXT" },
@@ -120,7 +132,9 @@
             succ: function (body) {
               console.log(body);
               alert('성공');
-              M.page.html('./list.html');
+              M.page.html({
+                url:'./list.html',
+                action: 'CLEAN_TOP',});
             },
             progress: function (body) {
               console.log(body);
@@ -156,6 +170,12 @@
        var title = this.els.$titleIpt.val();
        var content = this.els.$contentIpt.val();
        var seqNo = M.data.global('seqNo');
+       if (title == '') {
+               return alert('제목을 입력해주세요');
+             }
+             if (content == '') {
+               return alert('내용을 입력해주세요');
+             }
        console.log(seqNo);
         $.sendHttp({
         path: SERVER_PATH.NOTICE_UPDATE,
@@ -182,6 +202,7 @@
       var self = this;
       var title = this.els.$titleIpt.val();
       var content = this.els.$contentIpt.val();
+      console.log(M.data.global('seqNo'));
       if (title == '') {
         return alert('제목을 입력해주세요');
       }
@@ -200,6 +221,7 @@
           alert('글쓰기가 완료되었습니다.');
           M.page.html({
             url: "./list.html",
+            action: 'CLEAN_TOP',
           });
         },
         error: function (data) {
