@@ -45,13 +45,13 @@
 		UPDATE: "api/member/update", //회원 정보 수정
 		CHECK_PASSWORD: "api/member/chkPwd", //회원 비밀번호 확인
 
-		NOTICE_LIST: "/api/notice/list", //게시글 리스트
-		NOTICE_DETAIL: "/api/notice/detail", //게시글 상세
-		NOTICE_WRITE: "/api/notice/write", //게시글 등록
-		NOTICE_WRITE_IMG: "/api/notice/writeWithUpload", //게시글 등록(이미지 포함)
-		NOTICE_UPDATE: "/api/notice/update", //게시글 수정
-		NOTICE_UPDATE_IMG: "/api/notice/updateWithUpload", //게시글 수정(이미지 포함)
-		NOTICE_DELETE: "/api/notice/delete", //게시글 삭제		
+		NOTICE_LIST: "api/notice/list", //게시글 리스트
+		NOTICE_DETAIL: "api/notice/detail", //게시글 상세
+		NOTICE_WRITE: "api/notice/write", //게시글 등록
+		NOTICE_WRITE_IMG: "api/notice/writeWithUpload", //게시글 등록(이미지 포함)
+		NOTICE_UPDATE: "api/notice/update", //게시글 수정
+		NOTICE_UPDATE_IMG: "api/notice/updateWithUpload", //게시글 수정(이미지 포함)
+		NOTICE_DELETE: "api/notice/delete", //게시글 삭제		
 	}
 
 	//Android Upload 통신 시 콜백

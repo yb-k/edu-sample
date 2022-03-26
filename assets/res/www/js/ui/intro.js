@@ -3,10 +3,8 @@
  * @author :
  * @date : 
  */
-// 페이지단위 모듈
+// 페이지 단위 모듈
 (function ($, M, SERVER_PATH, MNet, window) {
-
-
   var page = {
     els: {
       $percent: null,
@@ -16,25 +14,24 @@
     init: function init() {
       this.els.$percent = $('#percent');
       this.els.$progressBar = $('#progress-bar');
-
     },
-
-    /**
-     * 진행도를 표시한다
-     * @param {function} succCallback
-     */
+    /*
+    진행도를 표시한다.
+    @param {function} succCallback 완료 후 호출된 함수
+    */
     startProgress: function startProgress(succCallback) {
       var $percent = this.els.$percent;
       var $progressBar = this.els.$progressBar;
       var count = 0;
       var interval = setInterval(function () {
-        $percent.html(++count);
+        count += 10;
+        $percent.html(count);
         $progressBar.css('width', count + '%');
         if (count == 100) {
           clearInterval(interval); // 반복 실행을 멈춘다.
           succCallback();
         }
-      }, 5); // 반복적으로 함수 실행
+      }, 50); // 반복적으로 함수를 실행시켜준다.
     },
     moveLoginPage: function moveLoginPage() {
       M.page.html({
@@ -48,43 +45,38 @@
       var existLoginData = M.data.storage('AUTO_LOGIN_AUTH');
       if (existLoginData) {
         this.startProgress(function () {
-
-
           MNet.sendHttp({
             path: SERVER_PATH.LOGIN,
             data: {
-              loginId: iexustLoginData.id,
+              loginId: existLoginData.id,
               password: existLoginData.pw
             },
             succ: function (data) {
-              // f 로그인 성공 햇을때 콜백
+              //로그인이 성공했을 때 콜백
               M.data.global({
-                'userIdSend': id
-              });
+                          'userIdSend': existLoginData.id
+                        });
               M.page.html('./main.html');
-
-              alert('로그인 성공')
             },
             error: function () {
               self.moveLoginPage();
-            }
+            },
           });
         });
+      } else {
+        this.startProgress(this.moveLoginPage);
       }
-      this.startProgress(this.moveLoginPage);
     },
     initEvent: function initEvent() {
-      // initEvent 바인딩
-    }
+      // Dom Event 바인딩
+    },
   };
   window.__page__ = page;
 })(jQuery, M, __serverpath__, __mnet__, window);
-
-
-// 해당 페이지에서 실제 호츌
+// 해당 페이지에서 실제 호출
 (function ($, M, pageFunc, window) {
   M.onReady(function () {
-    pageFunc.init();
+    pageFunc.init(); // 최초 화면 초기화
     pageFunc.initView();
   });
 })(jQuery, M, __page__, window);

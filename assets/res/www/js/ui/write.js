@@ -15,8 +15,8 @@
       $userId: null,
       $writeRegist: null,
       $btnIng: null,
-      $imgName: null
-
+      $imgName: null,
+      $back: null,
 
     },
     data: {
@@ -32,10 +32,39 @@
       this.els.$writeRegist = $('#btn-submit');
       this.els.$btnIng = $('#btn-ing');
       this.els.$imgName = $('#ipt-img-name');
+      this.els.$back = $('#back');
 
     },
     initView: function initView() {
       //화면에서 세팅할 동적데이터
+      var self = this;
+      if (M.data.global('seqNoSend') != null) {
+
+
+        MNet.sendHttp({
+          path: SERVER_PATH.NOTICE_DETAIL,
+          data: {
+            "loginId": M.data.global('userIdSend'),
+            "seqNo": M.data.global('seqNoSend')
+          },
+          succ: function (data) {
+            console.log(data);
+            $('#subject').html(data.title);
+            $('#content').html(data.content);
+            console.log(data.imgUrl);
+            if (data.imgUrl != null) {
+              $('#ipt-img-name').attr('src', data.imgUrl);
+
+            }
+          },
+          error: function (data) {
+            console.log(data);
+            alert("실패");
+          }
+        });
+      }
+
+
 
     },
     initEvent: function initEvent() {
@@ -50,6 +79,10 @@
 
       this.els.$btnIng.on('click', function () {
         self.setImagePath();
+      })
+
+      this.els.$back.on('click', function () {
+
       })
 
     },
@@ -130,10 +163,7 @@
             console.log("ㅍㅁㅁㅁㅁ");
             M.page.html('./main.html');
           },
-          error : function(){
-            console.log("에러입니다아아아");
-           
-          }
+
         })
       } else {
 
