@@ -74,7 +74,14 @@
             return alert('내용을 입력해주세요.');
           }
           if(!module.isEmpty(imgPath)){
-            self.modifyWithUpload(title, content, self.data.imgPath);
+            console.log(imgPath);
+            console.log(self.data.imgPath);
+            if(!module.isEmpty(self.data.imgPath)){
+              self.modifyWithUpload(title, content, self.data.imgPath);
+            }else{
+            ////////////////////////////주소 조정 필요
+              self.modifyWithUpload(title, content, imgPath);
+            }
           }else{
             MNet.sendHttp({
               path : SERVER_PATH.NOTICE_UPDATE,
@@ -193,7 +200,7 @@
         callback: function( status, result ) {
           if(status == 'SUCCESS'){
              self.data.imgPath = result.fullpath;      
-             self.els.$iptImg.val(result.name);   
+             self.els.$iptImg.val("http://211.241.199.241:28040/" + result.name);   
           }else{
             self.data.imgPath = null;
             self.els.$iptImg.val('');
