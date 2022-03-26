@@ -54,9 +54,11 @@
       var year = this.els.$yearIpt.val().trim();
       var month = this.els.$monthIpt.val().trim();
       var date =  this.els.$dateIpt.val().trim();
-      var birth = moment(year+'-'+month+'-'+date,'YYYY-MM-DD');
-      console.log(date.isValid()); // 유효한 날짜인지 검증해준다.
-      
+      var birth = year+month+date;
+      var births = moment(year+'-'+month+'-'+date,'YYYY-MM-DD');
+      if(births.isValid()==false) {
+        return alert('날짜가 올바르지 않습니다. 다시 입력해주세요.');
+      }
       var phone = this.els.$cellphoneIpt.val().trim();
       console.log(gender);
       
@@ -119,3 +121,4 @@
       pageFunc.initEvent();
   });
 })(jQuery, M, __page__, window);
+
