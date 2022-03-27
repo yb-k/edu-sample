@@ -24,14 +24,52 @@
     initView : function initView() {
       // 화면에서 세팅할 동적데이터
      id = M.data.global("loginId");
-      
+     this.els.$title.val(M.data.global("title"));
+     this.els.$content.val(M.data.global("content"));
     },
     initEvent : function initEvent() {
       // Dom Event 바인딩
       var self = this;
+      
       this.els.$write.on('click', function(){
+      if(M.data.global("seqNum") == ''){
         self.write();
+      }else{
+        self.modify();
+      }
+        
       });
+    },
+    
+    modify:function(){
+      var self = this;
+      var id = M.data.global("loginId"); //로그인 아이디
+      var title = this.els.$title.val().trim(); //제목
+      var content = this.els.$content.val().trim(); //내용
+      var seqNum = M.data.global("seqNum");
+      
+      MNet.sendHttp({
+              path: SERVER_PATH.NOTICE_UPDATE,
+              data:{
+                loginId : id,
+                seqNo: seqNum,
+                title : title,
+                content : content
+              },
+              succ: function(data){
+                alert('게시글이 수정되었습니다.');
+                console.log(data);  
+                M.data.removeGlobal("seqNum");
+                M.page.html({
+                  path: './list.html'
+                });
+              },
+              error:function(){
+                console.log(data); 
+                alert('다시 입력해주세요');
+              }
+            });
+      
     },
     
     write:function(){
@@ -39,7 +77,6 @@
       var id = M.data.global("loginId"); //로그인 아이디
       var title = this.els.$title.val().trim(); //제목
       var content = this.els.$content.val().trim(); //내용
-      var writeBtn = this.els.$write.prop('click');
       console.log(id);
       if(title == ''){
         return alert('제목을 입력해주세요.');

@@ -39,14 +39,13 @@
           console.log(data);
           var items = "";
           $.each(data.list, function(index, item) {
-            items += "<li class='ellipsis' id='notice'";
-            items += index + "'>";
+            items += "<li class='ellipsis' id='notice"+ index + "'>";
             items += item.title;
             items += "</li>";
             seqNo[index] = item.seqNo;
             
 //            M.data.global("num", item.seqNo);
-            $(".ellipsis").attr("id" + "notice"+index);
+            $(".ellipsis").attr("id", "notice"+index);
           });
           $(".noti-wrap").html(items);
         },
@@ -64,21 +63,21 @@
       this.els.$dataMore.on('click', function(){
         M.page.html('./list.html');
       });
-      $(".ellipsis").on('click', "#notice0", function(){
+      $(".noti-wrap").on('click', "#notice0", function(){
 //        self.detail();
-          M.data.global("seqNo", seqNo[0]);
+          M.data.global("seqNum", seqNo[0]);
           M.page.html('./detail.html');
       });
-      $(".ellipsis").on('click', "#notice1", function(){
-        M.data.global("seqNo", seqNo[1]);
+      $(".noti-wrap").on('click', "#notice1", function(){
+        M.data.global("seqNum", seqNo[1]);
         M.page.html('./detail.html');
       });
-      $(".ellipsis").on('click', "#notice2", function(){
-        M.data.global("seqNo", seqNo[2]);
+      $(".noti-wrap").on('click', "#notice2", function(){
+        M.data.global("seqNum", seqNo[2]);
         M.page.html('./detail.html');
       });
-      $(".ellipsis").on('click', "#notice3", function(){
-        M.data.global("seqNo", seqNo[3]);
+      $(".noti-wrap").on('click', "#notice3", function(){
+        M.data.global("seqNum", seqNo[3]);
         M.page.html('./detail.html'); 
       });
       this.els.$menuBtn.on('click', function() {

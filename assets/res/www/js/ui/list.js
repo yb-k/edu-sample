@@ -60,7 +60,6 @@
             items += "</div>";
             items += "</li>";
             
-            M.data.global("seqNum", item.seqNo);
             $(".thumbnail-wrap").attr("id" + "notice"+index);
             console.log(item.seqNo);
           });
