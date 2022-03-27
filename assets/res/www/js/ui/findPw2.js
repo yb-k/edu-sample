@@ -33,10 +33,10 @@
       this.els.$changePwBtn.on('click', function () {
         self.changePw();
       });
-      
+
       this.els.$backBtn.on('click', function () {
-              M.page.back();
-            });
+        M.page.back();
+      });
     },
 
     changePw: function () {
@@ -67,6 +67,7 @@
             succ: function (data) {
               console.log(data);
               alert('비밀번호가 변경되었습니다.');
+              M.data.removeStorage('AUTO_LOGIN_AUTH');
               M.page.html({
                 url: "./login.html",
                 actionType: 'CLEAR_TOP'
@@ -84,7 +85,7 @@
   };
 
   window.__page__ = page;
-})(jQuery, M,  __config__, window);
+})(jQuery, M, __config__, window);
 
 // 해당 페이지에서 실제 호출
 (function ($, M, pageFunc, window) {

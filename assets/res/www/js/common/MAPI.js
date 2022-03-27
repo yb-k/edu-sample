@@ -16,52 +16,55 @@
       @param {function} options.error 실패시 콜백
     */
     sendHttp: function sendHttp(options) {
-      if(Util.isEmpty(options.path)) throw new Error
-      ('sendHttp :: 옵션의 Path 값은 필수입니다.');
-      
-      
-    
-    var succFunc = function succFunc(data) {
-      console.log('HTTP RESPONE ::', data);
-      if(data.rsltCode == '0000'){
-        if(typeof options.succ === 'function') {
-          options.succ(data);
-        }
-      } else {
-        //실패
-        alert(data.rsltMsg);
-        if(typeof options.error === 'function') {
-          options.error(data);
-        }
-      }
-        
-    };
-    
-    var errFunc = function errFunc(code, msg, setting) {
-      alert(code+ '\n' +msg);  
-      var callback  = options.error || function() {};
-      callback(code, msg, setting);
-      if(typeof options.error == 'function') {
-        options.error(code, msg);
-      }
-    };  
-    
-    var _options = {
-            server: config.SERVER_NAME,
-            path : options.path, //필수
-            method : options.method || 'POST',
-            timeout : options.timeout || 3000,
-            indicator : options.indicator || { show:true, message: 'Loading..', cancelable: false},
-            data: options.data || {},
-            success : succFunc,
-            error : errFunc
-          };
-          
-    console.log('HTTP URL :: ' + _options.path);
-    M.net.http.send(_options); //실제로 통신 시작
-  }
-};
+      if (Util.isEmpty(options.path)) throw new Error('sendHttp :: 옵션의 Path 값은 필수입니다.');
 
-window.__mnet__ = MNet;
+
+
+      var succFunc = function succFunc(data) {
+        console.log('HTTP RESPONE ::', data);
+        if (data.rsltCode == '0000') {
+          if (typeof options.succ === 'function') {
+            options.succ(data);
+          }
+        } else {
+          //실패
+          alert(data.rsltMsg);
+          if (typeof options.error === 'function') {
+            options.error(data);
+          }
+        }
+
+      };
+
+      var errFunc = function errFunc(code, msg, setting) {
+        alert(code + '\n' + msg);
+        var callback = options.error || function () {};
+        callback(code, msg, setting);
+        if (typeof options.error == 'function') {
+          options.error(code, msg);
+        }
+      };
+
+      var _options = {
+        server: config.SERVER_NAME,
+        path: options.path, //필수
+        method: options.method || 'POST',
+        timeout: options.timeout || 3000,
+        indicator: options.indicator || {
+          show: true,
+          message: 'Loading..',
+          cancelable: false
+        },
+        data: options.data || {},
+        success: succFunc,
+        error: errFunc
+      };
+
+      console.log('HTTP URL :: ' + _options.path);
+      M.net.http.send(_options); //실제로 통신 시작
+    }
+  };
+
+  window.__mnet__ = MNet;
 
 })(M, __config__, __util__, window);

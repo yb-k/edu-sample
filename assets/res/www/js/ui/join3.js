@@ -4,7 +4,7 @@
  * @date : 
  */
 // 페이지 단위 모듈
-(function ($, M, CONFIG, window){
+(function ($, M, CONFIG, window) {
   var SERVER_PATH = CONFIG.SERVER_PATH;
   var dulStatus;
   var page = {
@@ -42,16 +42,16 @@
       });
 
       this.els.$joinBtn.on('click', function () {
-        if(dulStatus == 'N') {
+        if (dulStatus == 'N') {
           self.join();
         } else {
-          alert("다시 중복체크 하세요.");       
+          alert("다시 중복체크 하세요.");
         }
       });
-      
+
       this.els.$backBtn.on('click', function () {
-              M.page.back();
-            });
+        M.page.back();
+      });
 
     },
 
@@ -59,9 +59,9 @@
       var self = this;
       var id = this.els.$loginIdIpt.val().trim();
       if (id == '') {
-              return alert('아이디를 입력해주세요');
-            }
-     
+        return alert('아이디를 입력해주세요');
+      }
+
       $.sendHttp({
         path: SERVER_PATH.DUPLICATE,
         data: {
@@ -75,7 +75,7 @@
           } else {
             console.log(data);
             alert("사용 가능! 중복된 아이디가 없습니다.");
-            idCon=id;
+            idCon = id;
           }
         },
         error: function (data) {
@@ -85,7 +85,7 @@
       });
 
     },
-    
+
     join: function () {
       var self = this;
       var id = this.els.$loginIdIpt.val().trim();
@@ -97,11 +97,10 @@
       var pwCon = this.els.$repasswordIpt.val().trim();
       var email = this.els.$emailIpt.val().trim();
       var regExpEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-      if(email.length < 6 || !regExpEmail.test(email))
-                          {
-                              alert('메일형식이 맞지 않습니다.')
-                              return;
-                          }  
+      if (email.length < 6 || !regExpEmail.test(email)) {
+        alert('메일형식이 맞지 않습니다.')
+        return;
+      }
       if (id != idCon) {
         return alert('아이디 중복확인을 다시 해주세요.');
       }
@@ -139,15 +138,17 @@
             succ: function (data) {
               console.log(data);
               M.page.html({
-              url : './join4.html',
-              actionType: 'CLEAR_TOP',});
+                url: './join4.html',
+                actionType: 'CLEAR_TOP',
+              });
             },
             error: function (data) {
               console.log(data);
               alert('회원가입실패! 다시 가입해보세요');
               M.page.html({
-              url : './login.html',
-              actionType: 'CLEAR_TOP',});
+                url: './login.html',
+                actionType: 'CLEAR_TOP',
+              });
             }
           });
           return true;
@@ -157,7 +158,7 @@
   };
 
   window.__page__ = page;
-})(jQuery, M,  __config__, window);
+})(jQuery, M, __config__, window);
 
 // 해당 페이지에서 실제 호출
 (function ($, M, pageFunc, window) {

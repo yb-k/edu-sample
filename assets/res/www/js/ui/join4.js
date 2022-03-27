@@ -4,45 +4,46 @@
  * @date : 
  */
 // 페이지 단위 모듈
-(function ($, M, CONFIG, window){
+(function ($, M, CONFIG, window) {
   var page = {
     els: {
-      $loginBtn:null,
-      
+      $loginBtn: null,
+
     },
     data: {},
-    init : function init() {
+    init: function init() {
       this.els.$loginBtn = $('#loginBtn');
-      
+
     },
-   
-    initView : function initView() {
+
+    initView: function initView() {
       // 화면에서 세팅할 동적데이터
     },
-    
-    initEvent : function initEvent() {
+
+    initEvent: function initEvent() {
       // Dom Event 바인딩
       var self = this;
-      this.els.$loginBtn.on('click', function() {
+      this.els.$loginBtn.on('click', function () {
         M.page.html({
-        url:'./login.html',
-        actionType: 'CLEAR_TOP',});
+          url: './login.html',
+          actionType: 'CLEAR_TOP',
+        });
       });
-      
+
     },
-    
-    
+
+
   };
-  
+
   window.__page__ = page;
-})(jQuery, M,  __config__, window);
+})(jQuery, M, __config__, window);
 
 // 해당 페이지에서 실제 호출
-(function($, M, pageFunc, window) {
-  
-  M.onReady(function() {
-      pageFunc.init(); // 최초 화면 초기화
-      pageFunc.initView();
-      pageFunc.initEvent();
+(function ($, M, pageFunc, window) {
+
+  M.onReady(function () {
+    pageFunc.init(); // 최초 화면 초기화
+    pageFunc.initView();
+    pageFunc.initEvent();
   });
 })(jQuery, M, __page__, window);

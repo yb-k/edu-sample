@@ -5,7 +5,7 @@
  */
 
 // 페이지 단위 모듈
-(function ($, M, window){
+(function ($, M, window) {
   var ENV = CONFIG.ENV;
   var MSG = CONFIG.MSG;
   var CONSTANT = CONFIG.CONSTANT;

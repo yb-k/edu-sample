@@ -36,17 +36,17 @@
           items += data.title;
           items += "</p>";
           items += "<span id='regDate'>";
-          items += data.regDate.substring(0,4)+"년 "+data.regDate.substring(4,6)+"월 "+data.regDate.substring(6,8)+"일";
+          items += data.regDate.substring(0, 4) + "년 " + data.regDate.substring(4, 6) + "월 " + data.regDate.substring(6, 8) + "일";
           items += "</span>";
           items += "</div>";
           items += "<div class='detail-cont'>";
-          if(data.imgUrl != null) {
+          if (data.imgUrl != null) {
             items += "<div class='img-wrap'>";
-            items += "<img id='imgUrl' src='" + data.imgUrl +"'/>";
+            items += "<img id='imgUrl' src='" + data.imgUrl + "'/>";
             items += "</div>";
             M.data.global("imgUrl", data.imgUrl);
             var split = data.imgUrl.lastIndexOf('/');
-            var imgName = data.imgUrl.toString().substring(split+1,);
+            var imgName = data.imgUrl.toString().substring(split + 1, );
             M.data.global("imgName", imgName);
             console.log(imgName);
           }
@@ -63,7 +63,7 @@
           M.data.global("isMyYn", data.isMyNoticeYn);
           M.data.global("title", data.title);
           M.data.global("content", data.content);
-          
+
           $("#notice-select").html(items);
           console.log(M.data.global('isMyYn'));
           if (data.isMyNoticeYn == 'Y') {
@@ -90,7 +90,7 @@
       this.els.$modiBtn.on('click', function () {
         self.modify();
       });
-      
+
       this.els.$backBtn.on('click', function () {
         M.page.back();
       });
@@ -112,8 +112,8 @@
           "title": title,
           "content": content,
           "seqNo": seqNo,
-          "imgPath" : imgPath,
-          "imgName" : imgName,
+          "imgPath": imgPath,
+          "imgName": imgName,
         }
       });
 
@@ -131,10 +131,10 @@
           console.log(data);
           alert('게시글이 삭제되었습니다.');
           M.page.html({
-           url:'./list.html',
-           });
+            url: './list.html',
+          });
           var pagelist = M.info.stack();
-          M.page.remove(pagelist[1].key); 
+          M.page.remove(pagelist[1].key);
         },
         error: function (data) {
           console.log(data);
@@ -145,7 +145,7 @@
   };
 
   window.__page__ = page;
-})(jQuery, M,  __config__, window);
+})(jQuery, M, __config__, window);
 
 // 해당 페이지에서 실제 호출
 (function ($, M, pageFunc, window) {

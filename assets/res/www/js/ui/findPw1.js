@@ -33,8 +33,8 @@
         self.findPw();
       });
       this.els.$backBtn.on('click', function () {
-              M.page.back();
-            });
+        M.page.back();
+      });
     },
 
     findPw: function () {
@@ -82,7 +82,7 @@
   };
 
   window.__page__ = page;
-})(jQuery, M,  __config__, window);
+})(jQuery, M, __config__, window);
 
 // 해당 페이지에서 실제 호출
 (function ($, M, pageFunc, window) {

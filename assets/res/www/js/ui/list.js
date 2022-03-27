@@ -31,17 +31,17 @@
         path: SERVER_PATH.NOTICE_LIST,
         data: {
           "loginId": M.data.global('myId'),
-          "lastSeqNo": '0', 
+          "lastSeqNo": '0',
           "cnt": '6',
         },
         succ: function (data) {
           console.log(data);
           var items = "";
           $.each(data.list, function (index, item) {
-            items += "<li class='noticeBoard' id='"+ item.seqNo +"'>";
+            items += "<li class='noticeBoard' id='" + item.seqNo + "'>";
             items += "<div class='thumbnail-wrap'>";
             items += "<div class='thumbnail'>";
-            items += "<img src='" +item.imgUrl +" ' alt=''/>";
+            items += "<img src='" + item.imgUrl + " ' alt=''/>";
             items += "</div>";
             items += "<span class='label-info none'>";
             items += "<img src= '" + item.imgUrl + "' alt='50%'/>";
@@ -73,94 +73,95 @@
     initEvent: function initEvent() {
       // Dom Event 바인딩
       var self = this;
-      
-      $('#card').on('click','.noticeBoard', function () {
-      var seqNo = $(this).attr('id');
-      console.log(seqNo);
-              
-      M.data.global({'seqNo': seqNo});
-      console.log(M.data.global('seqNo'));
-      M.page.html({
-      url:'./detail.html',
-      action : 'NO_HISTORY',
-      });
-      }
-      ),
 
-      
-      this.els.$backBtn.on('click', function () {
-              M.page.back();
-            });
+      $('#card').on('click', '.noticeBoard', function () {
+          var seqNo = $(this).attr('id');
+          console.log(seqNo);
+
+          M.data.global({
+            'seqNo': seqNo
+          });
+          console.log(M.data.global('seqNo'));
+          M.page.html({
+            url: './detail.html',
+            action: 'NO_HISTORY',
+          });
+        }),
+
+
+        this.els.$backBtn.on('click', function () {
+          M.page.back();
+        });
 
       this.els.$writeBtn.on('click', function () {
         var pagelist = M.info.stack();
         console.log(pagelist);
         M.page.html({
-          url : './write.html',
-          });
+          url: './write.html',
+        });
       });
 
       this.els.$topBtn.on("click", function () {
         $('.cont-wrap').scrollTop(0);
       });
-      
+
       this.els.$moreBtn.on("click", function () {
         $.sendHttp({
-                path: SERVER_PATH.NOTICE_LIST,
-                data: {
-                  "loginId": M.data.global('myId'),
-                  "lastSeqNo": seqNum, 
-                  "cnt": '6',
-                },
-                succ: function (data) {
-                  
-                  console.log(data);
-                  var items = "";
-                  $.each(data.list, function (index, item) {
-                    var count = 6;
-                    items += "<li class='noticeBoard' id='"+ item.seqNo +"'>";
-                    items += "<div class='thumbnail-wrap'>";
-                    items += "<div class='thumbnail'>";
-                    items += "<img src= '" + item.imgUrl + "'alt=''/>";
-                    items += "</div>";
-                    items += "<span class='label-info none'>";
-                    items += "<img src='" + item.imgUrl + "'alt='50%'/>";
-                    items += "</span>";
-                    items += "</div>";
-                    items += "<div class='info-box'>";
-                    items += "<div class='info-box-top'>";
-                    items += "<strong class='ellipsis_1'>";
-                    items += item.title;
-                    items += "</strong>";
-                    items += "<div class='info-box-btm'>";
-                    items += "<p style='text-align:left;' class='ellipsis_1'>";
-                    items += item.content;
-                    items += "</p>";
-                    items += "</div>";
-                    items += "</div>";
-                    items += "</li>";
-                    count -= 1;
-                    seqNum = item.seqNo;
-                    console.log(count);
-                  });
-                  $("#card").append(items);
-                  console.log(seqNum);
-                  if(count == 0 || seqNum <= 6) {
-                    document.getElementById("more-btn").style.display = "none";
-                  }
-                },
-                error: function (data) {
-                  console.log(data);
-                  alert("리스트를 가져오지 못했습니다.");
-                },
-              });
+          path: SERVER_PATH.NOTICE_LIST,
+          data: {
+            "loginId": M.data.global('myId'),
+            "lastSeqNo": seqNum,
+            "cnt": '6',
+          },
+          succ: function (data) {
+
+            console.log(data);
+            var items = "";
+            $.each(data.list, function (index, item) {
+              var count = 6;
+              items += "<li class='noticeBoard' id='" + item.seqNo + "'>";
+              items += "<div class='thumbnail-wrap'>";
+              items += "<div class='thumbnail'>";
+              items += "<img src= '" + item.imgUrl + "'alt=''/>";
+              items += "</div>";
+              items += "<span class='label-info none'>";
+              items += "<img src='" + item.imgUrl + "'alt='50%'/>";
+              items += "</span>";
+              items += "</div>";
+              items += "<div class='info-box'>";
+              items += "<div class='info-box-top'>";
+              items += "<strong class='ellipsis_1'>";
+              items += item.title;
+              items += "</strong>";
+              items += "<div class='info-box-btm'>";
+              items += "<p style='text-align:left;' class='ellipsis_1'>";
+              items += item.content;
+              items += "</p>";
+              items += "</div>";
+              items += "</div>";
+              items += "</li>";
+              count -= 1;
+              seqNum = item.seqNo;
+              console.log(count);
+            });
+            $("#card").append(items);
+            console.log(seqNum);
+            if (count == 0 || seqNum <= 6) {
+              document.getElementById("more-btn").style.display = "none";
+            }
+          },
+          error: function (data) {
+            console.log(data);
+            alert("리스트를 가져오지 못했습니다.");
+          },
+        });
       });
-      
+
     },
-};
+  };
 
   window.__page__ = page;
-})(jQuery, M,  __config__, window);
+})(jQuery, M, __config__, window);
 
 // 해당 페이지에서 실제 호출
 (function ($, M, pageFunc, window) {

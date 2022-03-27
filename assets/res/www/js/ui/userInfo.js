@@ -4,8 +4,9 @@
  * @date : 
  */
 // 페이지 단위 모듈
-(function ($, M, CONFIG, window){
+(function ($, M, CONFIG, window) {
   var SERVER_PATH = CONFIG.SERVER_PATH;
+  var con;
   var page = {
     els: {
       $userNm: null,
@@ -45,8 +46,8 @@
         succ: function (data) {
           console.log(data);
           self.els.$userNm.val(data.userNm);
-          self.els.$birth.val(data.birthDate.substring(0,4)+"-"+data.birthDate.substring(4,6)+"-"+data.birthDate.substring(6,8));
-          self.els.$phoneIpt.val(data.cellPhone.substring(0,3)+"-"+data.cellPhone.substring(3,7)+"-"+data.cellPhone.substring(7,));
+          self.els.$birth.val(data.birthDate.substring(0, 4) + "-" + data.birthDate.substring(4, 6) + "-" + data.birthDate.substring(6, 8));
+          self.els.$phoneIpt.val(data.cellPhone.substring(0, 3) + "-" + data.cellPhone.substring(3, 7) + "-" + data.cellPhone.substring(7, ));
           self.els.$emailIpt.val(data.email);
         },
         error: function (data) {
@@ -70,65 +71,75 @@
         else
           $('#saveBtn').prop("disabled", true);
       });
-      
+
       this.els.$backBtn.on('click', function () {
-              M.page.back();
-            });
+        M.page.back();
+      });
 
       this.els.$saveBtn.on('click', function () {
         //self.confirmPw();
         self.save();
       });
-      
+
       this.els.$outBtn.on('click', function () {
-        self.confirmPw();
-//        self.outUser();
+        M.pop.alert({
+          title: '확인',
+          message: '진짜 탈퇴하시겠습니까?',
+          buttons: ['확인', '취소'],
+          callback: function (index) {
+            if (index == 0) {
+              self.outUser();
+            }
+          }
+        });
       });
     },
-    
-    outUser:function () {
+
+    outUser: function () {
       var self = this;
       var id = this.els.$loginId.val().trim();
-       $.sendHttp({
-              path: SERVER_PATH.OUT,
-              data: {
-                loginId: id,
-              },
-              succ: function (data) {
-                console.log(data);
-                M.page.html("./login.html");
-              },
-              error: function (data) {
-                console.log(data);
-                alert('탈퇴에 실패하였습니다');
-              }
-            });
+      $.sendHttp({
+        path: SERVER_PATH.OUT,
+        data: {
+          loginId: id,
+        },
+        succ: function (data) {
+          console.log(data);
+          M.data.removeStorage('AUTO_LOGIN_AUTH');
+          M.page.html({
+            url: "./login.html",
+            actionType: 'CLEAR_TOP'
+          });
+        },
+        error: function (data) {
+          console.log(data);
+          alert('탈퇴에 실패하였습니다');
+        }
+      });
     },
-    
+
     save: function () {
       var self = this;
       var id = this.els.$loginId.val().trim();
       var phoneNumber = this.els.$phoneIpt.val().trim();
-      var phone = phoneNumber.replace(/-/g,'');
+      var phone = phoneNumber.replace(/-/g, '');
       var email = this.els.$emailIpt.val().trim();
       var pw = this.els.$passwordIpt.val().trim();
       var patternPhone = /01[016789][^0][0-9]{2,3}[0-9]{3,4}/;
       console.log(id);
-            console.log(phone);
-            console.log(email);
-            console.log(pw);
-            if(!patternPhone.test(phone))
-                {
-                    alert('핸드폰 번호를 확인 해주세요');
-                    return;
-                } 
-                var regExpEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-                
-                if(email.length < 6 || !regExpEmail.test(email))
-                    {
-                        alert('메일형식이 맞지 않습니다.')
-                        return;
-                    }  
+      console.log(phone);
+      console.log(email);
+      console.log(pw);
+      if (!patternPhone.test(phone)) {
+        alert('핸드폰 번호를 확인 해주세요');
+        return;
+      }
+      var regExpEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+
+      if (email.length < 6 || !regExpEmail.test(email)) {
+        alert('메일형식이 맞지 않습니다.')
+        return;
+      }
 
       if (phone == '') {
         return alert('전화번호를 입력해주세요');
@@ -146,8 +157,9 @@
         },
         succ: function (data) {
           M.page.html({
-          url : "./userInfo.html",
-          action : 'NO_HISTORY'});
+            url: "./userInfo.html",
+            action: 'NO_HISTORY'
+          });
         },
         error: function (data) {
           console.log(data);
@@ -171,7 +183,7 @@
           console.log(data);
           M.page.html({
             path: "./findPw2.html",
-            action : 'NO_HISTORY',
+            action: 'NO_HISTORY',
             param: {
               "loginId": id
             },
@@ -184,33 +196,10 @@
       });
     },
 
-    confirmPw: function () { // 수정과 탈퇴 비밀번호확인
-      var self = this;
-      var id = this.els.$loginId.val().trim();
-      var pw = this.els.$passwordIpt.val().trim();
-      $.sendHttp({
-        path: SERVER_PATH.CHECK_PASSWORD,
-        data: {
-          loginId: id,
-          password: pw
-        },
-        succ: function (data) {
-          console.log("성공");
-          self.out();
-          return true;
-        },
-        error: function (data) {
-          console.log(data);
-          alert('비밀번호가 일치하지 않습니다. 다시 입력해주세요.');
-          return false;
-        }
-      });
-    }
-
   };
 
   window.__page__ = page;
-})(jQuery, M,  __config__, window);
+})(jQuery, M, __config__, window);
 
 // 해당 페이지에서 실제 호출
 (function ($, M, pageFunc, window) {

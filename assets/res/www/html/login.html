@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="ko">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
@@ -10,52 +11,53 @@
 </head>
 
 <body>
-<div class="wrapper login">
-  <div class="container">
-    <div class="cont-wrap">
-      <h1 class="logo">
-        EDUCATION
-        <!-- 상단 위치 class="top", 하단 위치 class="middle" 추가 -->
-      </h1>
-      <form>
-        <!-- 아이디/패스워드 입력 영역 (input창+버튼 디자인에 따라 바꿔치기 가능) -->
-        <div class="ipt-form-col pd-b20">
-          <input type="text" class="id" id="login-id" placeholder="아이디"/>
-          <input type="password" class="pw" id="password" placeholder="비밀번호"/>
-        </div>
-        <div class="btn-wrap">
-          <!-- 버튼요소가 2개인 경우 class="count2"추가 -->
-          <!-- button 색 채운 디자인: btn-point-color / 라인 디자인 : btn-line -->
-          <!-- button 높이 얇게: class에 h80 추가 -->
-          <button type="button" id="login-btn" class="btn-point-color">
-            로그인
-          </button>
-        </div>
-        <div class="chk-wrap">
-          <div>
-            <!-- 뒤에 다른 요소 들어오는 경우 div감싸기 -->
-            <input type="checkbox" id="auto-login-chk" class="chk"/>
-            <label for="auto-login-chk">자동로그인</label>
+  <div class="wrapper login">
+    <div class="container">
+      <div class="cont-wrap">
+        <h1 class="logo">
+          EDUCATION
+          <!-- 상단 위치 class="top", 하단 위치 class="middle" 추가 -->
+        </h1>
+        <form>
+          <!-- 아이디/패스워드 입력 영역 (input창+버튼 디자인에 따라 바꿔치기 가능) -->
+          <div class="ipt-form-col pd-b20">
+            <input type="text" class="id" id="login-id" placeholder="아이디" />
+            <input type="password" class="pw" id="password" placeholder="비밀번호" />
           </div>
-          <div class="txt-btn-wrap">
-            <ul>
-              <li id="find-id">아이디 찾기</li>
-              <li id="find-pw">비밀번호 찾기</li>
-            </ul>
+          <div class="btn-wrap">
+            <!-- 버튼요소가 2개인 경우 class="count2"추가 -->
+            <!-- button 색 채운 디자인: btn-point-color / 라인 디자인 : btn-line -->
+            <!-- button 높이 얇게: class에 h80 추가 -->
+            <button type="button" id="login-btn" class="btn-point-color">
+              로그인
+            </button>
           </div>
-        </div>
-        <div class="btn-wrap">
-          <!-- 버튼요소가 2개인 경우 class="count2"추가 -->
-          <!-- button 색 채운 디자인: btn-point-color / 라인 디자인 : btn-line -->
-          <!-- button 높이 얇게: class에 h80 추가 -->
-          <button type="button" class="btn-line" id="join-btn">회원가입</button>
-        </div>
-      </form>
+          <div class="chk-wrap">
+            <div>
+              <!-- 뒤에 다른 요소 들어오는 경우 div감싸기 -->
+              <input type="checkbox" id="auto-login-chk" class="chk" />
+              <label for="auto-login-chk">자동로그인</label>
+            </div>
+            <div class="txt-btn-wrap">
+              <ul>
+                <li id="find-id">아이디 찾기</li>
+                <li id="find-pw">비밀번호 찾기</li>
+              </ul>
+            </div>
+          </div>
+          <div class="btn-wrap">
+            <!-- 버튼요소가 2개인 경우 class="count2"추가 -->
+            <!-- button 색 채운 디자인: btn-point-color / 라인 디자인 : btn-line -->
+            <!-- button 높이 얇게: class에 h80 추가 -->
+            <button type="button" class="btn-line" id="join-btn">회원가입</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-</div>
 </body>
 
 <script type="text/javascript" src="../js/mcore.min.js"></script>
 <script type="text/javascript" src="../js/ui/login.js"></script>
+
 </html>
