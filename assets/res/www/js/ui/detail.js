@@ -51,7 +51,13 @@
             console.log(imgName);
           }
           items += "<p id='content'>";
-          items += data.content;
+          var content = data.content;
+          console.log(content);
+          content = content.replace(/\r\n/ig, '<br>');
+          content = content.replace(/\\n/ig, '<br>');
+          content = content.replace(/\n/ig, '<br>');
+          items += content;
+          items += "<br><br><br>";
           items += "</p>";
           items += "</div>";
           M.data.global("isMyYn", data.isMyNoticeYn);
@@ -126,7 +132,9 @@
           alert('게시글이 삭제되었습니다.');
           M.page.html({
            url:'./list.html',
-           'action': 'CLEAN_TOP',});
+           });
+          var pagelist = M.info.stack();
+          M.page.remove(pagelist[1].key); 
         },
         error: function (data) {
           console.log(data);

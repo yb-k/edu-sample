@@ -7,6 +7,8 @@
 (function ($, M, CONFIG, window) {
   var SERVER_PATH = CONFIG.SERVER_PATH;
   M.data.removeGlobal('seqNo');
+  M.data.removeGlobal('imgUrl');
+  M.data.removeGlobal('imgName');
   var seqNum;
   var page = {
     els: {
@@ -78,15 +80,24 @@
               
       M.data.global({'seqNo': seqNo});
       console.log(M.data.global('seqNo'));
-      M.page.html('./detail.html');
+      M.page.html({
+      url:'./detail.html',
+      action : 'NO_HISTORY',
       });
+      }
+      ),
+
       
       this.els.$backBtn.on('click', function () {
               M.page.back();
             });
 
       this.els.$writeBtn.on('click', function () {
-        M.page.html('./write.html');
+        var pagelist = M.info.stack();
+        console.log(pagelist);
+        M.page.html({
+          url : './write.html',
+          });
       });
 
       this.els.$topBtn.on("click", function () {
@@ -146,7 +157,7 @@
       });
       
     },
-  };
+};
 
   window.__page__ = page;
 })(jQuery, M,  __config__, window);

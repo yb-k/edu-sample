@@ -69,7 +69,7 @@
               alert('비밀번호가 변경되었습니다.');
               M.page.html({
                 url: "./login.html",
-                actionType: "CLEAR_TOP"
+                actionType: 'CLEAR_TOP'
               });
             },
             error: function (data) {

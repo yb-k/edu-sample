@@ -34,7 +34,9 @@
       });
       
       this.els.$findPwBtn.on('click', function() {
-         M.page.html('./findPw1.html');
+         M.page.html({
+         url : './findPw1.html',
+         });
       });
  
     },
@@ -59,7 +61,9 @@
         succ: function (data) {
           console.log(data);
           alert('아이디는 '+ data.loginId);
-          M.page.html('./login.html');
+          M.page.html({
+          url:'./login.html',
+          actionType: 'CLEAR_TOP'});
         }, 
         error : function(data){
           console.log(data);

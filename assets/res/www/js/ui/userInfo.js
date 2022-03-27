@@ -108,9 +108,28 @@
     save: function () {
       var self = this;
       var id = this.els.$loginId.val().trim();
-      var phone = this.els.$phoneIpt.val().trim().replace('-','');
+      var phoneNumber = this.els.$phoneIpt.val().trim();
+      var phone = phoneNumber.replace(/-/g,'');
       var email = this.els.$emailIpt.val().trim();
       var pw = this.els.$passwordIpt.val().trim();
+      var patternPhone = /01[016789][^0][0-9]{2,3}[0-9]{3,4}/;
+      console.log(id);
+            console.log(phone);
+            console.log(email);
+            console.log(pw);
+            if(!patternPhone.test(phone))
+                {
+                    alert('핸드폰 번호를 확인 해주세요');
+                    return;
+                } 
+                var regExpEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+                
+                if(email.length < 6 || !regExpEmail.test(email))
+                    {
+                        alert('메일형식이 맞지 않습니다.')
+                        return;
+                    }  
+
       if (phone == '') {
         return alert('전화번호를 입력해주세요');
       }
@@ -126,7 +145,9 @@
           email: email,
         },
         succ: function (data) {
-          M.page.html("./userInfo.html");
+          M.page.html({
+          url : "./userInfo.html",
+          action : 'NO_HISTORY'});
         },
         error: function (data) {
           console.log(data);
@@ -150,6 +171,7 @@
           console.log(data);
           M.page.html({
             path: "./findPw2.html",
+            action : 'NO_HISTORY',
             param: {
               "loginId": id
             },

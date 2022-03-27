@@ -38,10 +38,16 @@
         self.login();
       });
       this.els.$findIdBtn.on('click', function() {
-        M.page.html('./findId.html');
+        M.page.html({
+        url : './findId.html',
+        actionType: 'NO_HISTORY',
+        });
       });
       this.els.$findPwBtn.on('click', function() {
-        M.page.html('./findPw1.html');
+        M.page.html({
+        url : './findPw1.html',
+        actionType: 'NO_HISTORY',
+        });
       });
       this.els.$joinBtn.on('click', function() {
         M.page.html('./join1.html');

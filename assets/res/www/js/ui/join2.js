@@ -62,6 +62,14 @@
       var phone = this.els.$cellphoneIpt.val().trim();
       console.log(gender);
       
+      var patternPhone = /01[016789][^0][0-9]{2,3}[0-9]{3,4}/;
+      if(!patternPhone.test(phone))
+          {
+              alert('핸드폰 번호를 확인 해주세요');
+              return;
+          } 
+
+      
       if(name == '') {
         return alert('이름을 입력해주세요');
       }

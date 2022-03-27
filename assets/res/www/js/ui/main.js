@@ -54,13 +54,22 @@
       var self = this;
 
       this.els.$userMenuBtn.on('click', function () {
-        M.page.html('./userInfo.html');
+        M.page.html({
+          url :'./userInfo.html',
+          action : 'NO_HISTORY',
+          });
       });
       this.els.$allViewBtn.on('click', function () {
-        M.page.html('./list.html');
+        M.page.html({
+        url : './list.html',
+        
+        });
       });
       this.els.$noticeBtn.on('click', function () {
-        M.page.html('./list.html');
+         M.page.html({
+                url : './list.html',
+                
+                });
       });
       $('#noti-list').on('click', '#notice0', function () {
         //        M.page.html({
@@ -71,7 +80,9 @@
         //          }
         //        });
         M.data.global("seqNo", seqNo[0]);
-        M.page.html('./detail.html');
+        M.page.html({
+        url : './detail.html',
+       });
       });
       $('#noti-list').on('click', '#notice1', function () {
         //        M.page.html({
@@ -82,7 +93,9 @@
         //          }
         //        });
         M.data.global("seqNo", seqNo[1]);
-        M.page.html('./detail.html');
+        M.page.html({
+                url : './detail.html',
+               });
       });
       $('#noti-list').on('click', '#notice2', function () {
         //        M.page.html({
@@ -93,7 +106,9 @@
         //          }
         //        });
         M.data.global("seqNo", seqNo[2]);
-        M.page.html('./detail.html');
+        M.page.html({
+               url : './detail.html',
+               });
       });
       $('#noti-list').on('click', '#notice3', function () {
         //        M.page.html({
@@ -104,7 +119,9 @@
         //          }
         //        });
         M.data.global("seqNo", seqNo[3]);
-        M.page.html('./detail.html');
+        M.page.html({
+                url : './detail.html',
+                });
       });
     },
   };
