@@ -136,10 +136,10 @@
             succ: function (body) {
               console.log(body);
               alert('성공');
-              M.page.replace({
-                url:'./list.html',});
               var pagelist = M.info.stack();
               M.page.remove(pagelist[1].key);
+              M.page.replace({
+                url:'./list.html',});
             },
             progress: function (body) {
               console.log(body);
@@ -192,12 +192,12 @@
         },
         succ: function (data) {
           alert('어디한번 수정에 성공해보았습니다');
+          var pagelist = M.info.stack();
+          M.page.remove(pagelist[1].key);
           M.page.replace({
             url : './list.html',
             });
           M.data.removeGlobal('seqNo');
-          var pagelist = M.info.stack();
-          M.page.remove(pagelist[1].key);
         },
         error: function (data) {
           console.log(data);
@@ -228,11 +228,12 @@
         succ: function (data) {
           console.log(data);
           alert('글쓰기가 완료되었습니다.');
+          var pagelist = M.info.stack();
+          M.page.remove(pagelist[1].key);
           M.page.replace({
             url: "./list.html",
           });
-          var pagelist = M.info.stack();
-          M.page.remove(pagelist[1].key);
+          
         },
         error: function (data) {
           console.log(data);
