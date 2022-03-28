@@ -14,7 +14,8 @@
       $chk2: null,
       $chk3: null,
       $chk4: null,
-      $nextBtn: null
+      $nextBtn: null,
+      $back : null
     },
     data: {},
     init: function init() {
@@ -23,6 +24,7 @@
       this.els.$chk3 = $('#chk3'); // input check
       this.els.$chk4 = $('#chk4'); // input check
       this.els.$nextBtn = $('#nextBtn');
+      this.els.$back = $('#back');
     },
     initView: function initView() {
       //화면에서 세팅할 동적데이터
@@ -31,6 +33,9 @@
     initEvent: function initEvent() {
       // Dom Event 바인딩
       var self = this;
+      this.els.$back.on('click',function(){
+        M.page.back();
+      })
       // 모두 확인, 동의합니다 checkbox를 클릭했을 때 동작 
       this.els.$chk1.on('click', function () {
         self.selectAll();

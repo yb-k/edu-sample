@@ -19,7 +19,8 @@
       $userNm: null,
       $cellPhone: null,
       $gender: null,
-      $birthDate: null
+      $birthDate: null, 
+      $back : null
     },
     data: {},
     init: function init() {
@@ -29,6 +30,7 @@
       this.els.$email = $('#email');
       this.els.$dupBtn = $('#dupBtn');
       this.els.$joinBtn = $('#joinBtn');
+      this.els.$back = $('#back');
       //      // 가져온 데이터
       //      this.els.$userNm = M.data.param('userNm');
       //      this.els.$cellPhone = M.data.param('cellPhone');
@@ -41,7 +43,9 @@
     },
     initEvent: function initEvent() {
       // Dom Event 바인딩
-      var self = this;
+      var self = this;this.els.$back.on('click',function(){
+        M.page.back();
+      })
       this.els.$dupBtn.on('click', function () {
         self.doubleChk();
       })

@@ -16,7 +16,8 @@
       $modiBtn: null,
       $delBtn: null,
       $loginId: null,
-      $seqNum: null
+      $seqNum: null,
+      $back: null
     },
     data: {},
     init: function init() {
@@ -26,6 +27,7 @@
       this.els.$content = $('#content');
       this.els.$modiBtn = $('#modiBtn');
       this.els.$delBtn = $('#delBtn');
+      this.els.$back = $("#back");
     },
     initView: function initView() {
       //화면에서 세팅할 동적데이터
@@ -59,9 +61,9 @@
             var imgName = data.imgUrl.toString().substring(split + 1, );
 
             M.data.global("imgName", imgName);
-            
+
             console.log(data.imgUrl);
-            console.log(data.imgName);
+            console.log(data.imgName); // undifined
             console.log(imgName);
           }
           items += "<p id='content'>";
@@ -94,6 +96,11 @@
       var content = M.data.global('content');
       var imgPath = M.data.global('imgUrl');
       var imgName = M.data.global('imgName');
+
+
+      this.els.$back.on('click', function () {
+        M.page.html('./list.html');
+      })
       
       this.els.$modiBtn.on('click', function () {
         M.page.html({
@@ -117,7 +124,7 @@
               return false;
             }
             if (index == 0) {
-              
+
               $.sendHttp({
                 path: SERVER_PATH.NOTICE_DELETE,
                 data: {

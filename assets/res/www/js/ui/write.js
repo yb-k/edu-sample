@@ -14,7 +14,8 @@
       $submitBtn: null,
       $loginId: null,
       $btnImg: null,
-      $imgName: null
+      $imgName: null,
+      $back : null
     },
     data: {
       title: '',
@@ -28,6 +29,7 @@
       this.els.$submitBtn = $('#submitBtn');
       this.els.$btnImg = $('#btn-img');
       this.els.$imgName = $('#ipt-img-name');
+      this.els.$back = $('#back');
 
     },
     initView: function initView() {
@@ -35,7 +37,7 @@
       // 게시글 수정 버튼을 눌러서 넘어왔을 경우 
       this.els.$title.val(M.data.param('title'));
       this.els.$content.val(M.data.param('content'));
-      
+
       if (M.data.param("modify") == 1) {
         var self = this;
         // title과 content를 미리 세팅 
@@ -56,14 +58,17 @@
         });
       }
       if (M.data.param("imgUrl")) {
-            self.data.imgPath = data.imgUrl;
-            self.els.$imgName.val(M.data.global('imgName'));
-            }
-      
+        self.data.imgPath = data.imgUrl;
+        self.els.$imgName.val(M.data.global('imgName'));
+      }
+
     },
     initEvent: function initEvent() {
       // Dom Event 바인딩
       var self = this;
+      this.els.$back.on('click', function(){
+        M.page.back();
+      })
       // 작성하기 버튼 클릭시 동작 (공지사항 리스트로 넘어가기)
       this.els.$submitBtn.on('click', function () {
         if (M.data.param("modify") == 1) {
@@ -221,7 +226,7 @@
         },
         error: function (e) {
           console.log(body);
-          alert("실패ㅜㅜㅜㅜ")
+          alert("게시글을 수정하지 못했습니다.")
         }
       })
 

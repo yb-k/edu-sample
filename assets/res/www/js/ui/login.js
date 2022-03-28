@@ -1,7 +1,7 @@
 /**
  * @file : 로그인 페이지
- * @author : 김용범
- * @date : 2022-03-22
+ * @author : 김예은
+ * @date : 2022-03-28
  */
 
 // 페이지 단위 모듈
@@ -22,8 +22,8 @@
       this.els.$loginIdIpt = $('#loginId'); // input 
       this.els.$passwordIpt = $('#password');
       this.els.$autoLoginChk = $('#autoLoginChk');
-      this.els.$findIdBtn = $('#findId');
-      this.els.$findPwBtn = $('#findPw');
+      this.els.$findIdBtn = $('#findIdBtn');
+      this.els.$findPwBtn = $('#findPwBtn');
       this.els.$joinBtn = $('#joinBtn');
       this.els.$loginBtn = $('#loginBtn');
     },

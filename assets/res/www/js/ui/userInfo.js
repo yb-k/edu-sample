@@ -4,7 +4,7 @@
  * @date : 22.03.24
  */
 
-(function ($, M,CONFIG, window) {
+(function ($, M, CONFIG, window) {
   var CONSTANT = CONFIG.CONSTANT;
   var SERVER_PATH = CONFIG.SERVER_PATH;
   var page = {
@@ -18,7 +18,7 @@
       $cellPhone: null,
       $saveBtn: null,
       $outBtn: null,
-
+      $back: nuull,
       $gender: null,
       $rsltCode: null,
       $rsltMsg: null
@@ -35,6 +35,7 @@
       this.els.$cellPhone = $('#cellPhone');
       this.els.$saveBtn = $('#saveBtn');
       this.els.$outBtn = $('#outBtn');
+      this.els.$back = $(".btn-back");
 
       this.els.$loginId.val(M.data.global("userId"));
 
@@ -61,6 +62,10 @@
     initEvent: function initEvent() {
       // Dom Event 바인딩
       var self = this;
+      this.els.$back.on('click', function () {
+        M.page.html("./list.html");
+      })
+
       this.els.$saveBtn.on('click', function () {
         var email = self.els.$email.val().trim();
         var cellPhone = self.els.$cellPhone.val().trim();
@@ -81,11 +86,9 @@
             alert("회원정보 변경 실패");
           }
         });
-      })
-      this.els.$changePw.on('click', function () {
+      }) this.els.$changePw.on('click', function () {
         self.changPw();
-      })
-      this.els.$outBtn.on('click', function () {
+      }) this.els.$outBtn.on('click', function () {
         self.out();
       })
     },
@@ -102,7 +105,7 @@
           M.page.html({
             path: "./findPw2.html",
             param: {
-              "loginId" : id
+              "loginId": id
             }
           });
         },
