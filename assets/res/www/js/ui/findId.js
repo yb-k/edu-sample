@@ -4,7 +4,10 @@
  * @date : 22.03.23
  */
  
-(function ($, M, MNet, config, SERVER_PATH, window){
+(function ($, M, CONFIG, window){
+  var CONSTANT = CONFIG.CONSTANT;
+  var SERVER_PATH = CONFIG.SERVER_PATH;
+
   var page = {
     els: { 
       $userNmIpt : null,
@@ -44,7 +47,7 @@
       if(phone==''){
         alert('휴대폰 번호를 입력해주세요.');
       }
-     MNet.sendHttp({
+     $.sendHttp({
       path : SERVER_PATH.FIND_ID,
       data : {
         userNm : name, 
@@ -63,7 +66,7 @@
     
   };
   window.__page__ = page;
-})(jQuery,M, __mnet__ , __config__ , __serverpath__ ,window);
+})(jQuery,M , __config__  ,window);
 
 // 해당 페이지에서 실제 호출
 (function($, M, pageFunc, window){

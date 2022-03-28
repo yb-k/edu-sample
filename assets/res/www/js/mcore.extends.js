@@ -20,7 +20,7 @@ importFiles = [
   "common/definition.js",
   "common/util.js",
   "common/setup.js",
-  "common/MAPI.js"
+  "common/jquery.plugin.js"
 ];
 
 M.ScriptLoader.writeScript( importFiles, M.ScriptLoader.scriptPath(thisFileName) );

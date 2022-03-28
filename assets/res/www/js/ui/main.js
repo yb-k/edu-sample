@@ -1,57 +1,55 @@
 /**
- * @file : 메인
+ * @file : 메인 (상세보기 추가)
  * @author : 김예은
- * @date : 22.03.24
+ * @date : 22.03.25
  */
 
-(function ($, M, MNet, config, SERVER_PATH, window) {
+(function ($, M, CONFIG, window) {
+
+  var CONSTANT = CONFIG.CONSTANT;
+  var SERVER_PATH = CONFIG.SERVER_PATH;
+  
   var seqNo = [];
   var page = {
     els: {
       $notice: null,
       $allBtn: null,
       $writeBtn: null,
-      $ellipsis1 : null,
-      $ellipsis2 : null,
-      $ellipsis3 : null,
-      $ellipsis4 : null
+      $ellipsis : null
     },
     data: {},
     init: function init() {
       this.els.$notice = $('#notice');
       this.els.$allBtn = $('#allBtn');
       this.els.$infoModifyBtn = $('#infoModifyBtn');
+      this.els.$ellipsis = $('li.ellipsis');
     },
     initView: function initView() {
       //화면에서 세팅할 동적데이터
+     
     },
     initEvent: function initEvent() {
       // Dom Event 바인딩
       var self = this;
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.NOTICE_LIST,
         data: {
           "loginId": M.data.global('userId'),
-          "lastSeqNo": "100000",
+          "lastSeqNo": "0",
           "cnt": "4",
         },
         succ: function (data) {
-          $(".ellipsis1").html(data.list[0].title);
-          $(".ellipsis2").html(data.list[1].title);
-          $(".ellipsis3").html(data.list[2].title);
-          $(".ellipsis4").html(data.list[3].title);
+          $('li.ellipsis:eq(0)').text(data.list[0].title);
+          $('li.ellipsis:eq(1)').html(data.list[1].title);
+          $('li.ellipsis:eq(2)').html(data.list[2].title);
+          $('li.ellipsis:eq(3)').html(data.list[3].title);
 
-          seqNo[0] = data.list[0].seqNo;
-          seqNo[1] = data.list[1].seqNo;
-          seqNo[2] = data.list[2].seqNo;
-          seqNo[3] = data.list[3].seqNo;
-
+          for (var i = 0 ; i < 4 ; i++){
+            seqNo[i] = data.list[i].seqNo;
+          }
         },
-        error: function (data) {
-          alert("에러");
-        }
+        error: function (data) {alert("에러");}
       });
-
       this.els.$notice.on('click', function () {
         M.page.html("./list.html");
       })
@@ -61,11 +59,22 @@
       this.els.$infoModifyBtn.on('click', function () {
         M.page.html("./userInfo.html");
       })
+      this.els.$ellipsis.on('click', function(){
+        for (var i=0; i<4; i++) {
+          // 클릭한 게시글의 index에 따라 seqNo을 global변수로 준다 (수정,삭제를 위해)
+          if ($(this).index() == i) {
+            M.data.global("seqNo", seqNo[i]);
+            M.page.html("./detail.html");
+          }
+        }
+      })
+      
     },
+    
   };
 
   window.__page__ = page;
-})(jQuery, M, __mnet__, __config__, __serverpath__, window);
+})(jQuery, M, __config__, window);
 
 // 해당 페이지에서 실제 호출
 (function ($, M, pageFunc, window) {

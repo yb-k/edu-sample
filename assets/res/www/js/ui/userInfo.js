@@ -4,7 +4,9 @@
  * @date : 22.03.24
  */
 
-(function ($, M, MNet, config, SERVER_PATH, window) {
+(function ($, M,CONFIG, window) {
+  var CONSTANT = CONFIG.CONSTANT;
+  var SERVER_PATH = CONFIG.SERVER_PATH;
   var page = {
     els: {
       $changePw: null,
@@ -40,7 +42,7 @@
     initView: function initView() {
       //화면에서 세팅할 동적데이터
       var self = this;
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.INFO,
         data: {
           loginId: M.data.global("userId")
@@ -63,7 +65,7 @@
         var email = self.els.$email.val().trim();
         var cellPhone = self.els.$cellPhone.val().trim();
         var password = self.els.$password.val().trim();
-        MNet.sendHttp({
+        $.sendHttp({
           path: SERVER_PATH.UPDATE,
           data: {
             loginId: M.data.global("userId"),
@@ -90,7 +92,7 @@
     changPw: function () {
       var id = this.els.$loginId.val().trim();
       var pw = this.els.$password.val().trim();
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.CHECK_PASSWORD,
         data: {
           password: pw,
@@ -112,7 +114,7 @@
     out: function () {
       var id = this.els.$loginId.val().trim();
       var pw = this.els.$password.val().trim();
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.CHECK_PASSWORD,
         data: {
           password: pw,
@@ -128,7 +130,7 @@
                 return false;
               }
               if (index == 0) {
-                MNet.sendHttp({
+                $.sendHttp({
                   path: SERVER_PATH.OUT,
                   data: {
                     loginId: id
@@ -155,7 +157,7 @@
   };
 
   window.__page__ = page;
-})(jQuery, M, __mnet__, __config__, __serverpath__, window);
+})(jQuery, M, __config__, window);
 
 // 해당 페이지에서 실제 호출
 (function ($, M, pageFunc, window) {

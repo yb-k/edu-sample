@@ -4,50 +4,57 @@
  * @date : 22.03.24
  */
 
-(function ($, M, MNet, config, SERVER_PATH, window) {
-   
+(function ($, M, CONFIG, window) {
+  var CONSTANT = CONFIG.CONSTANT;
+  var SERVER_PATH = CONFIG.SERVER_PATH;
   var page = {
-    els: { 
-      $writeBtn : null,
-      $back : null,
-      $moreBtn : null,
-      $detail : null,
-      $btnTop : null,
+    els: {
+      $writeBtn: null,
+      $back: null,
+      $moreBtn: null,
+      $detail: null,
+      $btnTop: null,
     },
-    data: {},
+    data: {
+      requset: {
+        loginId: M.data.global('userId'),
+        lastSeqNo: '0',
+        cnt: '6'
+      },
+    },
     init: function init() {
       this.els.$writeBtn = $('#writeBtn');
       this.els.$moreBtn = $('#moreBtn');
       this.els.$back = $('#back');
       this.els.$detail = $('.metro-wrap');
-      this.els.$btnTop = $('.btnTop');
+      this.els.$btnTop = $('.btn-top');
 
     },
     initView: function initView() {
       // 화면에서 세팅할 동적데이터
+      this.drawNoticeList()
+    },
+    drawNoticeList: function () {
       // 공지 리스트 보여주기 
       var self = this;
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.NOTICE_LIST,
-        data: {
-          "loginId": M.data.global('userId'),
-          "lastSeqNo" : "0",
-          "cnt" : "4",
-        },
+        data: self.data.requset,
         succ: function (data) {
           var items = "";
+          self.data.requset.lastSeqNo = data.lastSeqNo;
           $.each(data.list, function (index, item) {
-            items += "<li>";
+            items += "<li data-seq='" + item.seqNo + "'>";
             items += "<div class='thumbnail-wrap'>";
             items += "<div class='thumbnail'>";
-//            items += "<img src=";
-//            items += item.imgUrl;
-//            items += "alt=''/>";
+            if (item.imgUrl) {
+              items += "<img src='";
+              items += item.imgUrl;
+              items += "' alt=''/>";
+            }
             items += "</div>";
             items += "<span class='label-info none'>";
-//            items += "<img src=" ;
-//            items += item.imgUrl;
-//            items += "alt='50%'/>";
+   
             items += "</span>";
             items += "</div>";
             items += "<div class='info-box'>";
@@ -63,15 +70,13 @@
             items += "</div>";
             items += "</li>";
           });
-          $(".metro-wrap").html(items);     
-          
+          $(".metro-wrap").append(items);
         },
         error: function (data) {
+          $(".btn-wrap").css("display", "none");
           alert("에러");
         }
       });
-
-
     },
     initEvent: function initEvent() {
       // Dom Event 바인딩
@@ -82,24 +87,34 @@
       this.els.$back.on('click', function () {
         M.page.html("./main.html");
       })
-      this.els.$btnTop.on('click', function(){
-       $('.cont-wrap').scrollTop(0);
+      this.els.$btnTop.on('click', function () {
+        $('.cont-wrap').scrollTop(0);
       })
-      this.els.$detail.on('click', function(){
-        MNet.sendHttp({
-          path : SERVER_PATH.NOTICE_DETAIL,
-          data : {
-            loginId : M.data.global("userId"),
-            seqNo  : seqNo
+      this.els.$moreBtn.on('click', function () {
+        self.drawNoticeList()
+      })
+
+      $('.metro-wrap').on('click', 'li', function () {
+        console.log(this)
+        var seqNo = $(this).attr('data-seq');
+        console.log(seqNo);
+        M.data.global("seqNo", seqNo)
+        $.sendHttp({
+          path: SERVER_PATH.NOTICE_DETAIL,
+          data: {
+            loginId: M.data.global("userId"),
+            seqNo: M.data.global("seqNo")
+          },
+          succ: function (data) {
+            M.page.html('./detail.html');
           }
         });
-        M.page.html("./detail.html");
       })
     },
   };
 
   window.__page__ = page;
-})(jQuery, M, __mnet__, __config__, __serverpath__, window);
+})(jQuery, M, __config__ , window);
 
 // 해당 페이지에서 실제 호출
 (function ($, M, pageFunc, window) {

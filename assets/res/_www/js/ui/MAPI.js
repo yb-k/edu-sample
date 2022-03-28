@@ -40,6 +40,7 @@
         callback(code, msg, setting);
 
       };
+
       var _options = {
         server: config.SERVER_NAME,
         path: options.path || '', // path 없으면 공백값을 받

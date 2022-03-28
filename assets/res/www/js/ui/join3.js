@@ -4,7 +4,9 @@
  * @date : 22.03.24
  */
 
-(function ($, M, MNet, config, SERVER_PATH, window) {
+(function ($, M, CONFIG,window) {
+  var CONSTANT = CONFIG.CONSTANT;
+  var SERVER_PATH = CONFIG.SERVER_PATH;
   var checkId;
   var page = {
     els: {
@@ -61,7 +63,7 @@
       if (loginId.length < 5) {
         return alert("아이디는 5자리 이상이어야 합니다.");
       }
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.DUPLICATE,
         data: {
           loginId: loginId
@@ -113,7 +115,7 @@
       }
       // 비밀번호 정규화규칙 확인 
       if (self.checkPw()) {
-        MNet.sendHttp({
+        $.sendHttp({
           path: SERVER_PATH.JOIN,
           data: {
             userNm: M.data.param('userNm'),
@@ -148,7 +150,7 @@
   };
 
   window.__page__ = page;
-})(jQuery, M, __mnet__, __config__, __serverpath__, window);
+})(jQuery, M, __config__, window);
 
 // 해당 페이지에서 실제 호출
 (function ($, M, pageFunc, window) {
