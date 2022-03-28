@@ -13,7 +13,12 @@
       $image: null,
       $submit: null
     },
-    data: {},
+    data: {
+      title : '',
+      content : '',
+      imgUrl : '',
+      
+    },
     init: function init() {
       this.els.$subject = $('#subject');
       this.els.$content = $('#content');
@@ -36,21 +41,31 @@
           return alert('내용을 입력하세요');
         }
         MNet.sendHttp({
-          path : SERVER_PATH.NOTICE_WRITE,
-          data : {
-            loginId : M.data.global('LOGIN_INFO').id,
-            title : subject,
-            content : content
+          path: SERVER_PATH.NOTICE_WRITE,
+          data: {
+            loginId: M.data.global('LOGIN_INFO').id,
+            title: subject,
+            content: content
           },
-          succ :function (data) {
+          succ: function (data) {
             console.log(data);
           },
-          error : function (){
+          error: function () {
             console.log('erorr');
           }
         })
       })
     },
+    writeWithUpload: function writeWithUpload(title, content, imgPath) {
+      var _body = [{name: "file", content: imgPath, type: "FILE"}
+        , {name: "content", content: content, type: "TEXT"},
+        {name: "title", content: content, type: "TEXT"}];
+      $.fileHttpSend({
+        path : SERVER_PATH.NOTICE_WRITE_IMG,
+        body : _body,
+        
+      })
+    }
   };
   window.__page__ = page;
 })(jQuery, __util__, M, __serverpath__, __mnet__, window);

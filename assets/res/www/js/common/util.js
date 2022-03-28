@@ -279,5 +279,25 @@
       });
     }
   }
+  /**
+   * [id]배열에 이벤트를 등록
+   * @param {Array} id
+   * @param {string} event
+   * @param {string} destination
+   * @param {string} userid
+   * */
+  var setEventWithParam = module.setEventWithParam = function(id, event, destination,userid) {
+    for (var i = 0; i < id.length; i++) {
+      var temp = id[i];
+      $(temp).on(event, function () {
+        M.page.html(destination, {
+          param: {
+            seqNo: $(temp).attr('id'),
+            loginId: userid
+          }
+        });
+      });
+    }
+  }
   window.__util__ = module;
 })();

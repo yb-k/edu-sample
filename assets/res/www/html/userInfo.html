@@ -1,115 +1,115 @@
 <!doctype html>
 <html lang="ko">
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-	<title>Hello! Mobile!</title>
-	<link rel="stylesheet" href="../css/morpheus-style.css" />
-	<link rel="stylesheet" href="../css/swiper.min.css" />
-	<link rel="stylesheet" href="../css/muikit.css" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+  <title>Hello! Mobile!</title>
+  <link rel="stylesheet" href="../css/morpheus-style.css"/>
+  <link rel="stylesheet" href="../css/swiper.min.css"/>
+  <link rel="stylesheet" href="../css/muikit.css"/>
 </head>
 
 <body>
-	<div class="wrapper">
-		<header class="header line">
-			<!-- 헤더 입력 영역 (헤더 디자인에 따라 바꿔치기 가능) -->
-			<!-- 하단에 라인이 있는경우 class="line"추가 -->
-			<h1>
-				회원정보 수정
-			</h1>
-			<button type="button" class="btn-back l-fix">
-				뒤로가기
-			</button>
-		</header>
-		<div class="container">
-			<!-- 헤더 입력 영역 (헤더 디자인에 따라 바꿔치기 가능) -->
-			<div class="cont-wrap">
-				<!-- 태블릿에서 볼때 왼쪽에 정렬될 내용 -->
-				<div>
-					<table class="tbl-ipt">
-						<colgroup>
-							<col style="width:30%"/>
-							<col style="width:70%"/>
-						</colgroup>
-						<thead>
-							<tr>
-								<th class="bul">
-									내 정보
-								</th>
-								<td id="changePw">
-									비밀번호 변경
-								</td>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<th>
-									이름
-								</th>
-								<td>
-									<input type="text" disabled id="userNm" class="full"/>
-								</td>
-							</tr>
-							<tr>
-								<th>
-									아이디
-								</th>
-								<td>
-									<input type="text" disabled id="loginId" class="full"/>
-								</td>
-							</tr>
-							<tr>
-								<th class="required">
-									비밀번호
-									<img src="../img/ico-required.png" alt="필수"/>
-								</th>
-								<td>
-									<input type="password" placeholder="패스워드 입력" id="password" class="full"/>
-								</td>
-							</tr>
-							<tr>
-								<th>
-									생년월일
-								</th>
-								<td>
-									<input type="text" disabled id="birthDate" placeholder="생년월일 입력" class="full"/>
-								</td>
-							</tr>
-							<tr>
-								<th class="required">
-									메일
-									<img src="../img/ico-required.png" alt="필수"/>
-								</th>
-								<td>
-									<input type="text" id="email" placeholder="이메일 입력" class="full"/>
-								</td>
-							</tr>
-							<tr>
-								<th class="required">
-									휴대폰 번호
-									<img src="../img/ico-required.png" alt="필수"/>
-								</th>
-								<td>
-									<input type="text" id="cellPhone" placeholder="휴대폰번호 입력" class="full"/>
-								</td>
-							</tr>
-							
-						</tbody>
-					</table>
-				</div>
-			</div>
-			<div class="btn-wrap count2 pd">
-				<button type="button" disabled id="saveBtn" class="btn-point-color">
-					수정
-				</button>
-				<button type="button" id="outBtn" class="btn-line">
-					탈퇴
-				</button>
-			</div>
-		</div>
-	</div>
+<div class="wrapper">
+  <header class="header line">
+    <!-- 헤더 입력 영역 (헤더 디자인에 따라 바꿔치기 가능) -->
+    <!-- 하단에 라인이 있는경우 class="line"추가 -->
+    <h1>
+      회원정보 수정
+    </h1>
+    <button type="button" class="btn-back l-fix">
+      뒤로가기
+    </button>
+  </header>
+  <div class="container">
+    <!-- 헤더 입력 영역 (헤더 디자인에 따라 바꿔치기 가능) -->
+    <div class="cont-wrap">
+      <!-- 태블릿에서 볼때 왼쪽에 정렬될 내용 -->
+      <div>
+        <table class="tbl-ipt">
+          <colgroup>
+            <col style="width:30%"/>
+            <col style="width:70%"/>
+          </colgroup>
+          <thead>
+          <tr>
+            <th class="bul">
+              내 정보
+            </th>
+            <td id="changePw">
+              비밀번호 변경
+            </td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th>
+              이름
+            </th>
+            <td>
+              <input type="text" disabled id="userNm" class="full"/>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              아이디
+            </th>
+            <td>
+              <input type="text" disabled id="loginId" class="full"/>
+            </td>
+          </tr>
+          <tr>
+            <th class="required">
+              비밀번호
+              <img src="../img/ico-required.png" alt="필수"/>
+            </th>
+            <td>
+              <input type="password" placeholder="패스워드 입력" id="password" class="full"/>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              생년월일
+            </th>
+            <td>
+              <input type="text" disabled id="birthDate" placeholder="생년월일 입력" class="full"/>
+            </td>
+          </tr>
+          <tr>
+            <th class="required">
+              메일
+              <img src="../img/ico-required.png" alt="필수"/>
+            </th>
+            <td>
+              <input type="text" id="email" placeholder="이메일 입력" class="full"/>
+            </td>
+          </tr>
+          <tr>
+            <th class="required">
+              휴대폰 번호
+              <img src="../img/ico-required.png" alt="필수"/>
+            </th>
+            <td>
+              <input type="text" id="cellPhone" placeholder="휴대폰번호 입력" class="full"/>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="btn-wrap count2 pd">
+      <button type="button" disabled id="saveBtn" class="btn-point-color">
+        수정
+      </button>
+      <button type="button" id="outBtn" class="btn-line">
+        탈퇴
+      </button>
+    </div>
+  </div>
+</div>
 </body>
 
 <script type="text/javascript" src="../js/mcore.min.js"></script>
-<script type="text/javascript" src="../js/ui/userInfo.js"></script>	
+<script type="text/javascript" src="../js/ui/userInfo.js"></script>
 </html>
