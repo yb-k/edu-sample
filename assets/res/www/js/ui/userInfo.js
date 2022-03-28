@@ -18,7 +18,7 @@
       $cellPhone: null,
       $saveBtn: null,
       $outBtn: null,
-      $back: nuull,
+      $back: null,
       $gender: null,
       $rsltCode: null,
       $rsltMsg: null
@@ -86,9 +86,11 @@
             alert("회원정보 변경 실패");
           }
         });
-      }) this.els.$changePw.on('click', function () {
+      })
+      this.els.$changePw.on('click', function () {
         self.changPw();
-      }) this.els.$outBtn.on('click', function () {
+      })
+      this.els.$outBtn.on('click', function () {
         self.out();
       })
     },
