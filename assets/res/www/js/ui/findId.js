@@ -60,7 +60,6 @@
         },
         succ: function (data) {
           //if(data.rsltCode == '0000') {
-          
             return alert('아이디 : ' + data.loginId);
           //}
         },
