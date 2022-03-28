@@ -5,9 +5,9 @@
  */
 // 페이지단위 모듈
 (function ($, M, MNet, SERVER_PATH, window) {
-  
+
   var id;
-  var seqNum='0';
+  var seqNum = '0';
   var page = {
     els: {
       $btnTop: null,
@@ -24,7 +24,7 @@
       this.els.$dataMore = $('.btn-point-color');
       this.els.$btnModify = $('.btn-modify');
       this.els.$btnTop = $("button[class='btn-top']");
-      
+
 
     },
 
@@ -76,7 +76,7 @@
             seqNum = item.seqNo;
           });
           $(".metro-wrap").append(items);
-          
+
         },
         error: function (data) {
           $(".btn-point-color").css("display", "none");
@@ -84,7 +84,7 @@
         }
       });
 
-     
+
     },
     initEvent: function initEvent() {
       // initEvent 바인딩
@@ -95,15 +95,34 @@
       self.els.$btnTop.on('click', function () {
         $('.cont-wrap').scrollTop(0);
       });
-      self.els.$dataMore.on('click', function (){
+      self.els.$dataMore.on('click', function () {
         self.initView();
       });
-      this.els.$btnModify.on('click', function (){
+      self.els.$btnModify.on('click', function () {
         M.page.html('write.html');
       });
+      $('.pd').on('click', 'li', function () {
+        seqNum = $(this).attr("data");
+
+        MNet.sendHttp({
+          path: SERVER_PATH.NOTICE_DETAIL,
+          data: {
+            loginId: id,
+            seqNo: seqNum
+          },
+          succ: function (data) {
+            M.page.html("./detail.html", {
+              'param':{
+                'seqNum':seqNum
+              }
+            });
+          },
+        });
+      });
+
     },
 
- 
+
 
   };
   window.__page__ = page;
