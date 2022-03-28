@@ -15,10 +15,10 @@
     },
     data: {},
     init : function init() {
-      this.els.$loginIdIpt = $('#login-id');
-      this.els.$userNmIpt = $('#user-nm');
-      this.els.$cellPhoneIpt = $('#cell-phone');
-      this.els.$findPwBtn = $('#find-pw-btn');
+      this.els.$loginIdIpt = $('#loginId');
+      this.els.$userNmIpt = $('#userNm');
+      this.els.$cellPhoneIpt = $('#cellPhone');
+      this.els.$findPwBtn = $('#findPwBtn');
     },
     initView : function initView() {
       // 화면에서 세팅할 동적데이터
@@ -37,7 +37,8 @@
       var id = this.els.$loginIdIpt.val().trim();
       var name = this.els.$userNmIpt.val().trim();
       var phone = this.els.$cellPhoneIpt.val().trim();
-  
+      var regPhone = /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/;
+      
       if(id == '') {
         return alert('아이디를 입력해주세요');
       }
@@ -47,9 +48,12 @@
       if(phone == '') {
         return alert('핸드폰 번호를 입력해주세요');
       }
+      if(!regPhone.test(phone)) {
+         return alert('휴대폰 번호는 숫자로만 정확히 입력해주세요.');
+      }
       
       MNet.sendHttp({
-        path: SERVER_PATH.FIND,
+        path: SERVER_PATH.FIND_PW,
         data: {
           loginId : id,
           userNm : name,
