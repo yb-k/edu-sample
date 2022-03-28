@@ -1,6 +1,6 @@
 /**
  * @file : join1.js
- * @author : 강샛별
+ * @author : 
  * @date : 22-03-24
  */
  
@@ -8,7 +8,6 @@
 (function ($, M, MNet, SERVER_PATH, window){
   var page = {
       els: {
-        $backBtn : null,
         $chk1 : null,
         $chk2 : null,
         $chk3 : null,
@@ -17,12 +16,11 @@
       },
       data: {},
       init : function init() {
-        this.els.$backBtn = $('#back-btn');
         this.els.$chk1 = $('#chk1');
         this.els.$chk2 = $('#chk2');
         this.els.$chk3 = $('#chk3');
         this.els.$chk4 = $('#chk4');
-        this.els.$nextBtn = $('#next-btn');
+        this.els.$nextBtn = $('#nextBtn');
       },
       initView : function initView() {
         // 화면에서 세팅할 동적데이터
@@ -30,16 +28,12 @@
       initEvent : function initEvent() {
         // Dom Event 바인딩
         var self = this;
-        this.els.$backBtn.on('click', function(){
-          M.page.html("./login.html");
-        });
         this.els.$chk1.on('click', function(){
            self.chk1();
-        });
+        });      
         this.els.$nextBtn.on('click', function(){
            self.nextBtn();
         });
-         
       },
      
       chk1 : function(){
@@ -48,8 +42,8 @@
         }else {
            return $("input:checkbox[class='chk']").prop("checked", false);
         }
-      },
-      
+      },   
+    
       nextBtn : function() {
         if(this.els.$chk2.prop('checked') && this.els.$chk3.prop('checked')) {
           return M.page.html("./join2.html");
@@ -71,4 +65,5 @@
       pageFunc.initView();
       pageFunc.initEvent();
   });
+  
 })(jQuery, M, __page__, window);
