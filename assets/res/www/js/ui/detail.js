@@ -14,7 +14,8 @@
         $content : null,
         $btnWrap : null,
         $modiBtn : null,
-        $delBtn : null
+        $delBtn : null,
+        $backBtn : null
       },
       data: {},
       init : function init() {
@@ -26,6 +27,7 @@
         this.els.$btnWrap = $('.btn-wrap');
         this.els.$modiBtn = $('#modi-btn');
         this.els.$delBtn = $('#del-btn');
+        this.els.$backBtn = $('.btn-back');
       },
       
       initView : function initView() {
@@ -36,9 +38,18 @@
             loginId : M.data.global('loginId'),
             seqNo : M.data.global('seqNo')
           },
-//         
           succ: function (data) {
+          console.log('data ' + data);
              alert(' detail 성공했습니다.');
+             
+             $('#title').text(data.title);
+             $('#regDate').html(data.regDate);
+             $('#content').html(data.content);
+             console.log(data.imgUrl);
+             if (data.imgUrl != null) {
+               $('#imgUrl').attr('src', data.imgUrl);
+   
+             }
              if(data.isMyNoticeYn == 'Y') {
 //                  document.querySelector('.btn-wrap').innerHTML=" count2 btm-fix";
 //                show(document.querySelector('.btn-wrap'));
@@ -50,11 +61,13 @@
             alert(' detail 실패했습니다.');
           }
         });
-        
       }, 
       initEvent : function initEvent() {
         // Dom Event 바인딩
         var self = this;
+        this.els.$backBtn.on('click', function(){
+           M.page.html('./main.html');
+        });
         this.els.$modiBtn.on('click', function(){
            M.page.html('./write.html');
         });

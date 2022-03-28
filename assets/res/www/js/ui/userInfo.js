@@ -16,7 +16,8 @@
         $emailIpt : null,
         $cellPhoneIpt : null,
         $saveBtn : null,
-        $outBtn : null
+        $outBtn : null,
+        $backBtn : null
       },
       data: {},
       init : function init() {
@@ -29,6 +30,7 @@
         this.els.$cellPhoneIpt = $('#cell-phone');
         this.els.$saveBtn = $('#save-btn');
         this.els.$outBtn = $('#out-btn');
+        this.els.$backBtn = $('.btn-back');
       },
       initView : function initView() {
         // 화면에서 세팅할 동적데이터
@@ -59,6 +61,9 @@
         // Dom Event 바인딩
         
         var self = this;
+        this.els.$backBtn.on('click', function(){
+            M.page.html('./main.html');
+        });
         this.els.$passwordIpt.on('input', function() {
           if($('#password').val() == '') {
             $('#change-pw').prop('disabled', true);
