@@ -82,6 +82,7 @@
         M.data.global("seqNo", seqNo[0]);
         M.page.html({
           url: './detail.html',
+          action: 'NO_HISTORY'
         });
       });
       $('#noti-list').on('click', '#notice1', function () {
@@ -95,6 +96,7 @@
         M.data.global("seqNo", seqNo[1]);
         M.page.html({
           url: './detail.html',
+          action: 'NO_HISTORY'
         });
       });
       $('#noti-list').on('click', '#notice2', function () {
@@ -108,6 +110,7 @@
         M.data.global("seqNo", seqNo[2]);
         M.page.html({
           url: './detail.html',
+          action: 'NO_HISTORY'
         });
       });
       $('#noti-list').on('click', '#notice3', function () {
@@ -121,6 +124,7 @@
         M.data.global("seqNo", seqNo[3]);
         M.page.html({
           url: './detail.html',
+          action: 'NO_HISTORY'
         });
       });
     },
