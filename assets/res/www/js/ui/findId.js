@@ -64,7 +64,7 @@
           //}
         },
         error : function(data) {
-          return alert('아이디를 확인할 수 없습니다.');
+         // return alert('아이디를 확인할 수 없습니다.');
         }
       });
       
