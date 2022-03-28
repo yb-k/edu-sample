@@ -53,7 +53,7 @@
           alert('정보를 가져오지 못했습니다.');
         }
       });
-      $(self.els.$saveBtn).attr("disabled", false);
+      $('#saveBtn').attr("disabled", true);
     },
     initEvent : function initEvent(){
       var self = this;
