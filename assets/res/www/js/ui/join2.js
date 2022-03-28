@@ -1,94 +1,106 @@
 /**
- * @file : join2.js
- * @author : 
- * @date : 22-03-24
+ * @file : intro.js 인트로 페이지
+ * @author :
+ * @date : 
  */
- 
-// 페이지 단위 모듈
-(function ($, M, MNet, SERVER_PATH, window){
+
+(function ($, M, module, MNet, window){
+
   var page = {
-      els: {
-        $userNmIpt : null,
-        $man : null,
-        $woman : null,
-        $year : null,
-        $month : null,
-        $date : null,
-        $cellPhone : null,
-        $nextBtn : null
-      },
-      data: {},
-      init : function init() {
-        this.els.$userNmIpt = $('#user-nm');
-        this.els.$man = $('#man');
-        this.els.$woman = $('#woman');
-        this.els.$year = $('#year');
-        this.els.$month = $('#month');
-        this.els.$date = $('#date');
-        this.els.$cellPhone = $('#cell-phone');
-        this.els.$nextBtn = $('#next-btn');
-      },
-      initView : function initView() {
-        // 화면에서 세팅할 동적데이터
-      }, 
-      initEvent : function initEvent() {
-        // Dom Event 바인딩
-        var self = this;
-        this.els.$backBtn.on('click', function(){
-          M.page.html("./login.html");
-        });
-        this.els.$nextBtn.on('click', function(){
-           self.nextBtn();
-        });
-      },
-      nextBtn : function() {
-        var name = this.els.$userNmIpt.val().trim();
-        var gender = $("input:radio[name='gender']:checked").val();
-//        var man = this.els.$man.val().trim();
-//        var woman = this.els.$woman.val().trim();
-        var year = this.els.$year.val().trim();
-        var month = this.els.$month.val().trim();
-        var date = this.els.$date.val().trim();
-        var cellPhone = this.els.$cellPhone.val().trim();
-        
-        if(name == '') {
-          return alert("이름을 입력해주세요");
-        }
-        if(gender == '') { 
-          return alert("성별을 입력해주세요");
-        }
-        if(year == '' || month == '' || date == '') {
-          return alert("생년원일을 입력해주세요");
-        }
-        if(cellPhone == '') {
-          return alert("연락처를 입력해주세요");
-        }
-         
-        M.page.html({
-          path : "join3.html", 
-          param : {
-            "userNm" : name, 
-            "gender" : gender,
-            "year" : year,
-            "month" : month,
-            "date" : date,
-            "cellPhone" : cellPhone
-          }
-        });
-        
+    els:  {
+      $userNmIpt : null,
+      $year: null,
+      $month: null,
+      $date: null,
+      $cellPhoneIpt : null,
+      $nextBtn : null,
+    },
+    data: {},
+    init: function init(){
+      this.els.$userNmIpt = $('#userNm');
+      this.els.$year = $('#year');
+      this.els.$month = $('#month');
+      this.els.$date = $('#date');
+      this.els.$cellPhoneIpt = $('#cellPhone');
+      this.els.$nextBtn = $('#nextBtn');
+    },
+    /*
+      진행도를 표시한다.
+      @param {function} succCallback 완료 후 호출될 함수
+    */
+    initView : function initView(){
+    },
+    initEvent : function initEvent(){
+      var self = this;
+      module.onKeyupNum(self.els.$cellPhoneIpt);
+      this.els.$nextBtn.on('click', function(){
+        self.inputOk();
+      });      
+    },
+    inputOk : function(){
+      var nm = this.els.$userNmIpt.val().trim();
+      var gender = $("input:radio[name='gender']:checked").val();
+      var year = this.els.$year.val().trim();
+      var month = this.els.$month.val().trim();
+      var date = this.els.$date.val().trim();
+      var cp = this.els.$cellPhoneIpt.val().trim();
+      var birthDate	= year + module.digitNum(month) + date;
+      var regcp = /^01(?:0|1|[6-9])([0-9]{3,4})([0-9]{4})$/;
+      
+      if(module.isEmpty(nm)){
+        return alert('이름을 입력해주세요.');
       }
+      if(module.isEmpty(gender)){
+        return alert('성별을 선택해주세요.');
+      }
+      if(module.isEmpty(year)){
+        return alert('생년을 입력해주세요.');
+      }
+      if(year < 1700 || year > 2022){
+        return alert('생년을 정확히 입력해주세요.');        
+      }
+      if(module.isEmpty(month)){
+        return alert('생월을 입력해주세요.');
+      }
+      if(month > 12 || month == 0){
+        return alert('생월을 정확히 입력해주세요.');        
+      }      
+      if(module.isEmpty(date)){
+        return alert('생일을 입력해주세요.');
+      }
+      if(date > 31 || date == 0){
+        return alert('생일을 정확히 입력해주세요.');        
+      }
+      if(module.timeCheck(birthDate, 12)){
+        return alert('생년월일을 정확히 입력해주세요.');
+      }
+      if(module.isEmpty(cp)){
+        return alert('휴대폰 번호를 입력해주세요.');
+      }
+      if(!regcp.test(cp)){
+        return alert('휴대폰 번호를 정확히 입력해주세요.');
+      }
+      M.page.html('./join3.html', {
+        param : {
+          userNm : nm,
+          gender : gender,
+          birthDate :	birthDate,
+          cellPhone	: cp,
+        }
+      });
+    }
     
-  }; // 가입하기 버튼 이벤트어디
-  
+  };
   window.__page__ = page;
-})(jQuery, M, __mnet__, __serverpath__, window);
+})(jQuery, M, __util__, __mnet__, window);
 
 // 해당 페이지에서 실제 호출
-(function($, M, pageFunc, window) {
-  
-  M.onReady(function() {
-      pageFunc.init(); // 최초 화면 초기화
-      pageFunc.initView();
-      pageFunc.initEvent();
+(function($,M,pageFunc,window){
+
+  M.onReady(function(){
+    pageFunc.init(); // 최초 화면 초기화
+    pageFunc.initView();
+    pageFunc.initEvent();
   });
-})(jQuery, M, __page__, window);
+  
+})(jQuery,M,__page__,window);
