@@ -30,8 +30,11 @@
       @param {function} succCallback 완료 후 호출될 함수
     */
     initView : function initView(){
+      console.log(M.data.global('id'));
+      console.log(M.data.storage('AUTO_LOGIN_AUTH'));
     },
     initEvent : function initEvent(){
+
       var self = this;
       this.els.$loginBtn.on('click', function(){
         self.login();
@@ -52,7 +55,7 @@
       M.data.storage('AUTO_LOGIN_AUTH', {id: id, pw: pw});
     },
     unsetAutoLogin: function(){
-      M.data.remobeStorage('AUTO_LOGIN_AUTH');
+      M.data.removeStorage('AUTO_LOGIN_AUTH');
     },
     login : function(){
       var self = this;
@@ -74,7 +77,7 @@
           if(data.rsltCode == '0000'){
             M.data.global({'id' : id });
             if(isAutoLogin) self.setAutoLogin(id, pw);
-            M.page.html('./main.html');          
+            M.page.replace('./main.html');          
           }else{
             return alert('아이디와 비밀번호가 일치하지 않습니다.');
           }

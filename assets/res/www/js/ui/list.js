@@ -4,7 +4,7 @@
  * @date : 
  */
 
-(function ($, M,MNet, config, SERVER_PATH, window){
+(function ($, M,MNet, module, config, SERVER_PATH, window){
 
   var page = {
     els:  {
@@ -29,6 +29,9 @@
     initView : function initView(){
       // 화면에서 세팅할 동적데이터
       var self = this;
+      if(module.isEmpty(M.data.global('id'))){
+        M.page.html('./login.html');
+      }
       MNet.sendHttp({
         path: SERVER_PATH.NOTICE_LIST,
         data: {
@@ -80,6 +83,9 @@
       var self = this;
       var id = M.data.global('id');
       M.data.param({'cnt' : '0'});
+      $('.l-fix').on('click', function(){
+        M.page.back();
+      });
       this.els.$btnModify.on('click', function(){
         M.page.html('./write.html');
       });
@@ -160,7 +166,7 @@
     }
   };
   window.__page__ = page;
-})(jQuery, M,__mnet__, __config__, __serverPath__,  window);
+})(jQuery, M,__mnet__, __util__, __config__, __serverPath__,  window);
 /*
 $.each(data.lists, function(index, item){
   items += "<tr>";

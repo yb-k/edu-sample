@@ -29,6 +29,9 @@
       var id = M.data.global('id');
       var sn = M.data.param('seqNo');
       console.log(sn);
+      if(module.isEmpty(M.data.global('id'))){
+        M.page.html('./login.html');
+      }
       $('.btn-wrap').hide();
       MNet.sendHttp({
         path: SERVER_PATH.NOTICE_DETAIL,
@@ -55,8 +58,11 @@
       var self = this;
       var id = M.data.global('id');
       var sn = M.data.param('seqNo');
+      $('.l-fix').on('click', function(){
+        M.page.back();
+      });
       this.els.$modiBtn.on('click', function(){
-        M.page.html('./write.html',{param : { seqNo : sn}});
+        M.page.replace('./write.html',{param : { seqNo : sn}});
       });
       this.els.$delBtn.on('click', function(){
         if (confirm("정말 삭제하시겠습니까?") == true){
@@ -69,7 +75,11 @@
             succ: function (data) {
               if (data.rsltCode == '0000') {
                 alert("완료되었습니다.");
-                M.page.html('./list.html');
+                var pagelist = M.info.stack();
+                M.page.remove(pagelist[1].key);
+                M.page.replace({
+                  url: "./list.html",
+                });
               } else {
                 console.log(data);
                 alert('삭제에 실패하셨습니다.');

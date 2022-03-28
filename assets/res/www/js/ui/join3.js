@@ -44,6 +44,9 @@
       @param {function} succCallback 완료 후 호출될 함수
     */
     initView : function initView(){
+      $('.l-fix').on('click', function(){
+        M.page.back();
+      });
     },
     initEvent : function initEvent(){
       var self = this;
@@ -72,6 +75,8 @@
             self.els.$dupBtnOk = false;
           }else{
             alert('사용 가능한 아이디입니다.');
+            M.data.param({'idT' : id});
+            console.log(M.data.param('idT'));
             self.els.$dupBtnOk = true;
           }
         }
@@ -104,6 +109,9 @@
       if(regEmail.test(email) === false){
         return alert('입력된 값은 이메일형식이 아닙니다.');
       }
+      if(M.data.param('idT') != id){
+        self.els.$dupBtnOk = false;
+      }
       if(self.els.$dupBtnOk === false){
         return alert('아이디 중복체크를 해주세요.');
       }
@@ -120,7 +128,10 @@
             email: email
           },
           succ : function(data){
-            M.page.html('./join4.html');
+            M.page.html({
+              url: "./join4.html",
+              actionType: 'CLEAR_TOP'
+            });
           }
         });
       }   

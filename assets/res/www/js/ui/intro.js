@@ -4,7 +4,7 @@
  * @date : 
  */
 
-(function ($, M,SERVER_PATH, MNet, window){
+(function ($, M, module,SERVER_PATH, MNet, window){
 
   var page = {
     els:  {
@@ -54,14 +54,17 @@
               password : existLoginData.pw
             },
             succ: function(data){
-              M.page.html('./main.html');
+              if(module.isEmpty(M.data.global('id'))){
+                self.moveLoginPage();
+              }else{
+                M.page.replace('./main.html');
+              }
             },
             error : function() {
               self.moveLoginPage();
             }
           });
-        });
-        
+        });      
       }else {
         this.startProgress(this.moveLoginPage); // 함수 호출이 아닌 그대로 넘김.
       }
@@ -72,7 +75,7 @@
     }
   };
   window.__page__ = page;
-})(jQuery, M,__serverPath__,__mnet__, window);
+})(jQuery, M, __util__,__serverPath__,__mnet__, window);
 
 // 해당 페이지에서 실제 호출
 (function($,M,pageFunc,window){

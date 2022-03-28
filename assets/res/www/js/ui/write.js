@@ -35,6 +35,9 @@
       var id = M.data.global('id');
       var sn = M.data.param('seqNo');
       console.log(sn);
+      if(module.isEmpty(M.data.global('id'))){
+        M.page.html('./login.html');
+      }
       if(!module.isEmpty(sn)){
         MNet.sendHttp({
           path: SERVER_PATH.NOTICE_DETAIL,
@@ -45,7 +48,11 @@
           succ: function (data) {
             self.els.$iptTitle.val(data.title);
             self.els.$iptContent.val(data.content);
-            self.els.$iptImg.val(data.imgUrl);
+            if(!module.isEmpty(data.imgUrl)){
+              self.els.$iptImg.val(data.imgUrl.substring(data.imgUrl.lastIndexOf("/")+1));
+            }
+            console.log(data.imgUrl)
+            console.log(self.els.$iptImg.val());
           },
           error: function (data) {
             console.log(data);
@@ -56,15 +63,20 @@
     },
     initEvent : function initEvent(){
       var self = this;
+      
+      $('.l-fix').on('click', function(){
+        M.page.back();
+      });
       this.els.$btnLine.on('click', function(){
       // 이미지선택
         self.setImagePath();
       });
       this.els.$btnPoint.on('click', function(){
       // 작성버튼
+        var imgN = self.els.$iptImg.val().trim();
         var title = self.els.$iptTitle.val().trim();
         var content = self.els.$iptContent.val().trim();
-        var imgPath = self.els.$iptImg.val().trim(); 
+        var imgPath = "/storage/emulated/0/Pictures/" + imgN;
         var sn = M.data.param('seqNo');
         if(!module.isEmpty(sn)){
           if(module.isEmpty(title)){
@@ -73,12 +85,12 @@
           if(module.isEmpty(content)){
             return alert('내용을 입력해주세요.');
           }
-          if(!module.isEmpty(imgPath)){
-            console.log(imgPath);
-            console.log(self.data.imgPath);
-            if(!module.isEmpty(self.data.imgPath)){
+          console.log(imgN);
+          console.log(self.data.imgPath);
+          if(!module.isEmpty(self.els.$iptImg)){
+            if(!module.isEmpty(self.data.imgPath)){ // 새로 이미지파일을 설정했다면
               self.modifyWithUpload(title, content, self.data.imgPath);
-            }else{
+            }else{ // 기존 등록한 이미지를 사용하려면
             ////////////////////////////주소 조정 필요
               self.modifyWithUpload(title, content, imgPath);
             }
@@ -94,7 +106,9 @@
               succ: function(data){
                 if(data.rsltCode == '0000'){
                   alert('수정 완료');
-                  M.page.html('./list.html');
+                  var pagelist = M.info.stack();
+                  M.page.remove(pagelist[1].key);
+                  M.page.replace('./list.html');
                 }else{
                   return alert('수정에 실패하셨습니다.');
                 }
@@ -111,14 +125,14 @@
       var self = this;
       var title = self.els.$iptTitle.val().trim();
       var content = self.els.$iptContent.val().trim();
-      var imgPath = self.els.$iptImg.val();
+      var imgN = self.els.$iptImg.val().trim();
       if(module.isEmpty(title)){
         return alert('제목을 입력해주세요.');
       }
       if(module.isEmpty(content)){
         return alert('내용을 입력해주세요.');
       }
-      if(!module.isEmpty(imgPath)){
+      if(!module.isEmpty(imgN)){
         self.writeWithUpload(title, content, self.data.imgPath);
       }else{
         MNet.sendHttp({
@@ -131,7 +145,10 @@
           succ: function(data){
             if(data.rsltCode == '0000'){
               alert('등록 완료');
-              M.page.html('./list.html');
+              var pagelist = M.info.stack();
+              console.log(pagelist);
+              M.page.remove(pagelist[1].key);
+              M.page.replace('./list.html');
             }else{
               return alert('등록에 실패하셨습니다.');
             }
@@ -151,8 +168,10 @@
         path: SERVER_PATH.NOTICE_WRITE_IMG,
         body: body,
         succ: function (head) {
-          alert('이미지를 포함한 게시글등록이 완료되었습니다.');
-          M.page.html('./list.html');
+          alert('이미지를 포함한 게시글 등록이 완료되었습니다.');
+          M.page.replace('./list.html');
+          var pagelist = M.info.stack();
+          M.page.remove(pagelist[1].key);          
         },
         progress: function (head) {
           console.log(head);
@@ -179,7 +198,9 @@
         body: body,
         succ: function () {
           alert('이미지를 포함한 게시글 수정이 완료되었습니다.');
-          M.page.html('./list.html');
+          M.page.replace('./list.html');
+          var pagelist = M.info.stack();
+          M.page.remove(pagelist[1].key);       
         },
         progress: function () {
           console.log(head);
@@ -200,7 +221,7 @@
         callback: function( status, result ) {
           if(status == 'SUCCESS'){
              self.data.imgPath = result.fullpath;      
-             self.els.$iptImg.val("http://211.241.199.241:28040/" + result.name);   
+             self.els.$iptImg.val(result.name);   
           }else{
             self.data.imgPath = null;
             self.els.$iptImg.val('');

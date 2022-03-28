@@ -4,7 +4,7 @@
  * @date : 
  */
 
-(function ($, M, MNet, SERVER_PATH, window){
+(function ($, M, MNet, module, SERVER_PATH, window){
 
   var page = {
     els:  {
@@ -23,11 +23,16 @@
       @param {function} succCallback 완료 후 호출될 함수
     */
     initView : function initView(){
+      console.log(M.data.global('id'));
+      console.log(M.data.storage('AUTO_LOGIN_AUTH'));
+      if(module.isEmpty(M.data.global('id'))){
+        M.page.html('./login.html');
+      }
       MNet.sendHttp({
         path: SERVER_PATH.NOTICE_LIST,
         data: {
           "loginId": M.data.global('id'),
-          "lastSeqNo": '100000000000', //물어보기,,
+          "lastSeqNo": '0',
           "cnt": '4',
         },
         succ: function (data) {
@@ -84,7 +89,7 @@
     }
   };
   window.__page__ = page;
-})(jQuery, M, __mnet__, __serverPath__, window);
+})(jQuery, M, __mnet__, __util__, __serverPath__, window);
 
 // 해당 페이지에서 실제 호출
 (function($,M,pageFunc,window){

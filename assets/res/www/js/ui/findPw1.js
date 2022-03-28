@@ -55,7 +55,7 @@
         succ: function(data){
           if(data.existYn == 'Y'){
             alert('본인 인증에 성공하셨습니다.');
-            M.page.html('./findPw2.html',{ 'param':{loginId : id}});
+            M.page.replace('./findPw2.html',{ 'param':{loginId : id}});
           }else{
             return alert('본인 인증에 실패하셨습니다.');
           }

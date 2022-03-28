@@ -21,6 +21,8 @@
       this.els.$changePwBtn = $('#changePwBtn');
     },
     initView : function initView(){
+      $('#loginId').attr("placeholder", M.data.global('id'));
+      
     },
     initEvent : function initEvent(){
       var self = this;
@@ -46,12 +48,12 @@
             password : pw
           },
           succ: function(data){
-            if(data.rsltCode == '0000'){
-              alert('비밀번호 변경에 성공하셨습니다.');
-              M.page.html('./login.html');
-            }else{
-              alert('비밀번호 변경에 오류가 발생했습니다.');
-            }
+            alert('비밀번호 변경에 성공하셨습니다.');
+            M.data.removeStorage('AUTO_LOGIN_AUTH');
+        M.page.html({
+          url: "./login.html",
+          actionType: 'CLEAR_TOP'
+        });
           },
           error: function(){
             alert('에러!');

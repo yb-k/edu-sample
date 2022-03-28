@@ -29,6 +29,9 @@
       @param {function} succCallback 완료 후 호출될 함수
     */
     initView : function initView(){
+      $('.l-fix').on('click', function(){
+        M.page.back();
+      });
     },
     initEvent : function initEvent(){
       var self = this;

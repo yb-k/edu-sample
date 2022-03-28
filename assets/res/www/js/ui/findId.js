@@ -28,7 +28,7 @@
         self.findId();
       });
       this.els.$findPwBtn.on('click', function(){
-        M.page.html('./findPw1.html');
+        M.page.replace('./findPw1.html');
       });
     },
     findId : function(){

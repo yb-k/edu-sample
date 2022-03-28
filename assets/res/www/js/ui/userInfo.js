@@ -36,6 +36,9 @@
     */
     initView : function initView(){
       var self = this;
+      if(module.isEmpty(M.data.global('id'))){
+        M.page.html('./login.html');
+      }
       MNet.sendHttp({
         path: SERVER_PATH.INFO,
         data: {
@@ -61,6 +64,9 @@
 //      var birth = this.els.$birthDateIpt.val().trim();
 //      var regBirth = /^(19|20)\d{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[0-1])$/;
       module.onKeyupNum(self.els.$cellPhoneIpt);
+      $('.l-fix').on('click', function(){
+        M.page.back();
+      });
       self.els.$passwordIpt.on('propertychange change keyup paste input', function () {
         $(self.els.$saveBtn).attr("disabled", false);
       });
@@ -77,7 +83,9 @@
           succ: function (data) {
             if (data.rsltCode == '0000') {
               alert('비밀번호 확인 완료!');
-              M.page.html('./findPw2.html', {param : {loginId : id}});
+              M.page.html({ path : './findPw2.html', 
+                            action: 'NO_HISTORY',
+                            param : {loginId : id}});
             } else {
               console.log(data);
               alert('비밀번호가 일치하지 않습니다.');
@@ -107,7 +115,7 @@
           return alert('입력된 값은 이메일형식이 아닙니다.');
         }
         if(module.isEmpty(cp)){
-          return alert('휴대폰번호를 입력해주세요.');
+          return alert('휴대폰 번호를 입력해주세요.');
         } 
         if(!module.isRightPhoneNum(cp)){
           return alert('휴대폰 번호를 정확히 입력해주세요.');
@@ -169,7 +177,12 @@
                     succ: function (data) {
                       if (data.rsltCode == '0000') {
                        alert("탈퇴완료되었습니다.");
-                       M.page.html('./login.html');
+                       M.data.removeGlobal('id');
+                       M.data.removeStorage('AUTO_LOGIN_AUTH');
+                        M.page.html({
+                          url: "./login.html",
+                          actionType: 'CLEAR_TOP'
+                        });
                       } else {
                         console.log(data);
                         alert('탈퇴에 실패하셨습니다.');
