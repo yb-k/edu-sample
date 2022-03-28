@@ -20,7 +20,7 @@
 
 
     sendHttp: function sendHttp(options) {
-      if (Util.isEmpty(options.path)) throw new Error('sendHttp :: 옵션으 Path값은 필수입니다.');
+      if (Util.isEmpty(options.path)) throw new Error('sendHttp :: 옵션의 Path값은 필수입니다.');
 
 
       var succFunc = function succFunc(data) {
