@@ -1,6 +1,6 @@
 /**
  * @file : join2.js
- * @author : 강샛별
+ * @author : 
  * @date : 22-03-24
  */
  
@@ -8,7 +8,6 @@
 (function ($, M, MNet, SERVER_PATH, window){
   var page = {
       els: {
-        $backBtn : null,
         $userNmIpt : null,
         $man : null,
         $woman : null,
@@ -20,7 +19,6 @@
       },
       data: {},
       init : function init() {
-        this.els.$backBtn = $('#back-btn');
         this.els.$userNmIpt = $('#user-nm');
         this.els.$man = $('#man');
         this.els.$woman = $('#woman');
