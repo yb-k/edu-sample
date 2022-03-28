@@ -76,15 +76,13 @@
         password : pw
       },
       succ : function(data){
-        console.log(data); 
-        alert("로그인 성공");
+        console.log(data);
         // 자동로그인 
         if (isAutoLogin)  self.setAutoLogin(id, pw);
         M.page.html('./main.html');
       }, 
       error : function(data){
-        console.log(data);
-        alert("로그인 실패");      
+        console.log(data);    
       }
      });
     }

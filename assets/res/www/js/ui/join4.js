@@ -1,6 +1,6 @@
 /**
  * @file : join4.js
- * @author : 강샛별
+ * @author : 
  * @date : 22-03-24
  */
  

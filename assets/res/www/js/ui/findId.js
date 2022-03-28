@@ -15,10 +15,10 @@
     },
     data: {},
     init : function init() {
-      this.els.$userNmIpt = $('#user-nm');
-      this.els.$cellPhoneIpt = $('#cell-phone');
-      this.els.$findIdBtn = $('#find-id-btn');
-      this.els.$findPw = $('#find-pw');
+      this.els.$userNmIpt = $('#userNm');
+      this.els.$cellPhoneIpt = $('#cellPhone');
+      this.els.$findIdBtn = $('#findIdBtn');
+      this.els.$findPw = $('#findPw');
     },
     initView : function initView() {
       // 화면에서 세팅할 동적데이터
@@ -40,12 +40,14 @@
       var self = this;
       var name = this.els.$userNmIpt.val().trim();
       var phone = this.els.$cellPhoneIpt.val().trim();
-  
+      
       if(name == '') {
-        return alert('이름을 입력해주세요');
+        return alert('이름을 입력해주세요.');
       }
       if(phone == '') {
-        return alert('핸드폰 번호를 입력해주세요');
+        return alert('핸드폰 번호를 입력해주세요.');
+      }else{
+        return alert('핸드폰 번호는 숫자만 입력해주세요.');
       }
       
       MNet.sendHttp({
@@ -60,7 +62,7 @@
           //}
         },
         error : function(data) {
-          return alert('해당 아이디를 찾을 수 없습니다.');
+          return alert('아이디를 확인할 수 없습니다.');
         }
       });
       
