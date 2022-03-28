@@ -4,7 +4,7 @@
  * @date : 2022-03-24
  */
 // 페이지 단위 모듈
-(function ($, M, MNet, config, window){
+(function ($, M, CONFIG, window){
   var page = {
     els: {
       $userNm: null,
@@ -76,7 +76,7 @@
   };
   
   window.__page__ = page;
-})(jQuery, M, __mnet__, __config__, window);
+})(jQuery, M,  __config__, window);
 
 // 해당 페이지에서 실제 호출
 (function($, M, pageFunc, window) {

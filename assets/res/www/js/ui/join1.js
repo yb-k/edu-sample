@@ -4,7 +4,7 @@
  * @date : 2022-03-24
  */
 // 페이지 단위 모듈
-(function ($, M, MNet, config, SERVER_PATH, window){
+(function ($, M, CONFIG, window){
   var page = {
     els: {
        $chk1: null,
@@ -31,12 +31,12 @@
       this.els.$nextBtn.on('click', function(){
         self.joinNext();
       });
-//      this.els.$chk1.on('change', function() {
-//        self.allCheck();
-//      });
       this.els.$chk1.on('change', function() {
-              self.allCheck2();
-            });
+        self.allCheck();
+      });
+//      this.els.$chk1.on('change', function() {
+//              self.allCheck2();
+//            });
     },
     allCheck : function() {
       if (this.els.$chk1.prop('checked')) {
@@ -89,7 +89,7 @@
   };
   
   window.__page__ = page;
-})(jQuery, M, __mnet__, __config__, __serverpath__, window);
+})(jQuery, M,  __config__, window);
 
 // 해당 페이지에서 실제 호출
 (function($, M, pageFunc, window) {

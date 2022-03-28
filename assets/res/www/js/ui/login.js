@@ -4,7 +4,8 @@
  * @date : 2022-03-22
  */
 // 페이지 단위 모듈
-(function ($, M, MNet, config, SERVER_PATH, window){
+(function ($, M, CONFIG, window){
+  var SERVER_PATH = CONFIG.SERVER_PATH;
   var page = {
     els: {
       $loginId: null,
@@ -51,6 +52,7 @@
     setAutoLogin: function(id, pw){
       //자동로그인 기능
       M.data.storage('AUTO_LOGIN_AUTH', { id: id, pw: pw });
+      M.data.global("loginId", id);
     },
     unsetAutoLogin: function(){
       M.data.removeStorage('AUTO_LOGIN_AUTH');
@@ -63,7 +65,7 @@
       if(id == ''){
         return alert('아이디를 입력해주세요.');
       }
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.LOGIN,
         data:{
           loginId : id,
@@ -74,8 +76,9 @@
           if(isAutoLogin) self.setAutoLogin(id, pw);
           console.log(data);
           M.data.global("loginId", id);
-          M.page.html({
-            path: './main.html'
+          $.movePage({
+            url: './main.html',
+            actionType: 'CLEAR_TOP',
           });
         }
       });
@@ -86,7 +89,7 @@
     
   };
   window.__page__ = page;
-})(jQuery, M, __mnet__, __config__, __serverpath__, window);
+})(jQuery, M,  __config__, window);
 
 // 해당 페이지에서 실제 호출
 (function($, M, pageFunc, window) {

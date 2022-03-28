@@ -5,7 +5,9 @@
 //객체를 하나 만들어서 관리한다.
 
 (function (M, config, Util, window){
+  var ENV = config.ENV;
   var MNet = {
+  
   /*
     http 통신 모듈
     @param {object} options
@@ -66,7 +68,9 @@
       console.log('HTTP URL ::' + _options.path);
       M.net.http.send(_options); //실제로 통신 시작
     }
-  }; $.fileHttpSend = function (options) {
+  }; 
+  
+  $.fileHttpSend = function (options) {
         
         // body: [
         // { content: "파일업로드", type: "TEXT" },
@@ -93,7 +97,7 @@
           }
         }
         var _options = {
-          url: "http://211.241.199.241:28040/" + options.path,
+          url: "http://211.241.199.241:28040/" + ENV.UPLOAD_URL + options.path,
           header: options.header || {},
           params: options.params || {},
           body: options.body || [],

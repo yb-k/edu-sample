@@ -4,7 +4,8 @@
  * @date : 2022-03-24
  */
 // 페이지 단위 모듈
-(function ($, M, MNet, config, SERVER_PATH, window){
+(function ($, M, CONFIG, window){
+var SERVER_PATH = CONFIG.SERVER_PATH;
   var page = {
     els: {
       $loginId: null,
@@ -45,7 +46,7 @@
       if(id == ''){  
         return alert('아이디를 입력해주세요.');
       }
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.DUPLICATE,
         data:{
           loginId : id
@@ -101,7 +102,7 @@
         if(pw != rePw){
           return alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
         }
-        MNet.sendHttp({
+        $.sendHttp({
           path: SERVER_PATH.JOIN,
             data:{
               loginId : id,
@@ -128,7 +129,7 @@
   };
   
   window.__page__ = page;
-})(jQuery, M, __mnet__, __config__, __serverpath__, window);
+})(jQuery, M,  __config__, window);
 
 // 해당 페이지에서 실제 호출
 (function($, M, pageFunc, window) {

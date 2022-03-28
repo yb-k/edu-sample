@@ -14,6 +14,7 @@ importFiles = [
   "common/ui.js",
   "common/definition.js",
   "common/util.js",
+  "common/jquery.plugin.js",
   "common/setup.js",
   "common/MAPI.js"
 ];

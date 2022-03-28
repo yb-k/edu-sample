@@ -4,7 +4,8 @@
  * @date : 2022-03-25
  */
 // 페이지 단위 모듈
-(function ($,M, MNet, config, SERVER_PATH, window){
+(function ($, M, CONFIG, window){
+  var SERVER_PATH = CONFIG.SERVER_PATH;
   var page = {
     els:{
       $title : null,
@@ -28,7 +29,7 @@
       var self = this;
       var seqNum = M.data.global("seqNum");
       this.els.$title.val(M.data.global("title"));
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.NOTICE_DETAIL,
         data: {
           loginId: M.data.global("loginId"),
@@ -48,11 +49,18 @@
           
           M.data.global("title", data.title);
           M.data.global("content", data.content);
+          M.data.global("imgUrl", data.imgUrl);
           
           if ("imgUrl" in data) {
-            self.els.$imgUrl.attr("src", data.imgUrl);
+            items += "<div class='img-wrap'>";
+            items += "<img id='imgUrl' src='" + data.imgUrl + "'/>";
+            items += "</div>";
+            var split = data.imgUrl.lastIndexOf('/');
+            var imgName = data.imgUrl.toString().substring(split + 1, );
+            M.data.global("imgName", imgName);
           }
           console.log(seqNum);
+          console.log(data.imgUrl);
         },
         error: function() {
             alert('게시물을 확인할 수 없습니다.');
@@ -80,7 +88,7 @@
       this.els.$delBtn.on('click', function() {
         var num = M.data.global("seqNum");
         var self = this;
-        MNet.sendHttp({
+        $.sendHttp({
           path: SERVER_PATH.NOTICE_DELETE,
           data: {
             loginId: M.data.global("loginId"),
@@ -104,7 +112,7 @@
 
     };
     window.__page__ = page;
-  })(jQuery,M, __mnet__, __config__, __serverpath__, window);
+})(jQuery, M,  __config__, window);
 
 // 해당 페이지에서 실제 호출
 (function($, M, pageFunc, window) {

@@ -4,7 +4,8 @@
  * @date : 
  */
 // 페이지 단위 모듈
-(function ($, M, MNet, config, SERVER_PATH, window){
+(function ($, M, CONFIG, window){
+var SERVER_PATH = CONFIG.SERVER_PATH;
   var page = {
     els: {
       $loginId: loginId, //아이디
@@ -32,7 +33,7 @@
     initView : function initView() {
       var self = this;
       this.els.$loginId.val(M.data.global('loginId'));
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.INFO,
         data: {
           "loginId": M.data.global('loginId'),
@@ -98,7 +99,7 @@
       if(email == ''){
         alert('이메일 주소를 입력해주세요.');
       }
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.UPDATE,
         data:{
           loginId : id, 
@@ -124,7 +125,7 @@
       var self = this;
       var id = this.els.$loginId.val().trim();
       var pw = this.els.$password.val().trim();
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.CHECK_PASSWORD,
         data:{
           loginId : id, 
@@ -146,7 +147,7 @@
       var self = this;
       var id = this.els.$loginId.val().trim();
       var pw = this.els.$password.val().trim();
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.CHECK_PASSWORD, 
         data:{
           loginId : id, 
@@ -170,7 +171,7 @@
       var self = this;
       var id = this.els.$loginId.val().trim();
       alert('탈퇴하시겠습니까?');
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.OUT, 
         data:{
           loginId : id
@@ -190,7 +191,7 @@
   };
   
   window.__page__ = page;
-})(jQuery, M, __mnet__, __config__, __serverpath__, window);
+})(jQuery, M,  __config__, window);
 
 // 해당 페이지에서 실제 호출
 (function($, M, pageFunc, window) {

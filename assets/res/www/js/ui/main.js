@@ -4,7 +4,8 @@
  * @date : 2022-03-24
  */
 // 페이지 단위 모듈
-(function ($, M, MNet, config, SERVER_PATH, window){
+(function ($, M, CONFIG, window){
+var SERVER_PATH = CONFIG.SERVER_PATH;
   var seqNo = [];
   var page = {
     els: {
@@ -28,7 +29,7 @@
       var num = "0";
       var cnt = "4";
 
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.NOTICE_LIST,
         data:{
           "loginId" : id,
@@ -92,16 +93,16 @@
     info:function(){
       var self = this;
       var id = M.data.global("loginId");
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.INFO,
         data:{
           loginId : id
         },
         succ: function(data){
           console.log(data);
-            M.page.html({
-              path: './userInfo.html'
-            });
+          M.page.html({
+            path: './userInfo.html'
+          });
         },
         error:function(){
           console.log(data);
@@ -114,7 +115,7 @@
       var self = this;
       var id = M.data.global("loginId");
       var num = M.data.global("num");
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.INFO,
         data:{
           loginId : id,
@@ -135,7 +136,7 @@
   };
   
   window.__page__ = page;
-})(jQuery, M, __mnet__, __config__, __serverpath__, window);
+})(jQuery, M,  __config__, window);
 
 // 해당 페이지에서 실제 호출
 (function($, M, pageFunc, window) {

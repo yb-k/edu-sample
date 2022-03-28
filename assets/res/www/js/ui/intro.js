@@ -4,7 +4,8 @@
  * @date : 
  */
 // 페이지 단위 모듈
-(function ($, M, SERVER_PATH, MNet, window) {
+(function ($, M, CONFIG, window){
+var SERVER_PATH = CONFIG.SERVER_PATH;
   var page = {
     els: {
       $percent: null,
@@ -45,7 +46,7 @@
       var existLoginData = M.data.storage('AUTO_LOGIN_AUTH');
       if (existLoginData) {
         this.startProgress(function () {
-          MNet.sendHttp({
+          $.sendHttp({
             path: SERVER_PATH.LOGIN,
             data: {
               loginId: existLoginData.id,
@@ -72,7 +73,7 @@
   };
 
   window.__page__ = page;
-})(jQuery, M, __serverpath__, __mnet__, window);
+})(jQuery, M,  __config__, window);
 
 // 해당 페이지에서 실제 호출
 (function ($, M, pageFunc, window) {
