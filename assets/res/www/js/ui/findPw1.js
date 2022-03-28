@@ -28,11 +28,11 @@
       // Dom Event 바인딩
       var self = this;
       this.els.$findPwBtn.on('click', function(){
-        self.findPw();
+        self.findPwBtn();
       });
     },
     
-    findPw : function(){
+    findPwBtn : function(){
       var self = this;
       var id = this.els.$loginIdIpt.val().trim();
       var name = this.els.$userNmIpt.val().trim();
@@ -53,30 +53,27 @@
       }
       
       MNet.sendHttp({
-        path: SERVER_PATH.FIND_PW,
+        path: SERVER_PATH.FIND,
         data: {
           loginId : id,
           userNm : name,
           cellPhone : phone
         },
         succ: function (data) {
-          if(data.rsltCode == '0000') {
-            alert('본인인증에 성공했습니다.');
+          if(data.existYn == 'Y') {
+            alert('본인 인증에 성공했습니다.');
             // 페이지 호출
-//            M.page.html("./findPw2.html",{param: {loginId : id}});
                M.page.html({
                 path: "findPw2.html",
                 param: {
                   "loginId": id
                 }
               });
+          }else if(data.existYn == 'N') {
+            alert('본인인증에 실패했습니다.');
           }
-        },
-        error : function(data) {
-          alert('본인인증에 실패했습니다.');
-        }
+         }
       });
-      
     }
   };
   

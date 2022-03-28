@@ -82,7 +82,7 @@
         M.page.html('./main.html');
       }, 
       error : function(data){
-        console.log(data);    
+       // console.log(data);    
       }
      });
     }
