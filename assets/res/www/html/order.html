@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport"/>
+  <title>Hello! Mobile!</title>
+  <link href="../css/morpheus-style.css" rel="stylesheet"/>
+  <link href="../css/swiper.min.css" rel="stylesheet"/>
+  <link href="../css/muikit.css" rel="stylesheet"/>
+</head>
+
+<body>
+<div class="wrapper">
+  <header class="header">
+    <!-- 헤더 입력 영역 (헤더 디자인에 따라 바꿔치기 가능) -->
+    <!-- 하단에 라인이 있는경우 class="line"추가 -->
+    <h1>
+      식자재 목록
+    </h1>
+    <button class="btn-back l-fix" type="button">
+      뒤로가기
+    </button>
+    <button class="btn-menu r-fix" id="btn-menu" type="button">
+      메뉴
+      <!-- 왼쪽 버튼 class="l-fix" 추가 -->
+      <!-- 오른쪽 버튼 class="r-fix" 추가 -->
+    </button>
+  </header>
+  <!-- 헤더 입력 영역 (헤더 디자인에 따라 바꿔치기 가능) -->
+  <div class="container bg-gray line-t">
+    <!-- 헤더 입력 영역 (헤더 디자인에 따라 바꿔치기 가능) -->
+    <div class="cont-wrap1 main-box">
+      <!-- 태블릿에서 볼때 왼쪽에 정렬될 내용 -->
+      <div class="left-box">
+        <!-- section 단위로 순서 변경 가능 -->
+        <section class="main-box-03">
+          <div class="tab-menu-wrap  bg-white">
+            <ul class="tab-menu table">
+              <li>
+                <!-- 해당 tab시 class="on" 추가 -->
+                <span>
+						    선택
+					      </span>
+              </li>
+              <li>
+                <!-- 해당 tab시 class="on" 추가 -->
+                <span>
+						    식자재
+					      </span>
+              </li>
+              <li>
+                <!-- 해당 tab시 class="on" 추가 -->
+                <span>
+                  수량
+					      </span>
+              </li>
+              <li>
+                <!-- 해당 tab시 class="on" 추가 -->
+                <span>
+						    가격
+					      </span>
+              </li>
+            </ul>
+          </div>
+          <ul class="noti-wrap">
+            <table id="noti-wrap" style="border-collapse: separate; border-spacing: 0 1rem;"
+                   width="100%">
+
+            </table>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </div>
+  <!--		<script type="text/javascript">
+    var mySwiper = new Swiper('.swiper-container', {
+      pagination: {
+      el: '.swiper-pagination',
+      },
+      navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+    }); 
+    
+      </script>-->
+  <div class="btn-wrap">
+    <button class="btn-order" id="btn-order" type="button">
+      주문하기
+    </button>
+  </div>
+</div>
+
+</body>
+
+<script src="../js/swiper.min.js"></script>
+<script src="../js/mcore.min.js" type="text/javascript"></script>
+<script src="../js/ui/order.js" type="text/javascript"></script>
+</html>

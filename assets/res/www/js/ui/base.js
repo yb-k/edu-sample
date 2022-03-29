@@ -4,7 +4,7 @@
  * @date : 
  */
 
-(function ($, M, window){
+(function ($, M, module, MNet, SERVER_PATH,CONFIG, window){
 
   var page = {
     els:  {
@@ -22,7 +22,7 @@
     }
   };
   window.__page__ = page;
-})(jQuery, M, window);
+})(jQuery, M, __util__, __mnet__, __serverPath__,__difinition__, window);
 
 // 해당 페이지에서 실제 호출
 (function($,M,pageFunc,window){

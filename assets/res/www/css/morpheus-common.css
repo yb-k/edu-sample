@@ -289,7 +289,7 @@ input[type=number]{padding:0 1rem;height:4rem;border:1px solid #ddd;}
 .chk:checked{background-position:0 -2.2rem;}
 .chk-02{width:2.2rem;height:2.2rem;background:url(../img/ipt-chk2.png) no-repeat;background-size:100%;}   
 .chk-02:checked{background-position:0 -2.2rem;}
-.chk-03{width:2.2rem;height:2.2rem;background:url(../img/ipt-chk3.png)no-repeat;background-size:100%;}
+.chk-03{width:2.2rem;height:2.2rem;background:url(../img/ipt-chk3.png)no-repeat;background-size:100%;box-shadow:3px 3px 15px rgba(0,.2,.2,.2);}
 .chk-03:checked{background-position:0 -2.2rem;}
 .chk-04{width:4.4rem;height:4.4rem;background:url(../img/ipt-chk3.png)no-repeat;background-size:100%;}
 .chk-04:checked{background-position:0 -4.4rem;}
