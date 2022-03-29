@@ -64,7 +64,10 @@
           // 클릭한 게시글의 index에 따라 seqNo을 global변수로 준다 (수정,삭제를 위해)
           if ($(this).index() == i) {
             M.data.global("seqNo", seqNo[i]);
-            M.page.html("./detail.html");
+            M.page.html({
+              url : "./detail.html",
+              action : "NO_HISTORY" 
+            })
           }
         }
       })
@@ -83,5 +86,8 @@
     pageFunc.initView();
     pageFunc.initEvent();
   });
-
+// 해당 화면으로 다시 돌아왔을 때 데이터 갱신 
+  M.onRestore(function () {
+    pageFunc.initView();
+  });
 })(jQuery, M, __page__, window);

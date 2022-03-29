@@ -4,7 +4,7 @@
  * @date : 22.03.24
  */
 
-(function ($, M, CONFIG , window) {
+(function ($, M, CONFIG, window) {
   var CONSTANT = CONFIG.CONSTANT;
   var SERVER_PATH = CONFIG.SERVER_PATH;
   var page = {
@@ -17,7 +17,7 @@
       $date: null,
       $cellPhone: null,
       $nextBtn: null,
-      $back : null
+      $back: null
     },
     data: {},
     init: function init() {
@@ -38,7 +38,7 @@
     initEvent: function initEvent() {
       // Dom Event 바인딩
       var self = this;
-      this.els.$back.on('click',function(){
+      this.els.$back.on('click', function () {
         M.page.back();
       })
       this.els.$nextBtn.on('click', function () {
@@ -50,23 +50,36 @@
       var year = this.els.$year.val().trim();
       var month = this.els.$month.val().trim();
       var date = this.els.$date.val().trim();
-      var phone = this.els.$cellPhone.val().trim();
-      var birth = year+month+date;
+      // 날짜 유효성 검사
+      var birth = year + month + date;
+      //var birthValid = moment(year + '-' + month + '-' + date, 'YYYY-MM-DD' );
+      // console.log(date.isValid()); 
+      var phone = this.els.$cellPhone.val().trim().replace('-', '');
+
       //input:checkbox[class='chk']
       var gender = $("input:radio[name='gender']").val().trim();
-      
 
+      var regPhone = /(01[0|1|6|9|7])(\d{8}$)/g;
+      if (!regPhone.test(phone)) {
+        alert('잘못된 휴대폰 번호입니다.');
+        return false;
+      }
       if (name == '') {
         return alert('이름을 입력해주세요.');
       }
       if (year == '' || month == '' || date == '') {
         return alert('생년월일을 입력해주세요.');
       }
-      if (year.length != 4) {
+      if (year >= 2023 || year <= 1900) {
         return alert('년을 다시 입력해주세요.');
       }
-      if (month >= 13 || month <= 0) {
-        return alert('월을 다시 입력해주세요.');
+      if (month >= 13 || month < 1) {
+        return alert("월을 다시 입력해주세요.");
+      }
+      if (month == 2) {
+        if (date >= 30) {
+          return alert('일을 다시 입력해주세요.');
+        }
       }
       if (date >= 31 || date <= 0) {
         return alert('일을 다시 입력해주세요.');
@@ -74,13 +87,13 @@
       if (gender == '') {
         return alert('성별을 선택해주세요.');
       }
-      if(this.els.$man.is(':checked')){
+      if (this.els.$man.is(':checked')) {
         gender = 'M';
       }
-      if(this.els.$woman.is(':checked')){
+      if (this.els.$woman.is(':checked')) {
         gender = 'F';
       }
-      if (phone == '' || phone.length > 11 ) {
+      if (phone == '') {
         return alert('휴대폰 번호를 입력해주세요.');
       }
       M.page.html({
@@ -89,7 +102,7 @@
           userNm: name,
           cellPhone: phone,
           gender: gender,
-          birth : birth
+          birth: birth
         },
         error: function () {
           alert("에러");

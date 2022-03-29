@@ -15,7 +15,7 @@
 /** Intro */
 .wrapper.intro{min-height:41rem;text-align:center;}
 .intro .logo,
-.login .logo{margin:0 auto;width:16.4rem;height:9.75rem;text-indent:-999rem;background:url(../img/logo.png) no-repeat;background-size:100%;}
+.login .logo{margin:0 auto;width:16.4rem;height:9.75rem;text-indent:-999rem;background:url(../img/logo2.png) no-repeat;background-size:100%;}
 .intro .logo{position:absolute;left:0;right:0; background:url(../img/logo.png) no-repeat;background-size:100%;}
 .intro .logo.top{top:12.5rem;}
 .logo.middle{top:50%;margin-top:-7.5rem;}
@@ -201,9 +201,11 @@ li.txt-btn .btn-txt{position:absolute;right:1.5rem;display:inline-block;color:#9
 .main-menu-box.type06 li{padding:5.4rem 0 1.5rem;background-color:#fff;color:#333;font-size:1.4rem;font-weight:400;border-right:1px solid #e0e0e0;border-bottom:1px solid #e0e0e0;}
 .main-menu-box.type04 li:nth-child(3n),
 .main-menu-box.type06 li:nth-child(3n){border-right:0;}
+/* 주문, 수령, 레시피 이미지 
 .main-menu-box.type04 li:nth-child(1){background:url(../img/ico-menu-01.png) no-repeat center 2.1rem;background-size:2rem;}
 .main-menu-box.type04 li:nth-child(2){background:url(../img/ico-menu-02.png) no-repeat center 2.1rem;background-size:2.3rem;}
 .main-menu-box.type04 li:nth-child(3){background:url(../img/ico-menu-03.png) no-repeat center 2.1rem;background-size:1.9rem;}
+*/
 .main-menu-box.type04 li:nth-child(4){background:url(../img/ico-menu-04.png) no-repeat center 2.1rem;background-size:2.8rem;}
 .main-menu-box.type04 li:nth-child(5){background:url(../img/ico-menu-05.png) no-repeat center 2.1rem;background-size:3.5rem;}
 .main-menu-box.type04 li:nth-child(6){background:url(../img/ico-menu-06.png) no-repeat center 2.1rem;background-size:2.5rem;}
@@ -314,7 +316,8 @@ strong.ellipsis{position:relative;display:inline-block;width:100%;}
 .detail-tit > span{font-size:1.3rem;font-weight:400;color:#666;}
 .detail-cont{padding:1.5rem;}
 .detail-cont .img-wrap img{width:100%;}
-.detail-cont p{margin-top:1.5rem;font-size:1.4rem;font-weight:400;line-height:1.5;}
+.detail-cont p{margin-bottom:10rem;margin-top:1.5rem;font-size:1.4rem;font-weight:400;line-height:1.5;}
+
 
 /** Set_modify **/
 .profile-wrap{padding:1.5rem 0 2rem;text-align:center;}

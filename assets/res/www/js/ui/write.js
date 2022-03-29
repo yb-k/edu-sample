@@ -15,7 +15,7 @@
       $loginId: null,
       $btnImg: null,
       $imgName: null,
-      $back : null
+      $back: null
     },
     data: {
       title: '',
@@ -66,7 +66,7 @@
     initEvent: function initEvent() {
       // Dom Event 바인딩
       var self = this;
-      this.els.$back.on('click', function(){
+      this.els.$back.on('click', function () {
         M.page.back();
       })
       // 작성하기 버튼 클릭시 동작 (공지사항 리스트로 넘어가기)
@@ -98,12 +98,17 @@
         },
         succ: function () {
           alert("게시글이 수정되었습니다.")
-          M.page.html("./list.html");
+          M.page.replace({
+            url: './list.html',
+          });
+          var pagelist = M.info.stack();
+          M.page.remove(pagelist[1].key);
         },
         error: function () {
           alert("게시글을 업데이트하지 못했습니다.");
         }
       })
+
     },
 
     write: function () {
@@ -127,7 +132,11 @@
           },
           succ: function (data) {
             console.log(data);
-            M.page.html("./list.html");
+            M.page.replace({
+              url: './list.html',
+            });
+            var pagelist = M.info.stack();
+            M.page.remove(pagelist[1].key);
           },
           error: function (data) {
             alert("실패");
@@ -162,7 +171,11 @@
           succ: function (body) {
             console.log(body);
             alert("이미지 파일 업로드");
-            M.page.html('./list.html');
+            M.page.replace({
+              url: './list.html',
+            });
+            var pagelist = M.info.stack();
+            M.page.remove(pagelist[1].key);
           },
           progress: function (body) {
             console.log(body);
@@ -219,7 +232,11 @@
         succ: function () {
           console.log(body);
           alert("게시글이 수정되었습니다.");
-          M.page.html('./list.html');
+          M.page.replace({
+            url: './list.html',
+          });
+          var pagelist = M.info.stack();
+          M.page.remove(pagelist[1].key);
         },
         progress: function () {
           console.log(body);

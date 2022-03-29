@@ -63,12 +63,12 @@
       // Dom Event 바인딩
       var self = this;
       this.els.$back.on('click', function () {
-        M.page.html("./list.html");
+        M.page.back();
       })
 
       this.els.$saveBtn.on('click', function () {
         var email = self.els.$email.val().trim();
-        var cellPhone = self.els.$cellPhone.val().trim();
+        var cellPhone = self.els.$cellPhone.val().trim().replace('-','');
         var password = self.els.$password.val().trim();
         $.sendHttp({
           path: SERVER_PATH.UPDATE,

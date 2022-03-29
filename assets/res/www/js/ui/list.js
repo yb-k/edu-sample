@@ -85,7 +85,7 @@
         M.page.html("./write.html");
       })
       this.els.$back.on('click', function () {
-        M.page.html("./main.html");
+        M.page.back();
       })
       this.els.$btnTop.on('click', function () {
         $('.cont-wrap').scrollTop(0);

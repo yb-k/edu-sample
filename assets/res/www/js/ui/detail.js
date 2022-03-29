@@ -99,7 +99,7 @@
 
 
       this.els.$back.on('click', function () {
-        M.page.html('./list.html');
+        M.page.back();
       })
       
       this.els.$modiBtn.on('click', function () {
@@ -133,7 +133,11 @@
                 },
                 succ: function () {
                   alert("게시글이 삭제되었습니다.");
-                  M.page.html("./list.html");
+                  M.page.replace({
+                    url: './list.html',
+                  });
+                  var pagelist = M.info.stack();
+                  M.page.remove(pagelist[1].key);
                 },
                 error: function () {
                   alert("삭제 실패");

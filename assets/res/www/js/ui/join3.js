@@ -4,7 +4,7 @@
  * @date : 22.03.24
  */
 
-(function ($, M, CONFIG,window) {
+(function ($, M, CONFIG, window) {
   var CONSTANT = CONFIG.CONSTANT;
   var SERVER_PATH = CONFIG.SERVER_PATH;
   var checkId;
@@ -19,8 +19,8 @@
       $userNm: null,
       $cellPhone: null,
       $gender: null,
-      $birthDate: null, 
-      $back : null
+      $birthDate: null,
+      $back: null
     },
     data: {},
     init: function init() {
@@ -43,12 +43,14 @@
     },
     initEvent: function initEvent() {
       // Dom Event 바인딩
-      var self = this;this.els.$back.on('click',function(){
+      var self = this;
+      this.els.$back.on('click', function () {
         M.page.back();
       })
       this.els.$dupBtn.on('click', function () {
         self.doubleChk();
       })
+      
       this.els.$joinBtn.on('click', function () {
         if (checkId == 'N') {
           self.info();
@@ -57,6 +59,9 @@
         }
 
       })
+      self.els.$loginId.on('propertychange change keyup paste input', function () {
+        checkId = 'Y';
+      });
     },
 
     doubleChk: function () {
@@ -116,6 +121,11 @@
       }
       if (email == '') {
         return alert('이메일을 선택해주세요.');
+      }
+      var regex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+      if (regex.test(email) === false) {
+        alert('잘못된 이메일 형식입니다.');
+        return false;
       }
       // 비밀번호 정규화규칙 확인 
       if (self.checkPw()) {
