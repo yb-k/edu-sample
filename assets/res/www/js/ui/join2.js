@@ -39,16 +39,20 @@
     },
     inputOk : function(){
       var nm = this.els.$userNmIpt.val().trim();
+      var regNm = /^[가-힣]{2,5}$/;
       var gender = $("input:radio[name='gender']:checked").val();
       var year = this.els.$year.val().trim();
       var month = this.els.$month.val().trim();
       var date = this.els.$date.val().trim();
       var cp = this.els.$cellPhoneIpt.val().trim();
+      var regCp = /^01(?:0|1|[6-9])([0-9]{3,4})([0-9]{4})$/;
       var birthDate	= year + module.digitNum(month) + date;
-      var regcp = /^01(?:0|1|[6-9])([0-9]{3,4})([0-9]{4})$/;
       
       if(module.isEmpty(nm)){
         return alert('이름을 입력해주세요.');
+      }
+      if(!regNm.test(nm)){
+        return alert('이름을 정확히 입력해주세요.');
       }
       if(module.isEmpty(gender)){
         return alert('성별을 선택해주세요.');
@@ -71,13 +75,20 @@
       if(date > 31 || date == 0){
         return alert('생일을 정확히 입력해주세요.');        
       }
+      if((month==4 || month==6 || month==9 || month==11) && date == 31){
+        return alert(month+'월은 31일이 존재하지 않습니다.');
+      }
+      if(month == 2 && date > 29){
+        return alert(month+'월은 29일까지만 존재합니다.');
+      }
+      
       if(module.timeCheck(birthDate, 12)){
         return alert('생년월일을 정확히 입력해주세요.');
       }
       if(module.isEmpty(cp)){
         return alert('휴대폰 번호를 입력해주세요.');
       }
-      if(!regcp.test(cp)){
+      if(!regCp.test(cp)){
         return alert('휴대폰 번호를 정확히 입력해주세요.');
       }
       M.page.html('./join3.html', {
