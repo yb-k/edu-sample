@@ -80,7 +80,7 @@
             } else {
               alert('페이지를 열 수 없습니다.');
             }
-          },
+          }, 
           error: function (data) {
             console.log(data);
             alert('에러!');

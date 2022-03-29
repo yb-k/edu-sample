@@ -42,11 +42,24 @@
         succ: function (data) {
           console.log(data);
           var items = "";
+          var content;
+//          console.log(data.content);
+//          var content = data.content;
+//          content = content.replace(/\r\n/ig, '<br/>');
+//          content = content.replace(/\\n/ig, '<br/>');
+//          content = content.replace(/\n/ig, '<br/>');  
+//          data.content = content;
+//          console.log(data.content);        
           self.data.lastSeqNum = data.lastSeqNo;
           console.log(self.data.lastSeqNum);
           $.each(data.list, function (index, item) {
             console.log(item);
             console.log(item.imgUrl);
+            content = item.content;
+            content = content.replace(/\r\n/ig, '<br/>');
+            content = content.replace(/\\n/ig, '<br/>');
+            content = content.replace(/\n/ig, '<br/>'); 
+            console.log(content); 
             items += "<li id='"+ item.seqNo +"' class ='test'>";
             items += "<div class='thumbnail-wrap'>";
             items += "<div class='thumbnail'>";
@@ -63,7 +76,7 @@
             items += "</strong>";
             items += "<div class='info-box-btm'>";
             items += "<p style='text-align:left;' class='ellipsis_1'>";
-            items += item.content;
+            items += content;
             items += "</p>";
             items += "</div>";
             items += "</div>";
@@ -81,6 +94,7 @@
     },
     initEvent : function initEvent(){
       var self = this;
+      var content;
       var id = M.data.global('id');
       M.data.param({'cnt' : '0'});
       $('.l-fix').on('click', function(){
@@ -133,6 +147,11 @@
             self.data.lastSeqNum = data.lastSeqNo;
             console.log(self.data.lastSeqNum);
             $.each(data.list, function (index, item) {
+              content = item.content;
+              content = content.replace(/\r/ig, '<br/>');
+              content = content.replace(/\\n/ig, '<br/>');
+              content = content.replace(/\n/ig, '<br/>'); 
+              console.log(content); 
               items += "<li id='"+ item.seqNo +"' class ='test'>";
               items += "<div class='thumbnail-wrap'>";
               items += "<div class='thumbnail'>";
@@ -149,7 +168,7 @@
               items += "</strong>";
               items += "<div class='info-box-btm'>";
               items += "<p style='text-align:left;' class='ellipsis_1'>";
-              items += item.content;
+              items += content;
               items += "</p>";
               items += "</div>";
               items += "</div>";
