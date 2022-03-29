@@ -176,12 +176,12 @@
                     },
                     succ: function (data) {
                       if (data.rsltCode == '0000') {
-                       alert("탈퇴완료되었습니다.");
-                       M.data.removeGlobal('id');
-                       M.data.removeStorage('AUTO_LOGIN_AUTH');
+                        M.data.removeGlobal('id');
+                        M.data.removeStorage('AUTO_LOGIN_AUTH');
+                        alert("탈퇴완료되었습니다."); 
                         M.page.html({
-                          url: "./login.html",
-                          actionType: 'CLEAR_TOP'
+                          url: './login.html',
+                          actionType: 'CLEAR_TOP',
                         });
                       } else {
                         console.log(data);
