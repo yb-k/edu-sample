@@ -28,6 +28,7 @@
       if(module.isEmpty(M.data.global('id'))){
         M.page.html('./login.html');
       }
+      var id = M.data.global('id');
       MNet.sendHttp({
         path: SERVER_PATH.NOTICE_LIST,
         data: {
@@ -51,7 +52,7 @@
           console.log(data);
           alert("리스트를 가져오지 못했습니다.");
         },
-      });
+      }); 
     },
     initEvent : function initEvent(){
       var self = this;
@@ -65,7 +66,7 @@
       this.els.$btnMenu.on('click', function(){
         M.page.html('./userInfo.html');
       });
-      $('#noti-wrap').on('click', '.test', function( ) {
+      $('#noti-wrap').on('click', '.test', function() {
         var seqNo = $(this).attr('id' );
         MNet.sendHttp({
           path: SERVER_PATH.NOTICE_DETAIL,
@@ -99,5 +100,9 @@
     pageFunc.initView();
     pageFunc.initEvent();
   });
+  
+  M.onRestore(function() {
+      pageFunc.initView();
+    });
   
 })(jQuery,M,__page__,window);

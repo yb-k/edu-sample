@@ -40,9 +40,15 @@
           seqNo	: sn,
         },
         succ: function (data) {
+          console.log(data);
+          var content = data.content;
+          content = content.replace(/\r\n/ig, '<br/>');
+          content = content.replace(/\\n/ig, '<br/>');
+          content = content.replace(/\n/ig, '<br/>');
+          console.log(content);
           $( '#title' ).text( data.title );
-          $( '#content' ).text( data.content );
-          $('#imgUrl').attr('src',data.imgUrl);
+          $( '#content' ).text( content );
+          $('#imgUrl').attr('src', data.imgUrl);
           if(data.isMyNoticeYn === 'Y'){
             $('.btn-wrap').show();
           }

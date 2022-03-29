@@ -29,15 +29,16 @@
       @param {function} succCallback 완료 후 호출될 함수
     */
     initView : function initView(){
-      $('.l-fix').on('click', function(){
-        M.page.back();
-      });
+
     },
     initEvent : function initEvent(){
       var self = this;
       module.onKeyupNum(self.els.$cellPhoneIpt);
       this.els.$nextBtn.on('click', function(){
         self.inputOk();
+      });      
+      $('.l-fix').on('click', function(){
+        M.page.back();
       });      
     },
     inputOk : function(){
@@ -48,7 +49,11 @@
       var month = this.els.$month.val().trim();
       var date = this.els.$date.val().trim();
       var cp = this.els.$cellPhoneIpt.val().trim();
-      var birthDate	= year + module.digitNum(month) + date;
+      var birth = year + module.digitNum(month) + date;
+      var birthDate	= moment(year + '-' + module.digitNum(month) + '-' + date, 'YYYY-MM-DD');
+      var regPattern = /^(19|20)\d{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[0-1])$/; 
+      
+      출처: https://dogfoot-note.tistory.com/14 [DOGFOOT-NOTE]
       
       if(module.isEmpty(nm)){
         return alert('성명을 입력해주세요.');
@@ -68,15 +73,12 @@
       if(year < 1000){
         return alert('연도는 4자리로 입력해주세요.');        
       }
-      if(month > 12){
-        return alert('달을 정확히 입력해주세요.');        
+      if(birthDate.isValid() == false) {
+        return alert('날짜가 올바르지 않습니다. 다시 입력해주세요.');
       }
-      if(date > 31){
-        return alert('일자를 정확히 입력해주세요.');        
-      }
-      if(module.timeCheck(birthDate,12)){
-        return alert('생년월일을 정확히 입력해주세요.');
-      }
+      if(regPattern.test(birth) === false){
+        return alert('날짜를 정확히 입력해주세요.');
+      }      
       if(module.isEmpty(cp)){
         return alert('휴대폰번호를 입력해주세요.');
       }
@@ -87,7 +89,7 @@
         param : {
           userNm : nm,
           gender : gender,
-          birthDate :	birthDate,
+          birthDate :	birth,
           cellPhone	: cp,
         }
       });

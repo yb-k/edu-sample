@@ -93,7 +93,6 @@ p.divider::after{content:'';position:absolute;top:50%;right:0;width:40%;height:1
 .wrapper,
 .full-pop{position:relative;height:100%;background-color:#fff;}
 .cont-wrap.pd{padding:0 1.5rem;}
-.btn-fix{background-position:0 -2.2rem;}
 .btm-fix{position:absolute;right:0;left:0;bottom:0;}
 .r-fix{position:absolute;right:0;top:0;}
 .l-fix{position:absolute;left:0;top:0;}
