@@ -5,7 +5,8 @@
  */
 // 페이지 단위 모듈
 (function ($, M, CONFIG, window){
-var SERVER_PATH = CONFIG.SERVER_PATH;
+  
+  var SERVER_PATH = CONFIG.SERVER_PATH;
   var seqNo = [];
   var page = {
     els: {

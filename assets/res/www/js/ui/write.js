@@ -6,7 +6,6 @@
 // 페이지 단위 모듈
 (function ($, M, CONFIG, window){
   var SERVER_PATH = CONFIG.SERVER_PATH;
-//  var imgPath1;
   var page = {
     els: {
       $imgBtn: null,
@@ -40,6 +39,7 @@
      id = M.data.global("loginId");
      this.els.$title.val(M.data.global("title"));
      this.els.$content.val(M.data.global("content"));
+     this.els.$imgName.val(M.data.global("imgName"));
     },
     initEvent : function initEvent() {
       // Dom Event 바인딩
@@ -50,12 +50,22 @@
       }),
       
       this.els.$write.on('click', function(){
+        var imgPath = self.data.imgPath;
+        alert(imgPath);
         if(M.data.global("seqNum") == ''){
-          self.write();
-        }else if(self.data.imgPath == '' || self.data.imgPath == null ){
-          self.modify();
+          if(imgPath == '' || imgPath == null ){
+            self.write(); //파일 없는 글 작성
+          }else 
+            self.wrtImg(); //파일 있는 글 작성
         }else{
-          self.modImg();
+          if(imgPath == '' || imgPath == null ){
+//          alert('글'+M.data.global("seqNum"));
+            self.modify(); //파일 없는 글 수정
+          }
+          else{
+//            alert('파일'+M.data.global("seqNum"));
+            self.modImg(imgPath); //파일 있는 글 수정
+          }
         }
       });
     },
@@ -80,13 +90,19 @@
     },
     
     //게시글 수정(파일 ver.)
-    modImg:function(){
+    modImg:function(imgPath){
       var self = this;
       var id = M.data.global("loginId"); //로그인 아이디
       var title = this.els.$title.val().trim(); //제목
       var content = this.els.$content.val().trim(); //내용
       var seqNum = M.data.global("seqNum");
-      var imgPath = M.data.global("imgPath");
+//      var imgPath = M.data.global("imgUrl");
+      if (title == '') {
+        return alert('제목은 비워둘 수 없습니다');
+      }
+      if (content == '') {
+        return alert('내용은 비워둘 수 없습니다');
+      }
       var body = [{
         name: "file",
         content: imgPath,
@@ -113,27 +129,20 @@
         type: "TEXT"
       }]
       console.log(body);
-          
-      if (title == '') {
-        return alert('제목은 비워둘 수 없습니다');
-      }
-      if (content == '') {
-        return alert('내용은 비워둘 수 없습니다');
-      }
-      $.sendHttp({
+      alert(body);
+      $.fileHttpSend({
         path: SERVER_PATH.NOTICE_UPDATE_IMG,
-        body : body,
-        succ: function(data){
-          alert('파일이 수정되었습니다.');
-          console.log(body);  
+        body: body,
+        succ: function(){
+          alert('파일 게시글이 수정되었습니다.');
           M.data.removeGlobal("seqNum");
           M.page.html({
             path: './list.html'
           });
         },
-        error:function(){
+        error:function(body){
           console.log(body); 
-          alert('다시 입력해주세요');
+          alert('게시글 수정에 실패하였습니다');
         }
       });
     },
@@ -145,7 +154,7 @@
       var title = this.els.$title.val().trim(); //제목
       var content = this.els.$content.val().trim(); //내용
       var seqNum = M.data.global("seqNum");
-      
+
       if (title == '') {
         return alert('제목은 비워둘 수 없습니다');
       }
@@ -156,7 +165,7 @@
         path: SERVER_PATH.NOTICE_UPDATE,
         data:{
           loginId : id,
-          eqNo: seqNum,
+          seqNo: seqNum,
           title : title,
           content : content
         },
@@ -176,14 +185,13 @@
 
     },
     
-    //게시글 쓰기
+    //파일 없는 게시글 작성
     write:function(){
       var self = this;
       var id = M.data.global("loginId"); //로그인 아이디
       var title = this.els.$title.val().trim(); //제목
       var content = this.els.$content.val().trim(); //내용
-      var imgPath = "http://211.241.199.241:28040"+self.data.imgPath;
-
+      
       console.log(id);
       if(title == ''){
         return alert('제목을 입력해주세요.');
@@ -191,68 +199,82 @@
       if(content == ''){
         return alert('내용을 입력해주세요.');
       }
-      console.log(self.data.imgPath);
-
-      if (imgPath) {
-        var body = [{
-          name: "file",
-          content: imgPath,
-          type: "FILE"
-        },
-        {
-          name: "content",
-          content: content,
-          type: "TEXT"
-        },
-        {
-          name: "title",
-          content: title,
-          type: "TEXT"
-        },
-        {
-          name: "loginId",
-          content: id,
-          type: "TEXT"
-        }]
-        console.log(body);
-        $.fileHttpSend({
-          path: SERVER_PATH.NOTICE_WRITE_IMG,
-          body: body,
-          succ: function () {
-            alert('파일 업로드 성공');
-            console.log(body);
-            M.page.html('./list.html');
+        $.sendHttp({
+          path: SERVER_PATH.NOTICE_WRITE,
+          data:{
+            loginId : id,
+            title : title,
+            content : content
           },
-          progress: function () {
-            M.page.html('./main.html');
+          succ: function(data){
+            alert('게시글이 작성되었습니다.');
+            console.log(data);  
+            M.page.html({
+              path: './list.html'
+            });
+            return true;
           },
-        })
-
-        }else{
-          $.sendHttp({
-            path: SERVER_PATH.NOTICE_WRITE,
-            data:{
-              loginId : id,
-              title : title,
-              content : content
-            },
-            succ: function(data){
-              alert('게시글이 작성되었습니다.');
-              console.log(data);  
-              M.page.html({
-                path: './list.html'
-              });
-              return true;
-            },
             error:function(){
               console.log(data); 
               return alert('다시 입력해주세요');
             }
           });
+        },
+        
+    //파일 있는 글 작성
+    wrtImg:function(){ 
+      var self = this;
+      var id = M.data.global("loginId"); //로그인 아이디
+      var title = this.els.$title.val().trim(); //제목
+      var content = this.els.$content.val().trim(); //내용
+//      var imgPath = "http://211.241.199.241:28040"+self.data.imgPath; //이미지
+      var imgPath = self.data.imgPath; //이미지
+      console.log(id);
+      console.log(self.data.imgPath);
+      if(title == ''){
+        return alert('제목을 입력해주세요.');
+      }
+      if(content == ''){
+        return alert('내용을 입력해주세요.');
+      }
+      var body = [{
+        name: "file",
+        content: imgPath,
+        type: "FILE"
+      },
+      {
+        name: "content",
+        content: content,
+        type: "TEXT"
+      },
+      {
+        name: "title",
+        content: title,
+        type: "TEXT"
+      },
+      {
+        name: "loginId",
+        content: id,
+        type: "TEXT"
+      }]
+      console.log(body);
+      alert(imgPath);
+      $.fileHttpSend({
+        path: SERVER_PATH.NOTICE_WRITE_IMG,
+        body: body,
+        succ: function () {
+          alert('파일 업로드 성공');
+          console.log(body);
+          M.page.html('./list.html');
+        },
+        progress: function () {
+          M.page.html('./main.html');
+        },
+        error: function(){
+          alert('파일을 업로드할 수 없습니다.');
         }
-      return true;
-    },
-    
+      })
+    }
     
   };
   

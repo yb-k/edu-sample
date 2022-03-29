@@ -52,7 +52,6 @@
     setAutoLogin: function(id, pw){
       //자동로그인 기능
       M.data.storage('AUTO_LOGIN_AUTH', { id: id, pw: pw });
-      M.data.global("loginId", id);
     },
     unsetAutoLogin: function(){
       M.data.removeStorage('AUTO_LOGIN_AUTH');
@@ -63,6 +62,9 @@
       var pw = this.els.$password.val().trim(); //비밀번호 가져오기
       var isAutoLogin = this.els.$autoLoginChk.prop('checked'); //true/false;
       if(id == ''){
+        return alert('아이디를 입력해주세요.');
+      }
+      if(pw == ''){
         return alert('아이디를 입력해주세요.');
       }
       $.sendHttp({

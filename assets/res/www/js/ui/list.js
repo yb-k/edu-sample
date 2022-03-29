@@ -10,6 +10,9 @@ var SERVER_PATH = CONFIG.SERVER_PATH;
   var id = M.data.global("loginId");  
   var seqNum;
   var cnt = "6";
+  M.data.removeGlobal('seqNum');
+  M.data.removeGlobal('imgUrl');
+  M.data.removeGlobal('imgName');
   
   var page = {
     els: {
@@ -75,7 +78,8 @@ var SERVER_PATH = CONFIG.SERVER_PATH;
             
             $(".thumbnail-wrap").attr("id" + "notice"+index);
             seqNum = item.seqNo
-            console.log(item.seqNo);
+            console.log(seqNum);
+            console.log(item.imgUrl);
           });
           $(".metro-wrap").html(items);
         },
