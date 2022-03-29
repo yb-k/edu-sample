@@ -64,10 +64,26 @@
     },
     initEvent: function initEvent(){
       // initEvent 바인딩
-      var modiBtn = this.els.$modiBtn;
-      var delBtn = this.els.$delBtn;
-      modiBtn.on('click', function(){
-        M.page.html('write.html', {
+      
+      
+      $('#delBtn').on('click', function(){
+        var result = confirm($('#title').html() + " 게시물을 삭제하시겠습니까?");
+        if(result){
+          MNet.sendHttp({
+            path: SERVER_PATH.NOTICE_DELETE,
+            data: {
+              loginId: id,
+              seqNo: seqNum,
+            },
+            succ: function (data) {
+              alert($('#title').html() + '게시물이 삭제되었습니다.');
+              M.page.html('./list.html')
+            }
+          });
+        }
+      });
+      $("#modibtn").on('click', function(){
+        M.page.html('./write.html', {
           'param':{
             seqNum: seqNum,
           }
@@ -75,6 +91,7 @@
       });
 
     },
+    
 
   };
   window.__page__ = page;
