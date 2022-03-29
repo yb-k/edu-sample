@@ -5,8 +5,7 @@
  */
 // 페이지단위 모듈
 (function ($, M, MNet, SERVER_PATH, window) {
-
-
+  var id;
   var page = {
     els: {
       $userNm: null,
@@ -42,7 +41,6 @@
 
     initView: function initView() {
       // 화면에서 세팅할 동적데이터
-      var id;
       if (M.data.storage("AUTO_LOGIN_AUTH")) {
         id = M.data.storage("AUTO_LOGIN_AUTH").id;
       } else {
@@ -72,33 +70,30 @@
         M.page.back();
       });
       self.els.$password.on('propertychange change keyup paste input', function () {
-        if(self.els.$password.val().trim().length >= 1) {
+        if (self.els.$password.val().trim().length >= 1) {
           $(self.els.$saveBtn).attr("disabled", false);
-          
-        }else{
+
+        } else {
           $(self.els.$saveBtn).attr("disabled", true);
         }
-        
+
       });
-      self.els.$changePw.on('click', function(){
+      self.els.$changePw.on('click', function () {
         self.changePw();
       });
-      self.els.$saveBtn.on('click', function(){
+      self.els.$saveBtn.on('click', function () {
         self.changeInfo();
+      });
+      $('#outBtn').on('click', function () {
+          self.pwChk();
+
       });
 
     },
 
-    changePw: function(){
-      var id;
-      
-      if (M.data.storage("AUTO_LOGIN_AUTH")) {
-        id = M.data.storage("AUTO_LOGIN_AUTH").id;
-      } else {
-        id = M.data.global("userId");
-      }
+    changePw: function () {
       var pw = this.els.$password.val().trim();
-      if(pw == ''){
+      if (pw == '') {
         return alert("비밀번호를 입력해주세요.");
       }
       MNet.sendHttp({
@@ -109,24 +104,23 @@
 
         },
         succ: function (data) {
-            if (data.rsltCode == '0000') {
-              alert('password 변경 페이지로 이동!');
-              M.page.html('./findPw2.html', {
-                param: {
-                  loginId: id
-                }
-              });
-            } else {
-              console.log(data);
-              return alert('password가 일치하지 않습니다.');
-            }
+          if (data.rsltCode == '0000') {
+            alert('password 변경 페이지로 이동!');
+            M.page.html('./findPw2.html', {
+              param: {
+                loginId: id
+              }
+            });
+          } else {
+            console.log(data);
+            return alert('password가 일치하지 않습니다.');
+          }
         },
 
       });
     },
 
-    changeInfo: function(){
-      var id;
+    changeInfo: function () {
       if (M.data.storage("AUTO_LOGIN_AUTH")) {
         id = M.data.storage("AUTO_LOGIN_AUTH").id;
       } else {
@@ -150,14 +144,66 @@
 
         },
         succ: function (data) {
-            alert("정보수정 완료!");
-            self.els.$password.val('');
-            
-             
+          alert("정보수정 완료!");
+          self.els.$password.val('');
+
+
         },
 
       });
     },
+    pwChk: function () {
+      var pw = this.els.$password.val().trim();
+      var self = this;
+
+      if (pw == '') {
+        return alert("비밀번호를 입력해주세요.");
+      }
+      MNet.sendHttp({
+        path: SERVER_PATH.CHECK_PASSWORD,
+        data: {
+          loginId: id,
+          password: pw,
+
+        },
+        succ: function (data) {
+          if (data.rsltCode == '0000') {
+            self.out();
+          } else {
+            console.log(data);
+            return alert('password가 일치하지 않습니다.');
+          }
+        },
+        error: function (data) {
+          return alert('password가 일치하지 않습니다.');
+        },
+
+      });
+
+    },
+    out: function () {
+      var result = confirm('정말로 탈퇴하겠습니까?');
+      if (result) {
+        MNet.sendHttp({
+          path: SERVER_PATH.OUT,
+          data: {
+            loginId: id,
+          },
+          succ: function (data) {
+            alert('탈퇴되었습니다.');
+            M.data.removeStorage('AUTO_LOGIN_AUTH');
+            M.page.html({
+              url: "./login.html",
+              actionType: 'CLEAR_TOP'
+            });
+          },
+          error: function (data) {
+            return alert('password가 일치하지 않습니다.');
+          },
+
+        });
+      } 
+    }
   };
   window.__page__ = page;
 })(jQuery, M, __mnet__, __serverpath__, window);
