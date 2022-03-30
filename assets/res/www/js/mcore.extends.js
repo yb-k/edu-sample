@@ -19,7 +19,8 @@ importFiles = [
   "common/definition.js",
   "common/setup.js",
   "common/util.js",
-  "common/MAPI.js",
+  "common/jquery.plugin.js",
+  "common/MAPI.js"
 ];
 
 M.ScriptLoader.writeScript( importFiles, M.ScriptLoader.scriptPath(thisFileName) );
