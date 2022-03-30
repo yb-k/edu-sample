@@ -23,7 +23,7 @@
     init: function init(){
       this.els.$iptTitle = $('#ipt-title');
       this.els.$iptContent = $('#ipt-content');
-      this.els.$iptPrice = $('#ipt-price');
+      this.els.$iptPrice = $('#ipt-price'); ///////////////////////////////////////////
       this.els.$iptImg = $('#ipt-img');
       this.els.$btnLine = $('.btn-line');
       this.els.$btnPoint = $('.btn-point-color');
@@ -66,6 +66,12 @@
     initEvent : function initEvent(){
       var self = this;
       
+      $('.r-fix').on('click', function(){
+        $('.position').attr('style', 'position: absolute; top:0;right:0px;bottom:0;transition:1s ease;');
+      });
+      $('.r-fix').on('blur', function(){
+        $('.position').attr('style', 'position: absolute; top:0;right:-130px;bottom:0;transition:1s ease;');
+      });
       $('.l-fix').on('click', function(){
         M.page.back();
       });

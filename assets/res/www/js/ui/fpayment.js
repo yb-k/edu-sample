@@ -54,6 +54,11 @@
       $('.l-fix').on('click', function(){
         M.page.back();
       });
+      $('#btn-order').on('click', function(){
+        var pagelist = M.info.stack();
+        M.page.remove(pagelist[1].key);
+        M.page.replace('./order.html');
+      });
     }
   };
   window.__page__ = page;

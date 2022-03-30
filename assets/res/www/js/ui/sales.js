@@ -51,6 +51,12 @@
       $('.l-fix').on('click', function(){
         M.page.back();
       });
+      $('.r-fix').on('click', function(){
+        $('.position').attr('style', 'position: absolute; top:0;right:0px;bottom:0;transition:1s ease;');
+      });
+      $('.r-fix').on('blur', function(){
+        $('.position').attr('style', 'position: absolute; top:0;right:-130px;bottom:0;transition:1s ease;');
+      });
     }
   };
   window.__page__ = page;

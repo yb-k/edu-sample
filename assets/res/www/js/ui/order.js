@@ -36,9 +36,9 @@
           var items = "";
           $.each(data.list, function (index, item) {
             items += "<tr id='"+ item.seqNo +"' class ='test'>";
-            items += "<th>";
+            items += "<td>";
             items += "<input type='checkbox' id='"+ item.seqNo +"' name='color' class='chk-03' />";
-            items += "</th><td>";
+            items += "</td><td>";
             items += item.title;
             items += "</td><td>";
 /*            items += "<input type='button' class='btn-plus' onclick='count("plus")' value='+'/>";
@@ -47,7 +47,7 @@
             items += item.title;
             items += "</td><td>";
             items += item.title;
-            items += "</td></td>";;
+            items += "</td></tr>";;
           });
           $("#noti-wrap").html(items);
         },
@@ -62,9 +62,16 @@
       $('.l-fix').on('click', function(){
         M.page.back();
       });
+      $('.r-fix').on('click', function(){
+        $('.position').attr('style', 'position: absolute; top:0;right:0px;bottom:0;transition:1s ease;');
+      });
+      $('.r-fix').on('blur', function(){
+        $('.position').attr('style', 'position: absolute; top:0;right:-130px;bottom:0;transition:1s ease;');
+      });
       this.els.$btnOrder.on('click', function(){
         M.page.html('./fpayment.html');
       });
+      
     }
   };
   window.__page__ = page;

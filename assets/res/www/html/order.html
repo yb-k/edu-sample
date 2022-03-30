@@ -26,49 +26,40 @@
       <!-- 오른쪽 버튼 class="r-fix" 추가 -->
     </button>
   </header>
+  <div class="tab-menu-wrap  bg-white">
+    <ul class="tab-menu table order">
+      <li>
+        <span>
+          선택
+        </span>
+      </li>
+      <li id="ice">
+        <span>
+          식자재
+        </span>
+      </li>
+      <li id="blended">
+        <span>
+          수량
+        </span>
+      </li>
+      <li id="tea">
+        <span>
+          가격
+        </span>
+      </li>
+    </ul>
+  </div>
   <!-- 헤더 입력 영역 (헤더 디자인에 따라 바꿔치기 가능) -->
   <div class="container bg-gray line-t">
     <!-- 헤더 입력 영역 (헤더 디자인에 따라 바꿔치기 가능) -->
-    <div class="cont-wrap1 main-box">
+    <div class="cont-wrap main-box">
       <!-- 태블릿에서 볼때 왼쪽에 정렬될 내용 -->
       <div class="left-box">
-        <!-- section 단위로 순서 변경 가능 -->
-        <section class="main-box-03">
-          <div class="tab-menu-wrap  bg-white">
-            <ul class="tab-menu table order">
-              <li>
-                <!-- 해당 tab시 class="on" 추가 -->
-                <span>
-						    선택
-					      </span>
-              </li>
-              <li>
-                <!-- 해당 tab시 class="on" 추가 -->
-                <span>
-						    식자재
-					      </span>
-              </li>
-              <li>
-                <!-- 해당 tab시 class="on" 추가 -->
-                <span>
-                  수량
-					      </span>
-              </li>
-              <li>
-                <!-- 해당 tab시 class="on" 추가 -->
-                <span>
-						    가격
-					      </span>
-              </li>
-            </ul>
-          </div>
-          <ul class="noti-wrap">
-            <table id="noti-wrap" style="border-collapse: separate; border-spacing: 0 1rem;"
-                   width="100%">
+        <table id="noti-wrap" style="width:90%; margin-left:5%; margin-right:5%; padding-left:2rem;
+        border-collapse: separate; border-spacing: 0 1rem; background-color:#fff;">
 
-            </table>
-          </ul>
-        </section>
+        </table>
       </div>
     </div>
   </div>
@@ -84,11 +75,24 @@
     }); 
     
       </script>-->
+  <div class="total-price">
+    총 합계 : <span></span>
+  </div>
   <div class="btn-wrap">
     <button class="btn-point-color order" id="btn-order" type="button">
       주문하기
     </button>
   </div>
+  <section class="side-bar position">
+    <h1>메뉴</h1>
+    <ul class="menu-side-bar">
+      <li id="menu-order-food">발주</li>
+      <li id="menu-sales">매출현황</li>
+      <li id="menu-menu">상품관리</li>
+      <li id="menu-member-info">회원정보</li>
+      <li id="menu-store-info">매장정보</li>
+    </ul>
+  </section>
 </div>
 
 </body>
