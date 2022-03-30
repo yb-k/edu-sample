@@ -44,17 +44,17 @@
     initEvent: function initEvent() {
       // initEvent 바인딩
       var self = this;
-      this.els.$dupBtn.on('click', function () {
+      self.els.$dupBtn.on('click', function () {
         self.idCheck();
       });
-      this.els.$joinBtn.on('click', function () {
+      self.els.$joinBtn.on('click', function () {
         if (checkId == 'N') {
           self.join();
         } else {
           alert("아이디 중복확인을 해주세요.");
         }
       });
-      this.els.$loginId.on('input', function () {
+      self.els.$loginId.on('propertychange change keyup paste input', function () {
         checkId = 'Y';
       });
 
