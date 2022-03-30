@@ -14,6 +14,8 @@
       $btnWrite: null,
       $titleIpt: null,
       $contentIpt: null,
+      $img: null,
+      $btnLine: null,
 
     },
     data: {},
@@ -28,6 +30,8 @@
       this.els.$btnWrite = $('.btn-point-color');
       this.els.$titleIpt = $('#title');
       this.els.$contentIpt = $('#content');
+      this.els.$btnLine = $('.btn-line');
+      this.els.$img = $('#img');
     },
 
 
@@ -45,7 +49,11 @@
             if (data.isMyNoticeYn != 'Y') {
               $('.btn-wrap').hide();
             }
-
+            if (data.imgUrl) {
+              var split = data.imgUrl.lastIndexOf('/');
+              var imgName = data.imgUrl.toString().substring(split + 1, );
+              $('#img').val(imgName);
+            }
             $('#title').val(data.title);
             $('#content').val(data.content);
           }
@@ -59,7 +67,22 @@
         M.page.back();
       });
       self.els.$btnWrite.on('click', function () {
-        self.write();
+       if(seqNum){
+        if (self.data.imgPath) {
+          self.updateWithUpload(self.data.imgPath);
+        } else {
+          self.update();
+        }
+      }else{
+        if (self.data.imgPath) {
+          self.writeWithUpload(self.data.imgPath);
+        } else {
+          self.write();
+        }
+      }
+      });
+      self.els.$btnLine.on('click', function () {
+        self.getImg();
       });
     },
 
@@ -81,7 +104,7 @@
 
         },
         succ: function (data) {
-          
+
           M.page.html("./list.html");
 
         },
@@ -90,6 +113,7 @@
     },
 
     update: function () {
+
       var title = this.els.$titleIpt.val().trim();
       var content = this.els.$contentIpt.val().trim();
       if (title == '') {
@@ -105,15 +129,152 @@
           loginId: id,
           title: title,
           content: content,
-          seqNo : seqNum,
+          seqNo: seqNum,
 
         },
         succ: function (data) {
           alert("게시글 수정 완료.");
-          M.page.html("./list.html");
+          this.data.imgUrl = '';
+          M.page.replace({
+            url: './detail.html',
+            param: {'seqNum':seqNum},
+          });
+          var pagelist = M.info.stack();
+          M.page.remove(pagelist[1].key);
 
         },
       });
+    },
+    getImg: function () {
+      var self = this;
+      M.media.picker({
+        mode: "SINGLE",
+        media: "PHOTO",
+        column: 3,
+        callback: function (status, result) {
+          if (status == 'SUCCESS') {
+            self.data.imgPath = result.fullpath;
+            self.els.$img.val(result.name);
+          } else {
+            self.data.imgPath = null;
+            self.els.$img.val('');
+          }
+        }
+      });
+    },
+    writeWithUpload: function writeWithUpload(imgPath) {
+      var self = this;
+      var title = self.els.$titleIpt.val().trim();
+      var content = self.els.$contentIpt.val().trim();
+
+      if (title == '') {
+        return alert("제목을 입력해주세요.");
+      }
+      if (content == '') {
+        return alert("내용을 입력해주세요.");
+      }
+      var body = [{
+          name: "file",
+          content: imgPath,
+          type: "FILE"
+        },
+        {
+          name: "content",
+          content: content,
+          type: "TEXT"
+        },
+        {
+          name: "title",
+          content: title,
+          type: "TEXT"
+        },
+        {
+          name: "loginId",
+          content: id,
+          type: "TEXT"
+        },
+      ]
+      // { content: "파일업로드", type: "TEXT" },
+      // { name: "imgs", content: "test.zip", type: "FILE" },
+      $.fileHttpSend({
+        path: SERVER_PATH.NOTICE_WRITE_IMG,
+        body: body,
+        succ: function () {
+          alert('성공~');
+          console.log(arguments);
+          M.page.replace({
+            url: './list.html',
+          });
+          var pagelist = M.info.stack();
+          M.page.remove(pagelist[1].key);
+        },
+        progress: function () {
+          console.log(arguments);
+        },
+        error: function () {
+          alert('실패');
+        }
+      })
+    },
+    updateWithUpload: function updateWithUpload(imgPath) {
+      var self = this;
+      var title = self.els.$titleIpt.val().trim();
+      var content = self.els.$contentIpt.val().trim();
+
+      if (title == '') {
+        return alert("제목을 입력해주세요.");
+      }
+      if (content == '') {
+        return alert("내용을 입력해주세요.");
+      }
+      var body = [{
+          name: "file",
+          content: imgPath,
+          type: "FILE"
+        },
+        {
+          name: "content",
+          content: content,
+          type: "TEXT"
+        },
+        {
+          name: "title",
+          content: title,
+          type: "TEXT"
+        },
+        {
+          name: "loginId",
+          content: id,
+          type: "TEXT"
+        },
+        {
+          name: "seqNo",
+          content: seqNum,
+          type: "TEXT"
+        },
+      ]
+      // { content: "파일업로드", type: "TEXT" },
+      // { name: "imgs", content: "test.zip", type: "FILE" },
+      $.fileHttpSend({
+        path: SERVER_PATH.NOTICE_UPDATE_IMG,
+        body: body,
+        succ: function () {
+          alert('업데이트성공~');
+          console.log(arguments);
+          M.page.replace({
+            url: './detail.html',
+            param: {'seqNum':seqNum},
+          });
+          var pagelist = M.info.stack();
+          M.page.remove(pagelist[1].key);
+        },
+        progress: function () {
+          console.log(arguments);
+        },
+        error: function () {
+          alert('업데이트실패');
+        }
+      })
     },
 
   };
