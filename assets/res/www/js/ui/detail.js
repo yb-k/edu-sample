@@ -6,13 +6,20 @@
 
 // 페이지 단위모듈
 (function ($, M, MNet, config, SERVER_PATH, window) {
+  var seqNoSend;
+  var  imgNameSend;
+  var imgUrlSend;
+  var asd;
+  var imgNameStartSends = Array();
   var page = {
     els: {
-      $modiBtn: null,
+
       $delBtn: null,
       $imgUrl: null,
-      $updateBtn: null,
-      $delteBtn: null,
+      $title: null,
+      $content: null,
+      
+
 
 
 
@@ -21,17 +28,20 @@
     data: {},
     init: function init() {
 
-      this.els.$modiBtn = $('#modiBtn');
+      this.els.$updateBtn = $('#modiBtn');
       this.els.$delBtn = $('#delBtn');
       this.els.$imgUrl = $('#imgUrl');
-      this.els.$imgUrl = $('.btn-point-color');
-      this.els.$delteBtn = $('#btn-line');
+      this.els.$title = $('#title');
+      this.els.$content = $('#content');
+      
+
+
+
+
 
     },
     initView: function initView() {
       //화면에서 세팅할 동적데이터
-      console.log(M.data.global('seqNoSend'));
-
 
       var self = this;
       MNet.sendHttp({
@@ -45,9 +55,21 @@
           $('#title').text(data.title);
           $('#regDate').html(data.regDate);
           $('#content').html(data.content);
+          seqNoNext = data.seqNo;
           console.log(data.imgUrl);
           if (data.imgUrl != null) {
             $('#imgUrl').attr('src', data.imgUrl);
+          
+          
+            
+            var imgNameStartSends =  data.imgUrl.split('/');
+            for(var i=0; i<imgNameStartSends.length; i++ ){
+              imgNameSend = imgNameStartSends[i];
+            }
+            
+
+
+
 
           }
           if (data.isMyNoticeYn == 'N') {
@@ -70,24 +92,35 @@
     initEvent: function initEvent() {
       var self = this;
       // Dom Event 바인딩
-      this.els.$imgUrl.on('click', function () {
-          M.page.html('./write.html');
-        }),
+     
 
-        this.els.$delteBtn.on('click', function () {
-          self.findId();
+        this.els.$updateBtn.on('click', function () {
+         self.updatePage();  
         })
 
       this.els.$delBtn.on('click', function () {
         self.delData();
       })
     },
-
-
-
-    delData: function(){
-
     
+    updatePage :function(){
+
+      // 페이지 호출
+      M.page.html({
+        path: './write.html',
+        param: {
+          "seqNoNext": seqNoNext,
+          "imgNameSend" : imgNameSend,
+         
+          
+        }
+      });
+    },
+
+
+    delData: function () {
+
+
       M.pop.alert({
         title: '공지',
         message: '정말 삭제하시겠습니까?',
@@ -119,7 +152,7 @@
       });
     }
 
-  
+
 
 
 
