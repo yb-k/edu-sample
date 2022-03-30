@@ -37,7 +37,7 @@
         data: {
           "loginId": M.data.global('id'),
           "lastSeqNo": '1000000',
-          "cnt": '6',
+          "cnt": '1000000',
         },
         succ: function (data) {
           console.log(data);
@@ -47,7 +47,7 @@
           $.each(data.list, function (index, item) {
             console.log(item);
             console.log(item.imgUrl);
-            items += "<li id='"+ item.seqNo +"' class ='test'>";
+            items += "<li id='"+ item.seqNo +"' class ='menu'>";
             items += "<div class='thumbnail-wrap'>";
             items += "<div class='thumbnail'>";
             items += "<img src='" +item.imgUrl +" ' alt=''/>";
@@ -62,8 +62,8 @@
             items += item.title;
             items += "</strong>";
             items += "<div class='info-box-btm'>";
-            items += "<p style='text-align:left;' class='ellipsis_1'>";
-            items += item.content;
+            items += "<p style='text-align:right;' class='ellipsis_1'>";
+            items += item.content + '원';
             items += "</p>";
             items += "</div>";
             items += "</div>";
@@ -87,7 +87,7 @@
         M.page.back();
       });
       this.els.$btnModify.on('click', function(){
-        M.page.html('./write.html');
+        M.page.html('./write-menu.html');
       });
       this.els.$btnTop.on('click', function () {
         $('.cont-wrap').scrollTop(0);
@@ -119,50 +119,6 @@
           alert(seqNo);
         });
       */
-      this.els.$btnWrap.on("click", function(){
-        console.log('클릭');
-        MNet.sendHttp({
-          path: SERVER_PATH.NOTICE_LIST,
-          data: {
-            "loginId": M.data.global('id'),
-            "lastSeqNo": self.data.lastSeqNum,
-            "cnt": '6',
-          },
-          succ: function (data) {
-            var items = "";
-            self.data.lastSeqNum = data.lastSeqNo;
-            console.log(self.data.lastSeqNum);
-            $.each(data.list, function (index, item) {
-              items += "<li id='"+ item.seqNo +"' class ='test'>";
-              items += "<div class='thumbnail-wrap'>";
-              items += "<div class='thumbnail'>";
-              items += "<img src='" +item.imgUrl +" ' alt=''/>";
-              items += "</div>";
-              items += "<span class='label-info none'>";
-              items += "<img src= '" + item.imgUrl + "' alt='50%'/>";
-              items += "</span>";
-              items += "</div>";
-              items += "<div class='info-box'>";
-              items += "<div class='info-box-top'>";
-              items += "<strong class='ellipsis_1'>";
-              items += item.title;
-              items += "</strong>";
-              items += "<div class='info-box-btm'>";
-              items += "<p style='text-align:left;' class='ellipsis_1'>";
-              items += item.content;
-              items += "</p>";
-              items += "</div>";
-              items += "</div>";
-              items += "</li>";
-            });
-            $("#card").append(items);
-          },
-          error: function (data) {
-            console.log(data);
-            alert("리스트를 가져오지 못했습니다.");
-          },
-        });
-      });
     }
   };
   window.__page__ = page;

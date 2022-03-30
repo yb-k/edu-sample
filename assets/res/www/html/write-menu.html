@@ -14,8 +14,8 @@
 		<header class="header line">
 			<!-- 하단에 라인이 있는경우 class="line"추가 -->
 			<h1>
-				게시글 작성
-			</h1>
+        메뉴 등록
+      </h1>
 			<button type="button" class="btn-back l-fix">
 				뒤로가기
 			</button>
@@ -31,45 +31,53 @@
 				<div class="ipt-wrap">
 					<div class="ipt-form-type2">
 						<span>
-							제목
+							제품명
 						</span>
 						<div class="ipt-form-col">
 							<input type="text" id="ipt-title" placeholder="게시글 제목(50자까지)" maxlength="50"/>
-						</div>
-					</div>
-					<div class="ipt-form-type1">
+            </div>
+          </div>
+          <div class="ipt-form-type1">
 						<span>
-							내용
+							설명
 						</span>
-						<div class="ipt-form-col">
-							<input type="text" id="ipt-content" placeholder="게시글 내용(50자까지)" maxlength="50"/>
-						</div>
-					</div>
-					<div class="ipt-form-type2">
+            <div class="ipt-form-col">
+              <input type="text" id="ipt-content" placeholder="게시글 내용(50자까지)" maxlength="50"/>
+            </div>
+          </div>
+          <div class="ipt-form-type1">
+						<span>
+							가격
+						</span>
+            <div class="ipt-form-col">
+              <input id="ipt-price" maxlength="5" placeholder="숫자만 입력" type="text"/>
+            </div>
+          </div>
+          <div class="ipt-form-type2">
 						<span>
 							첨부 이미지
 						</span>
-						<div class="ipt-form-row">
-							<input type="text" id="ipt-img" readonly placeholder="이미지 파일명 (자동입력)"/>
-							<button type="button" class="btn-line" id="btn-img">
-								이미지 선택
-							</button>
-						</div>
+            <div class="ipt-form-row">
+              <input type="text" id="ipt-img" readonly placeholder="이미지 파일명 (자동입력)"/>
+              <button type="button" class="btn-line" id="btn-img">
+                이미지 선택
+              </button>
+            </div>
 						<div class="ipt-form-col">
 							<img src="" id="view-img"/>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="btn-wrap btm-wrap pd">
-				<button type="button" class="btn-point-color" id="btn-write">
-					작성하기
-				</button>
-			</div>
-		</div>
-	</div>
+      <div class="btn-wrap btm-wrap pd">
+        <button type="button" class="btn-point-color" id="btn-write">
+          작성하기
+        </button>
+      </div>
+    </div>
+  </div>
 </body>
 
 <script type="text/javascript" src="../js/mcore.min.js"></script>
-<script type="text/javascript" src="../js/ui/write.js"></script>	
+<script src="../js/ui/write-menu.js" type="text/javascript"></script>
 </html>

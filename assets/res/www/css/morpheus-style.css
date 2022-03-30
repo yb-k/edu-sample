@@ -232,19 +232,34 @@ li.txt-btn .btn-txt{position:absolute;right:1.5rem;display:inline-block;color:#9
 /* metro */
 .metro-wrap{overflow:hidden;}
 .metro-wrap.pd{padding:1rem;}
-.metro-wrap li{float:left;width:49%;}
+.metro-wrap li{float:left;width:30%;}
 .metro-wrap{overflow:hidden;}
 .metro-wrap li{position:relative;float:left;margin-top:1rem;width:49%;/*height:14.5rem;*/border:1px solid #e0e0e0;}
 .metro-wrap li:nth-child(1),
 .metro-wrap li:nth-child(2){margin-top:0;}
 .metro-wrap li:nth-child(2n){margin-left:2%;}
 .thumbnail-wrap{position:relative;width:100%;}
+
+/*상품메뉴수정*/
+.metro-wrap li.menu{position:relative;float:left;margin-top:1rem;width:30%;/*height:14.5rem;*/border:1px solid #e0e0e0;}
+.metro-wrap li.menu:nth-child(1),
+.metro-wrap li.menu:nth-child(2){margin-top:0;}
+.metro-wrap li.menu:nth-child(3){margin-top:0;}
+.metro-wrap li.menu:nth-child(3n){margin-left:2%;}
+.metro-wrap li.menu:nth-child(3n-1){margin-left:2%;}
+/*상품메뉴수정*/
+
+.thumbnail-wrap{position:relative;width:100%;}
 .thumbnail-wrap .thumbnail{position:relative;padding-top:62%;overflow:hidden;}
 .thumbnail img{position:absolute;top:0;left:0;bottom:0;width:100%;height:auto;}
 .metro-wrap .info-box{position:relative;padding:.7rem;border-top:1px solid #e5e5e5;}
 .info-box-top{position:relative;}
 .info-box-top .label{position:absolute;}
-.info-box-top strong{padding-left:3.9rem;padding-top:2px;;font-size:1.4rem;font-weight:bold;}
+
+/*상품메뉴 title 위치수정*/
+.info-box-top strong{padding-left:1rem;padding-top:2px;;font-size:1.4rem;font-weight:bold;}
+/*상품메뉴 title 위치수정*/
+
 strong.ellipsis{position:relative;display:inline-block;width:100%;}
 .info-box-top strong span{font-weight:400;}
 .info-box-btm{overflow:hidden;text-align:right;}
@@ -334,7 +349,9 @@ strong.ellipsis{position:relative;display:inline-block;width:100%;}
 .tbl-ipt tbody tr:first-child th,
 .tbl-ipt tbody tr:first-child td{padding-top:1.5rem;}
 .tbl-ipt tbody tr:last-child td{padding-bottom:0;}
+/*발주주문 수정*/
 .tbl-ipt tfoot td{padding:1.5rem 1.5rem;font-size:2rem;font-weight:bold;text-align:right;background-color:#eee; }
+/*발주주문 수정*/
 .tbl-ipt .bul::before{content:'';display:inline-block;width:4px;height:4px;margin:0 .5rem .5rem 0;background-color:#333;}
 .tbl-ipt .noti{margin-top:0;margin-bottom:1rem;}
 .tbl-ipt .chk-wrap{padding-top:1rem;}

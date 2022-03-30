@@ -9,6 +9,7 @@
     els:  {
       $iptTitle : null,
       $iptContent : null,
+      $iptPrice : null,
       $iptImg : null,
       $btnLine : null,
       $btnPoint : null,
@@ -22,6 +23,7 @@
     init: function init(){
       this.els.$iptTitle = $('#ipt-title');
       this.els.$iptContent = $('#ipt-content');
+      this.els.$iptPrice = $('#ipt-price');
       this.els.$iptImg = $('#ipt-img');
       this.els.$btnLine = $('.btn-line');
       this.els.$btnPoint = $('.btn-point-color');
