@@ -5,7 +5,8 @@
  */
 
 // 페이지 단위모듈
-(function ($, M, MNet, config, SERVER_PATH, window) {
+(function ($, M, MNet, SERVER_PATH, window) {
+
   var page = {
     els: {
       $userNmIpt: null,
@@ -23,7 +24,7 @@
     data: {},
     init: function init() {
       this.els.$userNmIpt = $('#userNm');
-      // this.els.$gender = $('input:radio[name=gender]');
+      this.els.$gender = $('input:radio[name=gender]:checked');
       this.els.$year = $('#year');
       this.els.$month = $('#month');
       this.els.$date = $('#date');
@@ -54,7 +55,7 @@
     nextJoin2: function () {
       var self = this;
       var userNm = this.els.$userNmIpt.val().trim(); // 회원가입 이름 가져오기
-      var gender = this.els.$gender.val().trim(); // 회원가입 성별 가져오기 
+      var gender = this.els.$gender.val(); // 회원가입 성별 가져오기 
       var year = this.els.$year.val().trim(); // 회원가입 년도 가져오기
       var month = this.els.$month.val().trim(); // 회원가입 월 가져오기
       var date = this.els.$date.val().trim(); // 회원가입 일 가져오기
@@ -95,10 +96,12 @@
       }
 
       if (cellPhone == '') {
-        return alert('전화번호를 입력해주세요.');
+        return alert('전화번호를 확인해주세요.');
       }
-      if (cellPhone.length == 11) {
-        return alert('전화번호를 11자로 입력해주세요.');
+      var patternPhone = /01[016789][^0][0-9]{2,3}[0-9]{3,4}/;
+      if (!patternPhone.test(cellPhone)) {
+        alert('전화번호를 확인 해주세요');
+        return;
       }
 
 
@@ -122,7 +125,7 @@
 
   };
   window.__page__ = page;
-})(jQuery, M, __mnet__, __config__, __serverpath__, window);
+})(jQuery, M, __mnet__,  __serverpath__, window);
 
 // 해당 페이지에서 실제 호출
 (function ($, M, pageFunc, window) {
