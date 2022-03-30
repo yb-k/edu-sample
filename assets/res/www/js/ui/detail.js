@@ -47,7 +47,7 @@
           content = content.replace(/\n/ig, '<br/>');
           console.log(content);
           $( '#title' ).text( data.title );
-          $( '#content' ).text( content );
+          $( '#content' ).html( content );
           $('#imgUrl').attr('src', data.imgUrl);
           if(data.isMyNoticeYn === 'Y'){
             $('.btn-wrap').show();
@@ -58,7 +58,6 @@
           alert('에러!');
         }
       });
-      
     },
     initEvent : function initEvent(){
       var self = this;
