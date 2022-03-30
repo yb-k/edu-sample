@@ -5,7 +5,7 @@
  */
 
 // 페이지 단위모듈
-(function ($, M, MNet, config, SERVER_PATH, window) {
+(function ($, M, MNet, SERVER_PATH, window) {
   var seqNo = '0';
   var page = {
     els: {
@@ -37,7 +37,9 @@
         },
         succ: function (data) {
           var items = "";
+          
           $.each(data.list, function (index, item) {
+            
             items += "<li data='" + item.seqNo + "' class='numSend'>";
             items += "<div class='thumbnail-wrap'>";
             items += "<div class='thumbnail'>";
@@ -64,9 +66,9 @@
             items += "</div>";
             items += "</li>";
             seqNo = item.seqNo;
+            
           });
           $(".metro-wrap").append(items);
-          
         },
         error: function (data) {
           $(".btn-point-color").css("display", "none");
@@ -157,7 +159,7 @@
 
   };
   window.__page__ = page;
-})(jQuery, M, __mnet__, __config__, __serverpath__, window);
+})(jQuery, M, __mnet__, __serverpath__, window);
 
 // 해당 페이지에서 실제 호출
 (function ($, M, pageFunc, window) {
