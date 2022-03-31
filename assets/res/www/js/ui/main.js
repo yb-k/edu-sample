@@ -58,6 +58,10 @@
     pageFunc.initView();
     pageFunc.initEvent();
   });
-
+  M.onRestore(function(){
+    pageFunc.init(); // 최초 화면 초기화
+    pageFunc.initView();
+    pageFunc.initEvent();
+  })
 // 해당 페이지에서 실제 호출
 })(jQuery, M, __page__, window);

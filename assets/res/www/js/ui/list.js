@@ -11,9 +11,9 @@
       $contentUl: null,
       $contentWrapper: null,
       $moreData: null,
-      $write : null,
-      $topbutton : null,
-      $lists : null,
+      $write: null,
+      $topbutton: null,
+      $lists: null,
     },
     data: {
       lastSeqNo: null
@@ -25,7 +25,7 @@
       this.els.$moreData = $('#more-data');
       this.els.$write = $('#write');
       this.els.$topbutton = $('#top-button');
-      
+
     },
     initView: function initView() {
       // 회면에서 세팅할 동적 데이터
@@ -45,8 +45,6 @@
           $.each(data.list, function (index, item) {
             self.addItemToList(item);
           });
-          self.els.$lists = $('.test');
-          module.setEventWithParam($('.test'),'click','./detail.html',M.data.global("LOGIN_INFO").id);
         },
         error: function () {
           console.log('error');
@@ -55,11 +53,24 @@
     },
     initEvent: function initEvent() {
       // DOM Event 바인딩
-      var self = this;
-      self.els.$write.on('click',function (){
+      $(this.els.$write).on('click',function () {
         M.page.html('./write.html');
       });
-      self.els.$topbutton.on('click',function (){
+      $('#content-wrapper').on('click', '.test', function () {
+        var seqNo = $(this).attr('id');
+        console.log(seqNo);
+        console.log(M.data.global('seqNo'));
+        M.page.html({
+          url: './detail.html',
+          action: 'NO_HISTORY',
+          param: {
+            loginId: M.data.global("LOGIN_INFO").id,
+            seqNo: seqNo
+          }
+        });
+      });
+      var self = this;
+      self.els.$topbutton.on('click', function () {
         $('.cont-wrap').scrollTop(0);
       });
       self.els.$moreData.on('click', function () {
@@ -76,11 +87,10 @@
               self.addItemToList(item);
             });
             self.els.$lists = $('.test');
-            module.setEventWithParam($('.test'),'click','./detail.html',M.data.global("LOGIN_INFO").id);
           }
         })
       });
-      
+
     },
     addItemToList: function (item) {
       var items = "";
@@ -90,10 +100,10 @@
       items += "<a>";
       items += "<div class='thumbnail-wrap'>";
       items += "<div class='thumbnail'>";
-                  items += '<img style="height:100%"src="';
-                  items += url;
-                  items += '"';
-                  items += "alt=''/>";
+      items += '<img style="height:100%"src="';
+      items += url;
+      items += '"';
+      items += "alt=''/>";
       items += "</div>";
       items += "<span class='label-info none'>";
       //            items += "<img src=" ;
@@ -126,6 +136,5 @@
     pageFunc.initView();
     pageFunc.initEvent();
   });
-
 // 해당 페이지에서 실제 호출
 })(jQuery, M, __page__, window);

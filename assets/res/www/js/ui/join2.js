@@ -70,8 +70,15 @@
       if (date > 31) {
         return alert('일을 정확하게 입력해주세요');
       }
+      var fullBirth = year + module.digitNum(month) + date;
+      if (module.isBirthday(fullBirth) == false){
+        return alert('유효하지 않은 생년월일 입니다.');
+      }
       if (cellphone.length < 11 || cellphone.length > 11) { // 휴대폰 번호 11자리 고정.
-        return alert('휴대폰 번호를 입력해주세요');
+        return alert('휴대폰 번호를 11자리 입력해주세요');
+      }
+      if (module.isCellphone(cellphone) == false){
+        return alert('휴대폰번호가 유효하지 않습니다.');
       }
       callbackFunc();
     }
@@ -85,6 +92,5 @@
     pageFunc.initView();
     pageFunc.initEvent();
   });
-
 // 해당 페이지에서 실제 호출
 })(jQuery, M, __page__, window);

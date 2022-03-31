@@ -54,10 +54,11 @@
             succ: function (data) {
               if (data.existYn == 'Y') { // 본인인증에 성공했을 경우
                 alert('본인인증에 성공했습니다.');
-                M.page.html('./findPw2.html', {
+                M.page.html({url : './findPw2.html', 
                   param: {
                     userId: id
-                  }
+                  },
+                  actionType: "NO_HISTORY"
                 });
               } else {
                 alert('본인인증에 실패했습니다');
@@ -81,6 +82,8 @@
     pageFunc.initView();
     pageFunc.initEvent();
   });
-
+  M.onBack(function(){
+    M.page.html('./login.html');
+  });
 // 해당 페이지에서 실제 호출
 })(jQuery, M, __page__, window);

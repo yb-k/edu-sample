@@ -19,7 +19,7 @@
     initEvent: function initEvent(){
       // DOM Event 바인딩
       this.els.$loginBtn.on('click',function (){
-        M.page.html('./login.html');
+        M.page.html({url : './login.html',actionType: "NO_HISTORY"});
       })
     },
   };

@@ -36,7 +36,7 @@
             succ : function (data) {
               if (data.rsltCode == "0000"){
                 alert('비밀번호 변경에 성공했습니다.');
-                M.page.html('./login.html');
+                M.page.html({url : './login.html',actionType: "NO_HISTORY"});
               }
               else{
                 alert('비밀번호 변경중 생긴 오류');
@@ -60,6 +60,8 @@
     pageFunc.initView();
     pageFunc.initEvent();
   });
-
+  M.onBack(function(){
+    M.page.html('./login.html');
+  });
 // 해당 페이지에서 실제 호출
 })(jQuery, M,__page__,window);

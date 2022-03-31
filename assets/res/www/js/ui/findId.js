@@ -29,7 +29,7 @@
         self.findId();
       });
       this.els.$findPw.on('click', function () {
-        M.page.html('./findPw1.html');
+        M.page.html({url : './findPw1.html', actionType:"NO_HISTORY"});
       })
     },
     findId: function findId() {
