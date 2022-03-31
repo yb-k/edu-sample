@@ -26,7 +26,7 @@
   $.isString = function isString (target) {
     return typeof target === 'string';
   }
-
+  
   /**
   * 값의 존재 여부 확인
   */
@@ -125,7 +125,6 @@
      }
    };
    
-
    var errFunc = function errFunc(code, msg, setting) {
     $.modal(code + '\n' + msg);
      var callback = options.error || function(){};
@@ -146,43 +145,7 @@
    console.log('HTTP URL :: ' + _options.path);
    M.net.http.send(_options); // 실제로 통신 시작
  }
-  $.fileHttpSend = function (options) {
-         // body: [
-         // { content: "파일업로드", type: "TEXT" },
-         // { name: "imgs", content: "test.zip", type: "FILE" },
-         // ],
-         var fileUploadFinish = function (status, header, body, setting) {
-           var _body = null;
-           try {
-             var _body = JSON.parse(body);
-           } catch(e) {
-             _body = body;
-           }
-           
-           if (status == '200' && $.isFunction(options.succ) && _body.rsltCode == SERVER_CODE.SUC) {
-             options.succ(_body.body);
-           } else if ($.isFunction(options.error)) {
-             options.error(status, body)
-           }
-         }
-         var fileUploadProgress = function (total, current) {
-           if($.isFunction(options.progress)) {
-             options.progress(total, current)
-           }
-         }
-         var _options = {
-           url: "http://211.241.199.241:28040/"+ENV.UPLOAD_URL + options.path,
-           header: options.header || {},
-           params: options.params || {},
-           body: options.body || [],
-           encoding: "UTF-8",
-           finish: fileUploadFinish,
-           progress: fileUploadProgress
-         }
-     
-     
-         M.net.http.upload(_options);
-       }
+
  // Storage 저장소 관련 모듈
  $.storage = {
    /**

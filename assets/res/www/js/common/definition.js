@@ -3,37 +3,23 @@
  * @author : 
  * @date : 
  */
-(function (window, M) {
+ (function (window, M) {
 	var module = {};
-	
-	var isDev = module.isDev = true; // 개발 모드 여부
-	var Definition = module.config = {
-		SERVER_NAME: "GW_SERVER" //바라볼 서버 이름 (Manifest.xml에 설정되어있는 이름)
-			,
-		UPLOAD_URL: "",
-		INDICATOR_MSG: "통신중.." //서버통신시 default indicator_msg 
-			,
-		INDICATOR: true //서버통신시 indicator 여부 
-			,
-		DEFAULT_ERROR_MSG: "네트워크 통신 중 오류가 발생했습니다.",
-		RES_DEV: "dev",
-		RES_REAL: "real"
+
+	var IS_DEV = true;
+  var IS_PROD = !IS_DEV;
+
+
+  // 앱 환경변수 값
+	var ENV = module.ENV = {
+    IS_DEV : IS_DEV, // 개발 모드 여부
+		SERVER_NAME: IS_PROD ? "GW_SERVER" : "GW_SERVER" //바라볼 서버 이름 (Manifest.xml에 설정되어있는 이름)
+		,UPLOAD_URL: IS_PROD ? "" : ""
+		,INDICATOR: true //서버통신시 indicator 여부 
 	};
 
-//	//운영&개발에 따른 서버 정보 세팅
-//	//별도 개발 서버가 없음..
-//	if (isDev == true) {
-//		console.log("-------------------------DEV-------------------------");
-//		Definition.SERVER_NAME = "HTTP_DEV";
-//		// Definition.UPLOAD_URL = M.info.app("manifest.network.http")[Definition.SERVER_NAME].address;
-//	} else {
-//		Definition.SERVER_NAME = "HTTP_DEV";
-//		// Definition.UPLOAD_URL = M.info.app("manifest.network.http")[Definition.SERVER_NAME].address;
-//	}
-	console.log("     SERVER URL: " + Definition.UPLOAD_URL);
-
 	//서버 전문 요청 목록
-	var SERVERPATH = module.serverPath = {
+	var SERVER_PATH = module.SERVER_PATH = {
 		LOGIN: "api/member/login", //로그인
 		DUPLICATE: "api/member/duplicate", //아이디 중복 체크
 		JOIN: "api/member/join", //회원가입
@@ -52,13 +38,23 @@
 		NOTICE_UPDATE: "api/notice/update", //게시글 수정
 		NOTICE_UPDATE_IMG: "api/notice/updateWithUpload", //게시글 수정(이미지 포함)
 		NOTICE_DELETE: "api/notice/delete", //게시글 삭제		
-	}
+	};
 
-	//Android Upload 통신 시 콜백
-	var successCallBack;
-	var errorCallBack;
+  var SERVER_CODE = module.SERVER_CODE = {
+    SUCC: '0000', // 성공시
+  }
 
-	window.__definition__ = module;
-	window.__config__ = module.config;
-	window.__serverpath__ = module.serverPath;
+  // 상수 키 값
+  var CONSTANT = module.CONSTANT =  {
+    AUTO_LOGIN_AUTH: 'AUTO_LOGIN_AUTH'
+  }
+
+  // 메시지 문자열 상수
+  var MSG = module.MSG = {
+    INDICATOR_MSG: "통신중..." //서버통신시 default indicator_msg 
+		,DEFAULT_ERROR_MSG: "네트워크 통신 중 오류가 발생했습니다."
+  };
+
+  
+  window.__config__ = module;
 })(window, M);
