@@ -10,7 +10,7 @@
       
     },
     data: {},
-    init : function Qinit() {
+    init : function init() {
       
     },
    

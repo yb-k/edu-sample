@@ -1,6 +1,6 @@
 /**
  * @file : findId.js
- * @author :
+ * @author : 박고은
  * @date : 
  */
 

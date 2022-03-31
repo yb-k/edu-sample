@@ -1,6 +1,6 @@
 /**
  * @file : join1.js
- * @author : 
+ * @author : 박고은 
  * @date : 22-03-24
  */
  
