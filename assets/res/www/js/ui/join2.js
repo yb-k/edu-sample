@@ -13,7 +13,8 @@
           $month: null,
           $date: null,
           $cellPhone: null,
-          $nextBtn: null
+          $nextBtn: null,
+          $backBtn: null
       },
       data: {},
       init: function init(){
@@ -24,6 +25,7 @@
           this.els.$date = $('#date');
           this.els.$cellPhone = $('#cellPhone');
           this.els.$nextBtn = $('#nextBtn');
+          this.els.$backBtn = $('#backBtn');
       },
       initView: function initView(){
         // 화면에서 세팅할 동적 데이터
@@ -35,6 +37,9 @@
         this.els.$nextBtn.on('click', function(){
             self.nextBtn();
         });
+        this.els.$backBtn.on('click', function(){
+          M.page.back();
+        })
       },
       
       nextBtn: function(){

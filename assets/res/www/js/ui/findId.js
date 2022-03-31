@@ -5,7 +5,9 @@
  */
  
 // 페이지 단위모듈
-(function ($, M, MNet, config, SERVER_PATH, window){
+(function ($, M, CONFIG, window){
+    var CONSTANT = CONFIG.CONSTANT;
+    var SERVER_PATH = CONFIG.SERVER_PATH;
     var page = {
       els: {
         $userNm : null,
@@ -47,7 +49,7 @@
             return alert("휴대폰 번호를 입력해주세요.");
         }
 
-        MNet.sendHttp({
+        $.sendHttp({
             path: SERVER_PATH.FIND_ID,
             data:{
                 userNm : userNm,
@@ -64,7 +66,7 @@
       }
     };
     window.__page__ = page;
-  })(jQuery, M, __mnet__, __config__, __serverpath__, window);
+  })(jQuery, M, __config__, window);
   
   // 화면에 리소스가 로딩을 끝내고 정상적으로 동작할 수 있는 머?
   // window.onload이랑 비슷

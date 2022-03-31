@@ -4,37 +4,77 @@
  * @date : 2022-03-24
  */
 
-(function ($, M, MNet, SERVER_PATH, window) {
+(function ($, M, CONFIG, window) {
+  var CONSTANT = CONFIG.CONSTANT;
+  var SERVER_PATH = CONFIG.SERVER_PATH;
   var page = {
     els: {
       $title: null,
       $content: null,
-      $imgsrc: null,
+      $imgName: null,
       $imgBtn: null,
       $writeBtn: null,
+      $backBtn: null
     },
     data: {},
     init: function init() {
       this.els.$title = $('#title');
       this.els.$content = $('#content');
-      this.els.$imgsrc = $('#imgsrc');
+      this.els.$imgName = $('#imgName');
       this.els.$imgBtn = $('#imgBtn');
       this.els.$writeBtn = $('#writeBtn');
+      this.els.$backBtn = $('#backBtn');
     },
     initView: function initView() {
       // 화면에서 세팅할 동적 데이터
+      this.els.$title.val(M.data.param('title'));
+      this.els.$content.val(M.data.param('content'));
+
+      if (M.data.param("modify") == 1) {
+        var self = this;
+        // title과 content를 미리 세팅 
+        $.sendHttp({
+          path: SERVER_PATH.NOTICE_DETAIL,
+          data: {
+            loginId: M.data.global("loginId"),
+            seqNo: M.data.global("seqNo")
+          },
+          succ: function (data) {
+            self.els.$title.val(data.title);
+            self.els.$content.val(data.content);
+            self.els.$imgName.val(M.data.global("imgName"));
+          },
+          error: function () {
+            alert("에러");
+          }
+        });
+      }
+      if (M.data.param("imgUrl")) {
+        self.data.imgPath = data.imgUrl;
+        self.els.$imgName.val(M.data.global('imgName'));
+      }
     },
     initEvent: function initEvent() {
       // DOM Event 바인딩
       var self = this;
-      var imgName;
+      this.els.$backBtn.on('click', function(){
+        M.page.back();
+      })
       //이미지 첨부
       this.els.$imgBtn.on('click', function () {
         self.imgUpload();
       });
       //게시글 작성
       this.els.$writeBtn.on('click', function () {
-        self.writeContent();
+        if(M.data.param("modify") == 1){
+          if(self.data.imgPath){
+            self.modifyImage(self.data.imgPath);
+          } else{
+            self.modify();
+          } 
+          } else{
+            self.write();
+          }
       });
     },
 
@@ -44,21 +84,23 @@
       M.media.picker({
         mode: "SINGLE",
         media: "PHOTO",
-        path: "/media",
         column: 3,
         maxCount: 1,
-        detail: true,
         callback: function (status, result) {
-          console.log(status + ", " + JSON.stringify(result));
-          imgName = result.name;
-          M.data.param({
-            "imgName": imgName
-          });
+          if(status == 'SUCCESS'){
+            console.log(result);
+            self.data.imgPath = result.fullpath;
+            self.els.$imgName.val(result.name);
+          }
+          else{
+            self.data.imgPath = null,
+            self.els.$imgName.val('');
+          }
         }
       });
     },
 
-    writeContent: function () {
+    write: function () {
       var id = M.data.global("loginId");
       var title = this.els.$title.val().trim();
       var content = this.els.$content.val().trim();
@@ -72,7 +114,7 @@
       }
       //이미지가 등록되지 않았을 때
       if (imgsrc == '') {
-        MNet.sendHttp({
+        $.sendHttp({
           path: SERVER_PATH.NOTICE_WRITE,
           data: {
             loginId: id,
@@ -88,28 +130,143 @@
       }
       //이미지가 등록되었을 때
       else {
-        MNet.sendHttp({
-          path: SERVER_PATH.NOTICE_WRITE_IMG,
-          data:{
-            loginId: id,
-            title: title,
-            content: content,
-            file: imgsrc
-          },
-          succ: function (data){
-            alert("게시글이 등록되었습니다.");
-            M.data.global({"seqNo":data.seqNo});
-            M.page.html("./list.html");
-          }
-        });
+        var body = [{
+          name: "file",
+          content: imgPath,
+          type: "FILE"
+        },
+        {
+          name: "content",
+          content: content,
+          type: "TEXT"
+        },
+        {
+          name: "title",
+          content: title,
+          type: "TEXT"
+        },
+        {
+          name: "loginId",
+          content: M.data.global("loginId"),
+          type: "TEXT"
+        },
+        ]
       }
+      $.fileHttpSend({
+        path: SERVER_PATH.NOTICE_WRITE_IMG,
+        body: body,
+        succ: function (body) {
+          console.log(body);
+          alert("이미지 업로드");
+          M.page.replace({
+            url: './list.html',
+          });
+          var pagelist = M.info.stack();
+          M.page.remove(pagelist[1].key);
+        },
+        progress: function (body) {
+          console.log(body);
+        },
+        error: function (body) {
+          console.log(body);
+          alert("fail")
+        }
+      });
+
+    },
+
+    modify: function(){
+      var loginId = M.data.global("loginId");
+      var title = this.els.$title.val().trim();
+      var content = this.els.$content.val().trim();
+      $.sendHttp({
+        path: SERVER_PATH.NOTICE_UPDATE,
+        data: {
+          loginId: loginId,
+          title: title,
+          content: content,
+          seqNo: M.data.global("seqNo")
+        },
+        succ: function () {
+          alert("게시글이 수정되었습니다.")
+          M.page.replace({
+            url: './list.html',
+          });
+          var pagelist = M.info.stack();
+          M.page.remove(pagelist[1].key);
+        },
+        error: function () {
+          alert("게시글을 수정하지 못했습니다.");
+        }
+      })
+
+    },
+
+    modifyFile: function modifyFile(imgPath) {
+      var self = this;
+      var title = this.els.$title.val().trim();
+      var content = this.els.$content.val().trim();
+      var imgPath = self.data.imgPath;
+      if (title == '') {
+        return alert("제목을 입력하세요.");
+      }
+      if (content == '') {
+        return alert("내용을 입력하세요.");
+      }
+      var body = [{
+          name: "file",
+          content: imgPath,
+          type: "FILE"
+        },
+        {
+          name: "content",
+          content: content,
+          type: "TEXT"
+        },
+        {
+          name: "title",
+          content: title,
+          type: "TEXT"
+        },
+        {
+          name: "loginId",
+          content: M.data.global("loginId"),
+          type: "TEXT"
+        },
+        {
+          name: "seqNo",
+          content: M.data.global('seqNo'),
+          type: "TEXT"
+        },
+      ]
+      
+      $.fileHttpSend({
+        path: SERVER_PATH.NOTICE_UPDATE_IMG,
+        body: body,
+        succ: function () {
+          console.log(body);
+          alert("게시글이 수정되었습니다.");
+          M.page.replace({
+            url: './list.html',
+          });
+          var pagelist = M.info.stack();
+          M.page.remove(pagelist[1].key);
+        },
+        progress: function () {
+          console.log(body);
+        },
+        error: function (e) {
+          console.log(body);
+          alert("게시글을 수정하지 못했습니다.")
+        }
+      })
 
     }
 
     //    method: {},
   };
   window.__page__ = page;
-})(jQuery, M, __mnet__, __serverpath__, window);
+})(jQuery, M, __config__, window);
 
 (function ($, M, pageFunc, window) {
   M.onReady(function () {

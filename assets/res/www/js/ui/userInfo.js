@@ -4,7 +4,9 @@
  * @date : 2022-03-24
  */
 
-(function ($, M, MNet, SERVER_PATH, config, window) {
+(function ($, M, CONFIG, window) {
+  var CONSTANT = CONFIG.CONSTANT;
+  var SERVER_PATH = CONFIG.SERVER_PATH;
   var page = {
     els: {
       $changePw: null,
@@ -15,7 +17,8 @@
       $email: null,
       $cellPhone: null,
       $saveBtn: null,
-      $outBtn: null
+      $outBtn: null,
+      $backBtn: null
     },
     data: {},
     init: function init() {
@@ -36,7 +39,7 @@
       //생년월일 yyyy-MM-dd로 나타내야해
       var id = M.data.global("loginId");
       var self = this;
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.INFO,
         data: {
           loginId: id
@@ -55,7 +58,9 @@
       // DOM Event 바인딩
       var id = M.data.global("loginId");
       var self = this;
-
+      this.els.$backBtn.on('click', function(){
+        M.page.back();
+      })
       //비밀번호 변경
       this.els.$changePw.on('click', function () {
         M.page.html({
@@ -92,7 +97,7 @@
       var email = this.els.$email.val().trim();
       var phone = this.els.$cellPhone.val().trim();
 
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.UPDATE,
         data: {
           loginId: id,
@@ -118,7 +123,7 @@
         callback: function (index) {
           if (index == 0) {
             //탈퇴후 로그인페이지로 이동
-            MNet.sendHttp({
+            $.sendHttp({
               path: SERVER_PATH.OUT,
               data: {
                 loginId: id
@@ -141,7 +146,7 @@
     //    method: {},
   };
   window.__page__ = page;
-})(jQuery, M, __mnet__, __serverpath__, __config__, window);
+})(jQuery, M, __config__, window);
 
 (function ($, M, pageFunc, window) {
   M.onReady(function () {

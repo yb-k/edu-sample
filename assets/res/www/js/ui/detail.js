@@ -4,7 +4,9 @@
  * @date : 2022-03-25
  */
 
- (function ($,M,MNet,SERVER_PATH,window){
+ (function ($,M,CONFIG,window){
+    var CONSTANT = CONFIG.CONSTANT;
+    var SERVER_PATH = CONFIG.SERVER_PATH;
     var page = {
       els:{
           $title: null,
@@ -12,7 +14,8 @@
           $regDate: null,
           $imgUrl: null,
           $modiBtn: null,//수정
-          $delBtn: null//삭제
+          $delBtn: null,//삭제
+          $backBtn: null
       },
       data: {},
       init: function init(){
@@ -22,11 +25,12 @@
           this.els.$imgUrl = $('#imgUrl');
           this.els.$modiBtn = $('#modiBtn');
           this.els.$delBtn = $('#delBtn');
+          this.els.$backBtn = $('#backBtn');
       },
       initView: function initView(){
         // 화면에서 세팅할 동적 데이터
         var self = this;
-        MNet.sendHttp({
+        $.sendHttp({
             path: SERVER_PATH.NOTICE_DETAIL,
             data:{
                 loginId: M.data.global('loginId'),
@@ -55,6 +59,9 @@
       initEvent: function initEvent(){
         // DOM Event 바인딩
         var self = this;
+        this.els.$backBtn.on('click', function(){
+            M.page.back();
+        })
         this.els.$modiBtn.on('click', function(){
             self.modify();
         });
@@ -74,7 +81,7 @@
       },
       //게시글 삭제
       delete: function(){
-        MNet.sendHttp({
+        $.sendHttp({
             path: SERVER_PATH.NOTICE_DETAIL,
             data:{
                 loginId: M.data.global("loginID"),
@@ -90,7 +97,7 @@
   //    method: {},
     };
     window.__page__ = page;
-  })(jQuery,M,__mnet__,__serverpath__,window);
+  })(jQuery,M,__config__,window);
   
   (function($,M,pageFunc,window){
     M.onReady(function(){

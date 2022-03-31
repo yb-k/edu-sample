@@ -4,7 +4,9 @@
  * @date : 2022-03-24
  */
 
- (function ($, M, MNet, SERVER_PATH, config, window){
+ (function ($, M, CONFIG, window){
+    var CONSTANT = CONFIG.CONSTANT;
+    var SERVER_PATH = CONFIG.SERVER_PATH;
     var page = {
       els:{
           $loginId: null,
@@ -12,7 +14,8 @@
           $password: null,
           $repassword: null,
           $email: null,
-          $joinBtn: null
+          $joinBtn: null,
+          $backBtn: null
       },
       data: {},
       init: function init(){
@@ -22,6 +25,7 @@
           this.els.$repassword = $('#repassword');
           this.els.$email = $('#email');
           this.els.$joinBtn = $('#joinBtn');
+          this.els.$backBtn = $('#backBtn');
       },
       initView: function initView(){
         // 화면에서 세팅할 동적 데이터
@@ -35,6 +39,9 @@
         this.els.$joinBtn.on('click', function(){
             self.joinBtn()
         });
+        this.els.$backBtn.on('click', function(){
+            M.page.back();
+        })
       },
       //아이디 중복확인
       dupBtn: function dupId(){
@@ -44,7 +51,7 @@
             return alert("아이디는 5자 이상으로 입력하세요.");
         }
         else{
-            MNet.sendHttp({
+            $.sendHttp({
                 path: SERVER_PATH.DUPLICATE,
                 data:{
                     loginId: id
@@ -92,7 +99,7 @@
             return alert("비밀번호는 8~20자 사이의 문자, 숫자, 특수문자를 한 개 이상 포함해야 합니다.");
         }   
 
-        MNet.sendHttp({
+        $.sendHttp({
             path: SERVER_PATH.JOIN,
             data:{
                 loginId: id,
@@ -125,7 +132,7 @@
   //    method: {},
     };
     window.__page__ = page;
-  })(jQuery, M, __mnet__, __serverpath__, __config__, window);
+  })(jQuery, M, __config__, window);
   
   (function($,M,pageFunc,window){
     M.onReady(function(){

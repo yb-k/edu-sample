@@ -33,7 +33,7 @@
 	console.log("     SERVER URL: " + Definition.UPLOAD_URL);
 
 	//서버 전문 요청 목록
-	var ServerPath = module.serverPath = {
+	var SERVERPATH = module.serverPath = {
 		LOGIN: "api/member/login", //로그인
 		DUPLICATE: "api/member/duplicate", //아이디 중복 체크
 		JOIN: "api/member/join", //회원가입

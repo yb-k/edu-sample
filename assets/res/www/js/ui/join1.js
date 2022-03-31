@@ -11,7 +11,8 @@
           $chk2: null,
           $chk3: null,
           $chk4: null,
-          $nextBtn: null
+          $nextBtn: null,
+          $backBtn: null
       },
       data: {},
       init: function init(){
@@ -20,6 +21,7 @@
           this.els.$chk3 = $('#chk3');
           this.els.$chk4 = $('#chk4');
           this.els.$nextBtn = $('#nextBtn');
+          this.els.$backBtn = $('#backBtn');
       },
       initView: function initView(){
         // 화면에서 세팅할 동적 데이터
@@ -33,6 +35,9 @@
         this.els.$nextBtn.on('click', function() {
             self.nextBtn();
         });
+        this.els.$backBtn.on('click', function(){
+          M.page.back();
+        })
       },
       
       checkAll: function(){

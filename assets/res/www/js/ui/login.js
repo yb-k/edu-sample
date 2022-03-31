@@ -4,7 +4,9 @@
  * @date :  22-03-22
  */
 // 페이지 단위 모듈
-(function ($, M, MNet, config, SERVER_PATH, window) {
+(function ($, M, CONFIG, window) {
+  var CONSTANT = CONFIG.CONSTANT;
+  var SERVER_PATH = CONFIG.SERVER_PATH;
   var page = {
     els: {
       $loginIdIpt: null,
@@ -34,43 +36,46 @@
     initEvent: function initEvent() {
       // Dom Event 바인딩
       var self = this;
-      this.els.$loginBtn.on('click', function (){
+      this.els.$loginBtn.on('click', function () {
         self.login();
       });
-      this.els.$findIdBtn.on('click', function(){
+      this.els.$findIdBtn.on('click', function () {
         M.page.html('./findId.html');
       });
-      this.els.$findPwBtn.on('click', function(){
+      this.els.$findPwBtn.on('click', function () {
         M.page.html('./findPw1.html');
       });
-      this.els.$joinBtn.on('click', function(){
+      this.els.$joinBtn.on('click', function () {
         M.page.html('./join1.html');
       });
-      
+
     },
-    setAutoLogin: function(id, pw){
+    setAutoLogin: function (id, pw) {
       //자동로그인기능
-      M.data.storage('AUTO_LOGIN_AUTH', {id: id, pw: pw});
+      M.data.storage('AUTO_LOGIN_AUTH', {
+        id: id,
+        pw: pw
+      });
     },
-    unsetAutoLogin: function(id, pw){
+    unsetAutoLogin: function (id, pw) {
       M.data.removeStorage('AUTO_LOGIN_AUTH');
     },
-    
+
     login: function () {
       var self = this;
       var id = this.els.$loginIdIpt.val().trim(); // 로그인 아이디 가져오기
       var pw = this.els.$passwordIpt.val().trim(); // 비밀번호 가져오기
-      var isAutoLogin = this.els.$autoLoginChk.prop('checked');  // true / false
+      var isAutoLogin = this.els.$autoLoginChk.prop('checked'); // true / false
 
       if (id == '') {
         return alert('아이디를 입력해주세요');
       }
-      if (pw == ''){
+      if (pw == '') {
         return alert('비밀빈호를 입력해주세요');
       }
-      
-      
-      MNet.sendHttp({
+
+
+      $.sendHttp({
         path: SERVER_PATH.LOGIN,
         data: {
           loginId: id,
@@ -78,24 +83,26 @@
         },
         succ: function (data) {
           //로그인이 성공했을 때 콜백
-          if(isAutoLogin) self.setAutoLogin(id, pw);
+          if (isAutoLogin) self.setAutoLogin(id, pw);
           console.log(data.userNm);
-          M.data.global({"loginId":id});
+          M.data.global({
+            "loginId": id
+          });
           M.page.html("./main.html");
         },
-        err: function(data){
-          if(data.rsltCode == '2001'){
+        err: function (data) {
+          if (data.rsltCode == '2001') {
             alert("아이디 혹은 비밀번호가 틀립니다.");
           }
         }
       });
     }
 
-        
+
   };
 
   window.__page__ = page;
-})(jQuery, M, __mnet__, __config__, __serverpath__, window);
+})(jQuery, M, __config__, window);
 
 // 해당 페이지에서 실제 호출
 (function ($, M, pageFunc, window) {

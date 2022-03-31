@@ -4,7 +4,9 @@
  * @date : 2022-03-24
  */
 
- (function ($,M,MNet,SERVER_PATH,window){
+ (function ($,M,CONFIG,window){
+    var CONSTANT = CONFIG.CONSTANT;
+    var SERVER_PATH = CONFIG.SERVER_PATH;
     var page = {
       els:{
           $writeBtn: null,
@@ -32,7 +34,7 @@
       },
       drawNotice: function(){
         var self = this;
-        MNet.sendHttp({
+        $.sendHttp({
           path: SERVER_PATH.NOTICE_LIST,
           data: self.data,
           succ: function (data) {
@@ -42,6 +44,7 @@
               items += "<li data='"+item.seqNo+"'class='detailContent'>";
               items += "<div class='thumbnail-wrap'>";
               items += "<div class='thumbnail'>";
+              items += "<img src='' alt=''/>"
               items += "</div>";
               items += "<span class='label-info none'>";
               items += "</span>";
@@ -59,7 +62,12 @@
               items += "</div>";
               items += "</li>";
             });
-            $(".metro-wrap").append(items);     
+            $(".metro-wrap").append(items);
+            for (var i = 0; i < 6; i++) {
+              if ("imgUrl" in data.list[i]) {
+                $(".thumbnail img:eq(" + i + ")").attr('src', data.list[i].imgUrl);
+              }
+            } 
           }
         });
       },
@@ -80,7 +88,7 @@
           var seqNo = $(this).attr('data');
           console.log(seqNo);
           M.data.global("seqNo", seqNo)
-          MNet.sendHttp({
+          $.sendHttp({
             path: SERVER_PATH.NOTICE_DETAIL,
             data: {
               loginId: M.data.global("loginId"),
@@ -105,7 +113,7 @@
   //    method: {},
     };
     window.__page__ = page;
-  })(jQuery,M,__mnet__,__serverpath__,window);
+  })(jQuery,M,__config__,window);
   
   (function($,M,pageFunc,window){
     M.onReady(function(){
