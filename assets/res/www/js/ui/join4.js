@@ -12,7 +12,7 @@
       },
       data: {},
       init : function init() {
-        this.els.$loginBtn = $('#login-btn');
+        this.els.$loginBtn = $('#loginBtn');
       },
       initView : function initView() {
         // 화면에서 세팅할 동적데이터
