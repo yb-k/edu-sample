@@ -90,6 +90,7 @@
         var gender = self.els.$gender;
         var cellphone = self.els.$cellphone;
         var email = self.els.$email.val().trim();
+        var regEmail = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
         var pass = self.els.$password.val().trim();
         var regPass = /^(?=.*?[A-Za-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
         var repass = self.els.$rePassword.val().trim();
@@ -125,6 +126,9 @@
         if (email == '') {
           return alert('이메일을 입력해주세요.');
         }
+       if(!regEmail.test(email)) {
+         return alert("이메일을 정확히 입력해주세요.");
+       }           
         MNet.sendHttp({
           path: SERVER_PATH.JOIN,
           data: {
