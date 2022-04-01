@@ -1,68 +1,148 @@
 /**
- * @file : main.js
- * @author : 
- * @date : 22-03-24
+ * @file : 
+ * @author :
+ * @date : 
  */
- 
 // 페이지 단위 모듈
-(function ($, M, MNet, SERVER_PATH, window){
+(function ($, M, CONFIG, window) {
+  var SERVER_PATH = CONFIG.SERVER_PATH;
+  M.data.removeGlobal('seqNo');
+  var seqNo = [];
   var page = {
-      els: {
-        $noti : null, 
-        $notiAllList : null,
-        $notiPage : null,
-        $menuBtn : null
-      },
-      data: {},
-      init : function init() {
-        this.els.$noti = $('.ellipsis');
-        this.els.$notiAllList = $('.btn-txt');
-        this.els.$notiPage = $('.main-menu-box li:last');
-        this.els.$menuBtn = $('.btn-menu');
-      },
-      initView : function initView() {
-        // 화면에서 세팅할 동적데이터
-      }, 
-      initEvent : function initEvent() {
-        // Dom Event 바인딩
-        var self = this;
-        this.els.$noti.on('click', function(){
-           self.noti();
+    els: {
+      $userMenuBtn: null,
+      $allViewBtn: null,
+      $noticeBtn: null,
+    },
+    data: {},
+    init: function init() {
+      this.els.$userMenuBtn = $('#userMenu-btn');
+      this.els.$allViewBtn = $('#allView-btn');
+      this.els.$noticeBtn = $('#notice-btn');
+    },
+
+    initView: function initView() {
+      var self = this;
+      // 화면에서 세팅할 동적데이터
+      console.log(M.data.global('seqNo'));
+      $.sendHttp({
+        path: SERVER_PATH.NOTICE_LIST,
+        data: {
+          "loginId": M.data.global('myId'),
+          "lastSeqNo": '0',
+          "cnt": '4',
+        },
+        succ: function (data) {
+          console.log(data);
+          var items = "";
+          $.each(data.list, function (index, item) {
+            items += "<li class='ellipsis' id='notice" + index + "'>";
+            items += item.title;
+            items += "</li>";
+            seqNo[index] = item.seqNo;
+          });
+          $("#noti-list").html(items);
+        },
+        error: function (data) {
+          console.log(data);
+          alert("리스트를 가져오지 못했습니다.");
+        },
+      });
+    },
+    initEvent: function initEvent() {
+      // Dom Event 바인딩
+      var self = this;
+
+      this.els.$userMenuBtn.on('click', function () {
+        M.page.html({
+          url: './userInfo.html',
+          action: 'NO_HISTORY',
         });
-        this.els.$notiAllList.on('click', function(){
-           self.notiAllList();
+      });
+      this.els.$allViewBtn.on('click', function () {
+        M.page.html({
+          url: './list.html',
+
         });
-        this.els.$notiPage.on('click', function(){
-           self.notiPage();
+      });
+      this.els.$noticeBtn.on('click', function () {
+        M.page.html({
+          url: './list.html',
+
         });
-        this.els.$menuBtn.on('click', function(){
-           self.menuBtn();
+      });
+      $('#noti-list').on('click', '#notice0', function () {
+        //        M.page.html({
+        //          path: './detail.html',
+        //          param: {
+        //            "loginId": M.data.global('myId'),
+        //            "seqNo": seqNo[0],
+        //          }
+        //        });
+        M.data.global("seqNo", seqNo[0]);
+        M.page.html({
+          url: './detail.html',
+          action: 'NO_HISTORY'
         });
-                
-      },
-      noti : function() {
-        M.page.html('./detail.html');
-      },
-      notiAllList : function() {
-        M.page.html('./list.html');
-      },
-      notiPage : function() {
-        M.page.html('./list.html');
-      },
-      menuBtn : function() {
-        M.page.html('./userInfo.html');
-      }
-            
+      });
+      $('#noti-list').on('click', '#notice1', function () {
+        //        M.page.html({
+        //          path: './detail.html',
+        //          param: {
+        //            "loginId": M.data.global('myId'),
+        //            "seqNo": seqNo[1],
+        //          }
+        //        });
+        M.data.global("seqNo", seqNo[1]);
+        M.page.html({
+          url: './detail.html',
+          action: 'NO_HISTORY'
+        });
+      });
+      $('#noti-list').on('click', '#notice2', function () {
+        //        M.page.html({
+        //          path: './detail.html',
+        //          param: {
+        //            "loginId": M.data.global('myId'),
+        //            "seqNo": seqNo[2],
+        //          }
+        //        });
+        M.data.global("seqNo", seqNo[2]);
+        M.page.html({
+          url: './detail.html',
+          action: 'NO_HISTORY'
+        });
+      });
+      $('#noti-list').on('click', '#notice3', function () {
+        //        M.page.html({
+        //          path: './detail.html',
+        //          param: {
+        //            "loginId": M.data.global('myId'),
+        //            "seqNo": seqNo[3],
+        //          }
+        //        });
+        M.data.global("seqNo", seqNo[3]);
+        M.page.html({
+          url: './detail.html',
+          action: 'NO_HISTORY'
+        });
+      });
+    },
   };
-  
+
   window.__page__ = page;
-})(jQuery, M, __mnet__, __serverpath__, window);
+})(jQuery, M, __config__, window);
 
 // 해당 페이지에서 실제 호출
-(function($, M, pageFunc, window) {
-  M.onReady(function() {
-      pageFunc.init(); // 최초 화면 초기화
-      pageFunc.initView();
-      pageFunc.initEvent();
+(function ($, M, pageFunc, window) {
+
+  M.onReady(function () {
+    pageFunc.init(); // 최초 화면 초기화
+    pageFunc.initView();
+    pageFunc.initEvent();
+  });
+  
+  M.onRestore(function () {
+    pageFunc.initView();
   });
 })(jQuery, M, __page__, window);

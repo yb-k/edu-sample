@@ -1,10 +1,11 @@
 /**
- * @file :
+ * @file : 
  * @author :
- * @date :
+ * @date : 
  */
 // 페이지 단위 모듈
-(function ($, M, MNet,SERVER_PATH, module, window) {
+(function ($, M, CONFIG, window) {
+  var SERVER_PATH = CONFIG.SERVER_PATH;
   var page = {
     els: {
       $modiBtn: null,
@@ -20,16 +21,14 @@
 
     initView: function initView() {
       // 화면에서 세팅할 동적데이터
-      console.log(M.data.param('loginId'));
-      console.log(M.data.param('seqNo'));
-      MNet.sendHttp({
+      $.sendHttp({
         path: SERVER_PATH.NOTICE_DETAIL,
-        data: {    
-          "loginId": M.data.param('loginId'),
-          "seqNo": M.data.param('seqNo'),
+        data: {
+          "loginId": M.data.global('myId'),
+          "seqNo": M.data.global('seqNo'),
         },
         succ: function (data) {
-          console.log(M.data.param('seqNo'));
+          console.log(M.data.global('seqNo'));
           console.log(data);
           var items = "";
           items += "<div class='detail-tit'>";
@@ -47,7 +46,7 @@
             items += "</div>";
             M.data.global("imgUrl", data.imgUrl);
             var split = data.imgUrl.lastIndexOf('/');
-            var imgName = data.imgUrl.toString().substring(split + 1,);
+            var imgName = data.imgUrl.toString().substring(split + 1, );
             M.data.global("imgName", imgName);
             console.log(imgName);
           }
@@ -65,7 +64,7 @@
           M.data.global("title", data.title);
           M.data.global("content", data.content);
 
-          $("#notice").html(items);
+          $("#notice-select").html(items);
           console.log(M.data.global('isMyYn'));
           if (data.isMyNoticeYn == 'Y') {
             document.getElementById("myButtons").style.display = "";
@@ -109,6 +108,7 @@
       M.page.html({
         path: './write.html',
         param: {
+          "loginId": id,
           "title": title,
           "content": content,
           "seqNo": seqNo,
@@ -145,7 +145,7 @@
   };
 
   window.__page__ = page;
-})(jQuery, M, __mnet__,__serverpath__, __config__, window);
+})(jQuery, M, __config__, window);
 
 // 해당 페이지에서 실제 호출
 (function ($, M, pageFunc, window) {
