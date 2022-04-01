@@ -7,9 +7,7 @@
 (function ($, MNet, SERVER_PATH, module, M, window) {
   var page = {
     els: {
-    
       $changePw: null,
-      $userName : null,
       $loginId: null,
       $password: null,
       $email: null,
@@ -20,9 +18,6 @@
     data: {},
     init: function init() {
       var self = this;
-      self.els.$userName = M.data.param('userNm');  
-      self.els.$loginId = M.data.param('loginId');      
-      loginId
       self.els.$changePw = $('#changePw');
       self.els.$loginId = M.data.global('LOGON_INFO').id;
       self.els.$password = $('#password');

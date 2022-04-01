@@ -69,6 +69,7 @@
       if (pw==''){
         return alert('비밀번호를 입력해주세요.');
       }
+      console.log(id+"zzzzzzzzzzz"+pw);
      MNet.sendHttp({
       path : SERVER_PATH.LOGIN,
       data : {

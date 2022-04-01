@@ -24,7 +24,7 @@
       console.log(M.data.param('seqNo'));
       MNet.sendHttp({
         path: SERVER_PATH.NOTICE_DETAIL,
-        data: {
+        data: {    
           "loginId": M.data.param('loginId'),
           "seqNo": M.data.param('seqNo'),
         },
