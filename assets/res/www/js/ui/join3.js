@@ -1,122 +1,159 @@
 /**
- * @file : join3.js
- * @author : 
- * @date : 22-03-24
+ * @file : base.js 인트로 페이지
+ * @author :
+ * @date :
  */
- 
-// 페이지 단위 모듈
-(function ($, M, MNet, SERVER_PATH, window){
+
+(function ($, M, MNet, module, SERVER_PATH, window) {
   var page = {
-      els: {
-        $loginIdIpt : null,
-        $dupBtn : null,
-        $password : null,
-        $repassword : null,
-        $email : null,
-        $joinBtn : null 
-      },
-      data: {},
-      init : function init() {
-        this.els.$loginIdIpt = $('#loginId');
-        this.els.$dupBtn = $('#dupBtn');
-        this.els.$password = $('#password');
-        this.els.$repassword = $('#repassword');
-        this.els.$email = $('#email');
-        this.els.$joinBtn = $('#joinBtn');
-      },
-      initView : function initView() {
-        // 화면에서 세팅할 동적데이터
-      }, 
-      initEvent : function initEvent() {
-        // Dom Event 바인딩
-        var self = this;
-        this.els.$dupBtn.on('click', function(){
-           self.dupBtn();
-        });
-        this.els.$joinBtn.on('click', function(){
-           self.joinBtn();
-        });
-      },
+    els: {
+      $userName: null,
+      $gender: null,
+      $birth: null,
+      $cellphone: null,
       
-      dupBtn : function(){
-        var id = this.els.$loginIdIpt.val().trim();
-        
+      $loginId: null,
+      $isCheckedId: null,
+      $dupBtn: null,
+      $password: null,
+      $rePassword: null,
+      $isCheckedPw: null,
+      $email: null,
+      $joinBtn: null
+    },
+    data: {},
+    init: function init() {
+      var self = this;
+      self.els.$userName = M.data.param('userNm');
+      self.els.$gender = M.data.param('gender');
+//      self.els.$year = M.data.param('year');
+//      self.els.$month = M.data.param('month');
+//      self.els.$date = M.data.param('date');
+      self.els.$birth = M.data.param('birth');
+      self.els.$cellphone = M.data.param('cellphone');
+      
+      self.els.$loginId = $('#loginId');
+      self.els.$dupBtn = $('#dupBtn');
+      self.els.$password = $('#password');
+      self.els.$rePassword = $('#repassword');
+      self.els.$email = $('#email');
+      self.els.$joinBtn = $('#joinBtn');
+    },
+    initView: function initView() {
+      // 회면에서 세팅할 동적 데이터
+    },
+    initEvent: function initEvent() {
+      // DOM Event 바인딩
+      var self = this;
+      self.els.$loginId.on('input', function () {
+        self.els.$isCheckedId = false;
+      });
+      self.els.$password.on('input', function () {
+        self.els.$isCheckedPw = false;
+      });
+      self.els.$rePassword.on('input', function () {
+        self.els.$isCheckedPw = false;
+      });
+
+      self.els.$dupBtn.on('click', function () {
+        var id = self.els.$loginId.val().trim();
+        var regId = /^[a-zA-z0-9]{5,}$/;        
+        if (id == '') {
+          return alert('아이디를 입력해주세요.');
+        }
+       if(!regId.test(id)) {
+         return alert("아이디는 숫자 또는 영문을 포함해 5자 이상 입력해주세요.");
+       }             
+        if (id.length < 5) {
+          return alert('아이디는 5자 이상 입력해주세요.');
+        }
         MNet.sendHttp({
-          path : SERVER_PATH.DUPLICATE,
-          data : {
-            loginId : id
+          path: SERVER_PATH.DUPLICATE,
+          data: {
+            loginId: id
           },
-          succ : function(data){
-            if(data.dupYn == 'Y' || id.length < 5) {
-              alert("사용할 수 없는 아이디입니다. 5자 이상의 아이디를 입력해주세요.");
-            }else if(data.dupYn == 'N' && id.length >= 5) {
-              alert("사용 가능한 아이디입니다."); 
+          succ: function (data) {
+            if (data.dupYn === 'Y') {
+              return alert('중복된 아이디로 사용이 불가합니다.');
+            } else {
+              self.els.$isCheckedId = true;
+              return alert('사용 가능한 아이디입니다.');
             }
-          }, 
-        });
-      },
-      
-      joinBtn : function() {
-        var name = M.data.param('userNm');
-        var gender = M.data.param('gender');
-        var year = M.data.param('year');
-        var month = M.data.param('month');
-        var date = M.data.param('date');
-        var cellPhone = M.data.param('cellPhone');
-      
-        var id = this.els.$loginIdIpt.val().trim();
-        var password = this.els.$password.val().trim();
-        var repassword = this.els.$repassword.val().trim();
-        var email = this.els.$email.val().trim();
-        
-        if(id.length < 5) {
-          alert("아이디는 5자 이상 입력해주세요.");
+          }
+        })
+      });
+      self.els.$joinBtn.on('click', function () {
+        var id = self.els.$loginId.val().trim();
+        var regId = /^[a-zA-z0-9]{5,}$/;
+        var userName = self.els.$userName;
+        var birth = self.els.$birth;
+        var gender = self.els.$gender;
+        var cellphone = self.els.$cellphone;
+        var email = self.els.$email.val().trim();
+        var pass = self.els.$password.val().trim();
+        var regPass = /^(?=.*?[A-Za-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+        var repass = self.els.$rePassword.val().trim();
+       
+        var id = self.els.$loginId.val().trim();
+        if (id == '') {
+          return alert('아이디를 입력해주세요.');
         }
-        
-        var con = /^(?=.*?[A-Za-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-        if(!con.test(password) || password == '') {
-          alert("비밀번호는 특수문자, 숫자, 영문이 포함된 8자 이상의 문자열로 입력해주세요.");
-        }else if(password != repassword) {
-          alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+       if(!regId.test(id)) {
+         return alert("아이디는 숫자 또는 영문을 포함해 5자 이상 입력해주세요.");
+       }       
+        if (id.length < 5) {
+          return alert('아이디는 5자 이상 입력해주세요.');
         }
-        
-        if(email == '') {
-          alert("이메일을 입력해주세요.");
+        if (self.els.$isCheckedId === false) {
+          return alert('아이디 중복 확인을 해주세요.');
         }
-   
+//        module.confirmPasswordAndRePassword(pass, repass, function () {
+//          self.els.$isCheckedPw = true;
+//        });
+        if (pass == '') {
+          return alert('비밀번호를 입력해주세요.');
+        }
+        if(!regPass.test(pass)) {
+          return alert("비밀번호는 특수문자, 숫자, 영문을 포함해 8자 이상 입력해주세요.");
+        }        
+        if (repass == '') {
+          return alert('비밀번호 확인을 입력해주세요.');
+        }
+        if(repass != pass){
+            return alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+        }
+        if (email == '') {
+          return alert('이메일을 입력해주세요.');
+        }
         MNet.sendHttp({
           path: SERVER_PATH.JOIN,
           data: {
-            userNm : name,
-            gender : gender,
-            year : year,
-            month : month,
-            date : date,
-            cellPhone : cellPhone,
+            loginId: id,
+            password: pass,
             
-            loginId : id,
-            password : password,
-            email : email
-          }, 
-          succ: function (data) {
-            console.log(data);
-            M.page.html('./join4.html');
+            userNm: userName,
+            birthDate: birth,
+            gender: gender,
+            cellPhone: cellphone,
+            email: email
           },
-          error : function(data) {
-            alert('error');
+          succ: function (data) {
+            console.log('성공');
+            M.page.html('./join4.html');
           }
         });
-      }
+      })
+    },
   };
-  
   window.__page__ = page;
-})(jQuery, M, __mnet__, __serverpath__, window);
+})(jQuery, M, __mnet__, __util__, __serverpath__, window);
+
+(function ($, M, pageFunc, window) {
+  M.onReady(function () {
+    pageFunc.init(); // 최초 화면 초기화
+    pageFunc.initView();
+    pageFunc.initEvent();
+  });
 
 // 해당 페이지에서 실제 호출
-(function($, M, pageFunc, window) {
-  M.onReady(function() {
-      pageFunc.init(); // 최초 화면 초기화
-      pageFunc.initView();
-      pageFunc.initEvent();
-  });
 })(jQuery, M, __page__, window);

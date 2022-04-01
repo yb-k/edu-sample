@@ -43,6 +43,7 @@
       var year = this.els.$year.val().trim();
       var month = this.els.$month.val().trim();
       var date = this.els.$date.val().trim();
+      var birth = year + month + date;
       
       var today = new Date();
       var todayYear = today.getFullYear(); 
@@ -113,9 +114,10 @@
         param : {
           userNm : nm,
           gender : gender,
-          year : year,
-          month : month,
-          date : date,
+          birth : birth,
+//          year : year,
+//          month : month,
+//          date : date,
           cellPhone	: cp
         }
       });
