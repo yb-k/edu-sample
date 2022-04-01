@@ -44,7 +44,11 @@
               items += "<li data='"+item.seqNo+"'class='detailContent'>";
               items += "<div class='thumbnail-wrap'>";
               items += "<div class='thumbnail'>";
-              items += "<img src='' alt=''/>"
+              if (item.imgUrl) {
+                items += "<img src='";
+                items += item.imgUrl;
+                items += "' alt=''/>";
+              }
               items += "</div>";
               items += "<span class='label-info none'>";
               items += "</span>";
@@ -63,11 +67,6 @@
               items += "</li>";
             });
             $(".metro-wrap").append(items);
-            for (var i = 0; i < 6; i++) {
-              if ("imgUrl" in data.list[i]) {
-                $(".thumbnail img:eq(" + i + ")").attr('src', data.list[i].imgUrl);
-              }
-            } 
           }
         });
       },
