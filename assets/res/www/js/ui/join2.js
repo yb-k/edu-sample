@@ -14,6 +14,8 @@
       $date: null,
       $cellPhoneIpt : null,
       $nextBtn : null,
+      
+      $genderSelected: null
     },
     data: {},
     init: function init(){
@@ -23,6 +25,8 @@
       this.els.$date = $('#date');
       this.els.$cellPhoneIpt = $('#cellPhone');
       this.els.$nextBtn = $('#nextBtn');
+      
+      this.els.$genderSelected = $("input[name=gender]");
     },
     /*
       진행도를 표시한다.
@@ -42,6 +46,9 @@
       var gender = $("input:radio[name='gender']:checked").val();
       var year = this.els.$year.val().trim();
       var month = this.els.$month.val().trim();
+      
+      var regMonthDate = /^0[1-9]{1}$/;
+      
       var date = this.els.$date.val().trim();
       var birth = year + month + date;
       
@@ -53,16 +60,16 @@
       var cp = this.els.$cellPhoneIpt.val().trim();
       var regCp = /^01(?:0|1|[6-9])([0-9]{3,4})([0-9]{4})$/;
 
-      if(module.isEmpty(nm)){
+      if(nm == ''){
         return alert('이름을 입력해주세요.');
       }
       if(!regNm.test(nm)){
         return alert('이름은 2자 이상의 한글 또는 영문으로만 정확히 입력해주세요.');
       }
-      if(module.isEmpty(gender)){
+      if(!this.els.$genderSelected.is(":checked")){
         return alert('성별을 선택해주세요.');
       }
-      if(module.isEmpty(year)){
+      if(year == ''){
         return alert('생년을 입력해주세요.');
       }
       if(year < 1700){
@@ -71,19 +78,29 @@
       if(todayYear < year){
         return alert('현재보다 미래인 년은 생년에 적합하지 않습니다.');
       }
-      if(module.isEmpty(month)){
+      if(month == ''){
         return alert('생월을 입력해주세요.');
       }
       if(month > 12 || month == 0){
         return alert('생월을 정확히 입력해주세요.');        
+      }
+      if(0 < month < 10){
+        if(!regMonthDate.test(month)){
+          return alert('한자리 월 입력 시 월 앞에 0을 붙여주세요.');
+        }
       }
       if(todayYear == year){
         if(todayMonth < month){
           return alert('현재보다 미래인 월은 생월에 적합하지 않습니다.');
         }
       }      
-      if(module.isEmpty(date)){
+      if(date == ''){
         return alert('생일을 입력해주세요.');
+      }
+      if(0 < date < 10){
+        if(!regMonthDate.test(date)){
+          return alert('한자리 일 입력 시 일 앞에 0을 붙여주세요.');
+        }
       }
       if(date > 31 || date == 0){
         return alert('생일을 정확히 입력해주세요.');        
@@ -104,7 +121,7 @@
           }
         }
       }
-      if(module.isEmpty(cp)){
+      if(cp == ''){
         return alert('휴대폰 번호를 입력해주세요.');
       }
       if(!regCp.test(cp)){

@@ -37,11 +37,11 @@
 
     initView: function initView() {
       var self = this;
-      this.els.$loginId.val(M.data.global('myId'));
+      this.els.$loginId.val(M.data.global('loginId'));
       $.sendHttp({
         path: SERVER_PATH.INFO,
         data: {
-          "loginId": M.data.global('myId'),
+          "loginId": M.data.global('loginId'),
         },
         succ: function (data) {
           console.log(data);

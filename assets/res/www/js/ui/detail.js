@@ -24,7 +24,7 @@
       $.sendHttp({
         path: SERVER_PATH.NOTICE_DETAIL,
         data: {
-          "loginId": M.data.global('myId'),
+          "loginId": M.data.global('loginId'),
           "seqNo": M.data.global('seqNo'),
         },
         succ: function (data) {
@@ -99,7 +99,7 @@
 
     modify: function () {
       var self = this;
-      var id = M.data.global('myId');
+      var id = M.data.global('loginId');
       var seqNo = M.data.global('seqNo');
       var title = M.data.global('title');
       var content = M.data.global('content');
@@ -124,7 +124,7 @@
       $.sendHttp({
         path: SERVER_PATH.NOTICE_DELETE,
         data: {
-          loginId: M.data.global('myId'),
+          loginId: M.data.global('loginId'),
           seqNo: M.data.global('seqNo'),
         },
         succ: function (data) {

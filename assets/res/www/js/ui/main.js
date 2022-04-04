@@ -28,7 +28,7 @@
       $.sendHttp({
         path: SERVER_PATH.NOTICE_LIST,
         data: {
-          "loginId": M.data.global('myId'),
+          "loginId": M.data.global('loginId'),
           "lastSeqNo": '0',
           "cnt": '4',
         },
@@ -72,13 +72,7 @@
         });
       });
       $('#noti-list').on('click', '#notice0', function () {
-        //        M.page.html({
-        //          path: './detail.html',
-        //          param: {
-        //            "loginId": M.data.global('myId'),
-        //            "seqNo": seqNo[0],
-        //          }
-        //        });
+
         M.data.global("seqNo", seqNo[0]);
         M.page.html({
           url: './detail.html',
@@ -86,13 +80,7 @@
         });
       });
       $('#noti-list').on('click', '#notice1', function () {
-        //        M.page.html({
-        //          path: './detail.html',
-        //          param: {
-        //            "loginId": M.data.global('myId'),
-        //            "seqNo": seqNo[1],
-        //          }
-        //        });
+
         M.data.global("seqNo", seqNo[1]);
         M.page.html({
           url: './detail.html',
@@ -100,13 +88,7 @@
         });
       });
       $('#noti-list').on('click', '#notice2', function () {
-        //        M.page.html({
-        //          path: './detail.html',
-        //          param: {
-        //            "loginId": M.data.global('myId'),
-        //            "seqNo": seqNo[2],
-        //          }
-        //        });
+
         M.data.global("seqNo", seqNo[2]);
         M.page.html({
           url: './detail.html',
@@ -114,13 +96,7 @@
         });
       });
       $('#noti-list').on('click', '#notice3', function () {
-        //        M.page.html({
-        //          path: './detail.html',
-        //          param: {
-        //            "loginId": M.data.global('myId'),
-        //            "seqNo": seqNo[3],
-        //          }
-        //        });
+ 
         M.data.global("seqNo", seqNo[3]);
         M.page.html({
           url: './detail.html',

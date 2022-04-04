@@ -30,7 +30,7 @@
       $.sendHttp({
         path: SERVER_PATH.NOTICE_LIST,
         data: {
-          "loginId": M.data.global('myId'),
+          "loginId": M.data.global('loginId'),
           "lastSeqNo": '0',
           "cnt": '6',
         },
@@ -109,7 +109,7 @@
         $.sendHttp({
           path: SERVER_PATH.NOTICE_LIST,
           data: {
-            "loginId": M.data.global('myId'),
+            "loginId": M.data.global('loginId'),
             "lastSeqNo": seqNum,
             "cnt": '6',
           },

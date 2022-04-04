@@ -9,7 +9,7 @@
    * (실제적으로 페이지가 완전히 로드후 불려진다)
    */
   M.onReady(function (e) {
-    console.log("readey");
+    console.log("ready");
     //	M.plugin("push").remote.enabled(true);
     //개발모드의 경우 하단에 페이지명 현시
     if (CONFIG.IS_DEV) {

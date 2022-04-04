@@ -65,7 +65,7 @@
     
     modifyWithUpload: function modifyWithUpload(imgPath) {
               var self = this;
-              var id =  M.data.global('myId');
+              var id =  M.data.global('loginId');
               var title = this.els.$titleIpt.val();
               var content = this.els.$contentIpt.val();
               var seqNo = M.data.global('seqNo'); 
@@ -171,7 +171,7 @@
 
      modify: function () {
        var self = this;
-       var id =  M.data.global('myId');
+       var id =  M.data.global('loginId');
        var title = this.els.$titleIpt.val();
        var content = this.els.$contentIpt.val();
        var seqNo = M.data.global('seqNo');
@@ -185,7 +185,7 @@
         $.sendHttp({
         path: SERVER_PATH.NOTICE_UPDATE,
         data: {
-          'loginId': M.data.global('myId'),
+          'loginId': M.data.global('loginId'),
           'seqNo': M.data.global('seqNo'),
           'title': title,
           'content': content,
@@ -221,7 +221,7 @@
       $.sendHttp({
         path: SERVER_PATH.NOTICE_WRITE,
         data: {
-          loginId: M.data.global('myId'),
+          loginId: M.data.global('loginId'),
           title: title,
           content: content,
         },
