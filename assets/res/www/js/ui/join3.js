@@ -4,7 +4,8 @@
  * @date :
  */
 
-(function ($, M, MNet, module, SERVER_PATH, window) {
+(function ($, M, CONFIG, window) {
+  var SERVER_PATH = CONFIG.SERVER_PATH;
   var page = {
     els: {
       $userName: null,
@@ -67,7 +68,7 @@
         if (id.length < 5) {
           return alert('아이디는 5자 이상 입력해주세요.');
         }
-        MNet.sendHttp({
+        $.sendHttp({
           path: SERVER_PATH.DUPLICATE,
           data: {
             loginId: id
@@ -129,7 +130,7 @@
        if(!regEmail.test(email)) {
          return alert("이메일을 정확히 입력해주세요.");
        }           
-        MNet.sendHttp({
+        $.sendHttp({
           path: SERVER_PATH.JOIN,
           data: {
             loginId: id,
@@ -150,7 +151,7 @@
     },
   };
   window.__page__ = page;
-})(jQuery, M, __mnet__, __util__, __serverpath__, window);
+})(jQuery, M, __config__, window);
 
 (function ($, M, pageFunc, window) {
   M.onReady(function () {

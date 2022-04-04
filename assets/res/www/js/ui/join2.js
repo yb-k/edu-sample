@@ -4,8 +4,8 @@
  * @date : 
  */
 
-(function ($, M, module, MNet, window){
-
+(function ($, M, CONFIG, window) {
+  var SERVER_PATH = CONFIG.SERVER_PATH;
   var page = {
     els:  {
       $userNmIpt : null,
@@ -125,7 +125,7 @@
     
   };
   window.__page__ = page;
-})(jQuery, M, __util__, __mnet__, window);
+})(jQuery, M, __config__, window);
 
 // 해당 페이지에서 실제 호출
 (function($,M,pageFunc,window){

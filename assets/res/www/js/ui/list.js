@@ -1,140 +1,174 @@
 /**
- * @file : base.js 인트로 페이지
+ * @file : 
  * @author :
- * @date :
+ * @date : 
  */
-
-(function ($, SERVER_PATH, MNet, module, M, window) {
+// 페이지 단위 모듈
+(function ($, M, CONFIG, window) {
+  var SERVER_PATH = CONFIG.SERVER_PATH;
+  M.data.removeGlobal('seqNo');
+  M.data.removeGlobal('imgUrl');
+  M.data.removeGlobal('imgName');
+  var seqNum;
   var page = {
     els: {
-      $btnModify: null,
-      $contentUl: null,
-      $contentWrapper: null,
-      $moreData: null,
-      $write: null,
-      $topbutton: null,
-      $lists: null,
+      $writeBtn: null,
+      $topBtn: null,
+      $moreBtn: null,
+      $backBtn: null,
     },
-    data: {
-      lastSeqNo: null
-    },
+    data: {},
     init: function init() {
-      this.els.$btnModify = $('.btn-modify');
-      this.els.$contentUl = $("[data-more]");
-      this.els.$contentWrapper = $('#content-wrapper');
-      this.els.$moreData = $('#more-data');
-      this.els.$write = $('#write');
-      this.els.$topbutton = $('#top-button');
-
+      this.els.$writeBtn = $('#write-btn');
+      this.els.$topBtn = $('#top-btn');
+      this.els.$moreBtn = $('#more-btn');
+      this.els.$backBtn = $('#backBtn');
     },
+
     initView: function initView() {
-      // 회면에서 세팅할 동적 데이터
-      var _data = null;
-      var self = this;
-      MNet.sendHttp({
+      // 화면에서 세팅할 동적데이터
+      $.sendHttp({
         path: SERVER_PATH.NOTICE_LIST,
         data: {
-          loginId: M.data.global("LOGIN_INFO").id,
-          lastSeqNo: "0",
-          cnt: "6"
+          "loginId": M.data.global('myId'),
+          "lastSeqNo": '0',
+          "cnt": '6',
         },
         succ: function (data) {
-          console.log(data)
-          _data = data;
-          self.data.lastSeqNo = data.lastSeqNo;
+          console.log(data);
+          var items = "";
           $.each(data.list, function (index, item) {
-            self.addItemToList(item);
+            items += "<li class='noticeBoard' id='" + item.seqNo + "'>";
+            items += "<div class='thumbnail-wrap'>";
+            items += "<div class='thumbnail'>";
+            items += "<img src='" + item.imgUrl + " ' alt=''/>";
+            items += "</div>";
+            items += "<span class='label-info none'>";
+            items += "<img src= '" + item.imgUrl + "' alt='50%'/>";
+            items += "</span>";
+            items += "</div>";
+            items += "<div class='info-box'>";
+            items += "<div class='info-box-top'>";
+            items += "<strong class='ellipsis_1'>";
+            items += item.title;
+            items += "</strong>";
+            items += "<div class='info-box-btm'>";
+            items += "<p style='text-align:left;' class='ellipsis_1'>";
+            items += item.content;
+            items += "</p>";
+            items += "</div>";
+            items += "</div>";
+            items += "</li>";
+            seqNum = item.seqNo;
           });
+          $("#card").append(items);
+          console.log(seqNum);
         },
-        error: function () {
-          console.log('error');
-        }
+        error: function (data) {
+          console.log(data);
+          alert("리스트를 가져오지 못했습니다.");
+        },
       });
     },
     initEvent: function initEvent() {
-      // DOM Event 바인딩
-      $(this.els.$write).on('click',function () {
-        M.page.html('./write.html');
-      });
-      $('#content-wrapper').on('click', '.test', function () {
-        var seqNo = $(this).attr('id');
-        console.log(seqNo);
-        console.log(M.data.global('seqNo'));
+      // Dom Event 바인딩
+      var self = this;
+
+      $('#card').on('click', '.noticeBoard', function () {
+          var seqNo = $(this).attr('id');
+          console.log(seqNo);
+
+          M.data.global({
+            'seqNo': seqNo
+          });
+          console.log(M.data.global('seqNo'));
+          M.page.html({
+            url: './detail.html',
+            action: 'NO_HISTORY',
+          });
+        }),
+
+
+        this.els.$backBtn.on('click', function () {
+          M.page.back();
+        });
+
+      this.els.$writeBtn.on('click', function () {
+        var pagelist = M.info.stack();
+        console.log(pagelist);
         M.page.html({
-          url: './detail.html',
-          action: 'NO_HISTORY',
-          param: {
-            loginId: M.data.global("LOGIN_INFO").id,
-            seqNo: seqNo
-          }
+          url: './write.html',
         });
       });
-      var self = this;
-      self.els.$topbutton.on('click', function () {
+
+      this.els.$topBtn.on("click", function () {
         $('.cont-wrap').scrollTop(0);
       });
-      self.els.$moreData.on('click', function () {
-        MNet.sendHttp({
+
+      this.els.$moreBtn.on("click", function () {
+        $.sendHttp({
           path: SERVER_PATH.NOTICE_LIST,
           data: {
-            loginId: M.data.global("LOGIN_INFO").id,
-            lastSeqNo: self.data.lastSeqNo,
-            cnt: "6"
+            "loginId": M.data.global('myId'),
+            "lastSeqNo": seqNum,
+            "cnt": '6',
           },
           succ: function (data) {
-            self.data.lastSeqNo = data.lastSeqNo;
+
+            console.log(data);
+            var items = "";
             $.each(data.list, function (index, item) {
-              self.addItemToList(item);
+              var count = 6;
+              items += "<li class='noticeBoard' id='" + item.seqNo + "'>";
+              items += "<div class='thumbnail-wrap'>";
+              items += "<div class='thumbnail'>";
+              items += "<img src= '" + item.imgUrl + "'alt=''/>";
+              items += "</div>";
+              items += "<span class='label-info none'>";
+              items += "<img src='" + item.imgUrl + "'alt='50%'/>";
+              items += "</span>";
+              items += "</div>";
+              items += "<div class='info-box'>";
+              items += "<div class='info-box-top'>";
+              items += "<strong class='ellipsis_1'>";
+              items += item.title;
+              items += "</strong>";
+              items += "<div class='info-box-btm'>";
+              items += "<p style='text-align:left;' class='ellipsis_1'>";
+              items += item.content;
+              items += "</p>";
+              items += "</div>";
+              items += "</div>";
+              items += "</li>";
+              count -= 1;
+              seqNum = item.seqNo;
+              console.log(count);
             });
-            self.els.$lists = $('.test');
-          }
-        })
+            $("#card").append(items);
+            console.log(seqNum);
+            if (count == 0 || seqNum <= 6) {
+              document.getElementById("more-btn").style.display = "none";
+            }
+          },
+          error: function (data) {
+            console.log(data);
+            alert("리스트를 가져오지 못했습니다.");
+          },
+        });
       });
 
     },
-    addItemToList: function (item) {
-      var items = "";
-      var url = item.imgUrl;
-      console.log(url);
-      items += "<li id='" + item.seqNo + "' class ='test'>";
-      items += "<a>";
-      items += "<div class='thumbnail-wrap'>";
-      items += "<div class='thumbnail'>";
-      items += '<img style="height:100%"src="';
-      items += url;
-      items += '"';
-      items += "alt=''/>";
-      items += "</div>";
-      items += "<span class='label-info none'>";
-      //            items += "<img src=" ;
-      //            items += item.imgUrl;
-      //            items += "alt='50%'/>";
-      items += "</span>";
-      items += "</div>";
-      items += "<div class='info-box'>";
-      items += "<div class='info-box-top'>";
-      items += "<strong class='ellipsis_1'>";
-      items += item.title;
-      items += "</strong>";
-      items += "<div class='info-box-btm'>";
-      items += "<p style='text-align:left;' class='ellipsis_1'>";
-      items += item.content;
-      items += "</p>";
-      items += "</div>";
-      items += "</div>";
-      items += "</a>";
-      items += "</li>";
-      $(this.els.$contentWrapper).append(items);
-    }
   };
-  window.__page__ = page;
-})(jQuery, __serverpath__, __mnet__, __util__, M, window);
 
+  window.__page__ = page;
+})(jQuery, M, __config__, window);
+
+// 해당 페이지에서 실제 호출
 (function ($, M, pageFunc, window) {
+
   M.onReady(function () {
     pageFunc.init(); // 최초 화면 초기화
     pageFunc.initView();
     pageFunc.initEvent();
   });
-// 해당 페이지에서 실제 호출
 })(jQuery, M, __page__, window);

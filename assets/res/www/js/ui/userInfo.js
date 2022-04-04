@@ -1,126 +1,212 @@
 /**
- * @file : base.js 인트로 페이지
+ * @file : 
  * @author :
- * @date :
+ * @date : 
  */
-
-(function ($, MNet, SERVER_PATH, module, M, window) {
+// 페이지 단위 모듈
+(function ($, M, CONFIG, window) {
+  var SERVER_PATH = CONFIG.SERVER_PATH;
+  var con;
   var page = {
     els: {
-      $changePw: null,
+      $userNm: null,
       $loginId: null,
-      $password: null,
-      $email: null,
-      $cellPhone: null,
+      $passwordIpt: null,
+      $birth: null,
+      $emailIpt: null,
+      $phoneIpt: null,
       $saveBtn: null,
       $outBtn: null,
+      $changePwBtn: null,
+      $backBtn: null,
     },
     data: {},
     init: function init() {
-      var self = this;
-      self.els.$changePw = $('#changePw');
-      self.els.$loginId = M.data.global('LOGON_INFO').id;
-      self.els.$password = $('#password');
-      self.els.$email = $('#email');
-      self.els.$cellPhone = $('#cellPhone');
-      self.els.$saveBtn = $('#saveBtn');
-      self.els.$outBtn = $('#outBtn');
-    },
-    initView: function initView() {
-      // 회면에서 세팅할 동적 데이터
-    },
-    initEvent: function initEvent() {
-      // DOM Event 바인딩
-      var self = this;
-      module.onKeyupNum(this.els.$cellPhone);
-      self.els.$password.on('propertychange change keyup paste input', function () {
-        $(self.els.$saveBtn).attr("disabled", false);
-      });
-      self.els.$changePw.on('click', function () {
-        var id = M.data.global('LOGIN_INFO').id;
-        var pass = self.els.$password.val().trim();
-        console.log(id);
-        console.log(pass);
-        MNet.sendHttp({
-          path: SERVER_PATH.CHECK_PASSWORD,
-          data: {
-            loginId: id,
-            password: pass
-          },
-          succ: function (data) {
-            if (data.rsltCode == '0000') {
-              return alert('password 변경 페이지로 이동!');
-            } else {
-              console.log(data);
-              alert('password가 일치하지 않습니다.');
-            }
-          },
-          error: function (data) {
-            console.log(data);
-            alert('error!');
-          }
-        });
-      });
-      self.els.$saveBtn.on('click', function () {
-        var id = M.data.global('LOGIN_INFO').id;
-        var pass = self.els.$password.val().trim();
-        var email = self.els.$email.val().trim();
-        var cellphone = self.els.$cellPhone.val().trim();
-        if (email == '') {
-          return alert('이메일을 입력하세요.');
-        }
-        if (cellphone.length < 11) {
-          return alert('휴대폰번호를 11자리 입력해주세요.');
-        }
-        var isCorrectPw = false;
-        console.log(id);
-        console.log(pass);
-        MNet.sendHttp({
-          path: SERVER_PATH.CHECK_PASSWORD,
-          data: {
-            loginId: id,
-            password: pass
-          },
-          succ : function (data) {
-            console.log(data);
-            if (data.rsltCode == '0000') {
-              MNet.sendHttp({
-                path : SERVER_PATH.UPDATE,
-                data : {
-                  loginId : id,
-                  password : pass,
-                  cellPhone : cellphone,
-                  email : email
-                },
-                succ : function (data) {
-                  if (data.rsltCode == '0000'){
-                    alert('회원정보 수정을 완료했습니다.');
-                  }else{
-                    alert('i have problem');
-                  }
-                },
-                error : function (){
-                  alert('error');
-                }
-              });
-            }
-          },
-          error : function () {
-            alert('error');
-          }
-        });
-      })
-    },
-  };
-  window.__page__ = page;
-})(jQuery, __mnet__, __serverpath__, __util__, M, window);
+      this.els.$userNm = $('#userNm');
+      this.els.$loginId = $('#loginId');
+      this.els.$passwordIpt = $('#password');
+      this.els.$birth = $('#birthDate');
+      this.els.$emailIpt = $('#email');
+      this.els.$phoneIpt = $('#cellPhone');
+      this.els.$saveBtn = $('#saveBtn');
+      this.els.$outBtn = $('#outBtn');
+      this.els.$changePwBtn = $('#changePw');
+      this.els.$backBtn = $('#backBtn');
 
+    },
+
+    initView: function initView() {
+      var self = this;
+      this.els.$loginId.val(M.data.global('myId'));
+      $.sendHttp({
+        path: SERVER_PATH.INFO,
+        data: {
+          "loginId": M.data.global('myId'),
+        },
+        succ: function (data) {
+          console.log(data);
+          self.els.$userNm.val(data.userNm);
+          self.els.$birth.val(data.birthDate.substring(0, 4) + "-" + data.birthDate.substring(4, 6) + "-" + data.birthDate.substring(6, 8));
+          self.els.$phoneIpt.val(data.cellPhone.substring(0, 3) + "-" + data.cellPhone.substring(3, 7) + "-" + data.cellPhone.substring(7, ));
+          self.els.$emailIpt.val(data.email);
+        },
+        error: function (data) {
+          console.log(data);
+          alert("유저 정보를 가져오지 못했습니다.");
+        }
+      });
+    },
+
+    initEvent: function initEvent() {
+      // Dom Event 바인딩
+      var self = this;
+
+      this.els.$changePwBtn.on('click', function () {
+        self.changePw();
+      });
+
+      this.els.$passwordIpt.on('input', function () {
+        if ($('#changePw').val() == '')
+          $('#saveBtn').prop("disabled", false);
+        else
+          $('#saveBtn').prop("disabled", true);
+      });
+
+      this.els.$backBtn.on('click', function () {
+        M.page.back();
+      });
+
+      this.els.$saveBtn.on('click', function () {
+        //self.confirmPw();
+        self.save();
+      });
+
+      this.els.$outBtn.on('click', function () {
+        M.pop.alert({
+          title: '확인',
+          message: '진짜 탈퇴하시겠습니까?',
+          buttons: ['확인', '취소'],
+          callback: function (index) {
+            if (index == 0) {
+              self.outUser();
+            }
+          }
+        });
+      });
+    },
+
+    outUser: function () {
+      var self = this;
+      var id = this.els.$loginId.val().trim();
+      $.sendHttp({
+        path: SERVER_PATH.OUT,
+        data: {
+          loginId: id,
+        },
+        succ: function (data) {
+          console.log(data);
+          M.data.removeStorage('AUTO_LOGIN_AUTH');
+          M.page.html({
+            url: "./login.html",
+            actionType: 'CLEAR_TOP'
+          });
+        },
+        error: function (data) {
+          console.log(data);
+          alert('탈퇴에 실패하였습니다');
+        }
+      });
+    },
+
+    save: function () {
+      var self = this;
+      var id = this.els.$loginId.val().trim();
+      var phoneNumber = this.els.$phoneIpt.val().trim();
+      var phone = phoneNumber.replace(/-/g, '');
+      var email = this.els.$emailIpt.val().trim();
+      var pw = this.els.$passwordIpt.val().trim();
+      var patternPhone = /01[016789][^0][0-9]{2,3}[0-9]{3,4}/;
+      console.log(id);
+      console.log(phone);
+      console.log(email);
+      console.log(pw);
+      if (!patternPhone.test(phone)) {
+        alert('핸드폰 번호를 확인 해주세요');
+        return;
+      }
+      var regExpEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+
+      if (email.length < 6 || !regExpEmail.test(email)) {
+        alert('메일형식이 맞지 않습니다.')
+        return;
+      }
+
+      if (phone == '') {
+        return alert('전화번호를 입력해주세요');
+      }
+      if (email == '') {
+        return alert('이메일을 입력해주세요');
+      }
+      $.sendHttp({
+        path: SERVER_PATH.UPDATE,
+        data: {
+          loginId: id,
+          password: pw,
+          cellPhone: phone,
+          email: email,
+        },
+        succ: function (data) {
+          M.page.html({
+            url: "./userInfo.html",
+            action: 'NO_HISTORY'
+          });
+        },
+        error: function (data) {
+          console.log(data);
+          alert('수정에 실패하였습니다');
+        }
+      });
+
+    },
+
+    changePw: function () {
+      var self = this;
+      var id = this.els.$loginId.val().trim();
+      var pw = this.els.$passwordIpt.val().trim();
+      $.sendHttp({
+        path: SERVER_PATH.CHECK_PASSWORD,
+        data: {
+          loginId: id,
+          password: pw
+        },
+        succ: function (data) {
+          console.log(data);
+          M.page.html({
+            path: "./findPw2.html",
+            action: 'NO_HISTORY',
+            param: {
+              "loginId": id
+            },
+          });
+        },
+        error: function (data) {
+          console.log(data);
+          alert('비밀번호가 일치하지 않습니다. 다시 입력해주세요.');
+        }
+      });
+    },
+
+  };
+
+  window.__page__ = page;
+})(jQuery, M, __config__, window);
+
+// 해당 페이지에서 실제 호출
 (function ($, M, pageFunc, window) {
+
   M.onReady(function () {
     pageFunc.init(); // 최초 화면 초기화
     pageFunc.initView();
     pageFunc.initEvent();
   });
-
-// 해당 페이지에서 실제 호출
 })(jQuery, M, __page__, window);

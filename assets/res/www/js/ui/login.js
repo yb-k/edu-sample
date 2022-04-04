@@ -5,7 +5,8 @@
  */
  
 // 페이지 단위모듈
-(function ($, M, MNet, config, SERVER_PATH, window){
+(function ($, M, CONFIG, window) {
+  var SERVER_PATH = CONFIG.SERVER_PATH;
   var page = {
     els: { 
       $loginIdIpt : null,
@@ -70,13 +71,14 @@
         return alert('비밀번호를 입력해주세요.');
       }
       console.log(id+"zzzzzzzzzzz"+pw);
-     MNet.sendHttp({
+     $.sendHttp({
       path : SERVER_PATH.LOGIN,
       data : {
         loginId : id, 
         password : pw
       },
       succ : function(data){
+        M.data.global('loginId',id);
         console.log(data);
         // 자동로그인 
         if (isAutoLogin)  self.setAutoLogin(id, pw);
@@ -90,7 +92,7 @@
     
   };
   window.__page__ = page;
-})(jQuery,M, __mnet__ , __config__ , __serverpath__ ,window);
+})(jQuery, M, __config__, window);
 
 // 해당 페이지에서 실제 호출
 (function($, M, pageFunc, window){
