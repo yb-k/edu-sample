@@ -70,10 +70,10 @@
               var content = this.els.$contentIpt.val();
               var seqNo = M.data.global('seqNo'); 
               if (title == '') {
-                      return alert('제목을 입력해주세요');
+                      return alert('제목을 입력해주세요.');
                     }
                     if (content == '') {
-                      return alert('내용을 입력해주세요');
+                      return alert('내용을 입력해주세요.');
                     }
               var body = [
                 { name: "file", content: imgPath, type: "FILE" },
@@ -90,7 +90,7 @@
                 body:body,
                 succ: function () {
                   console.log(body);
-                  alert('성공');
+                  alert('성공했습니다.');
                   M.page.replace({
                     url:'./list.html',});
                   M.data.removeGlobal('seqNo');
@@ -104,7 +104,7 @@
                 },
                 error : function () {
                   console.log(body);
-                  alert('실패쓰');
+                  alert('실패했습니다.');
                 }
               })
             },
@@ -112,14 +112,14 @@
     
     writeWithUpload: function writeWithUpload(imgPath) {
           var self = this;
-          var id =  M.data.global('myId');
+          var id =  M.data.global('loginId');
           var title = this.els.$titleIpt.val();
           var content = this.els.$contentIpt.val();
           if (title == '') {
-                  return alert('제목을 입력해주세요');
+                  return alert('제목을 입력해주세요.');
                 }
                 if (content == '') {
-                  return alert('내용을 입력해주세요');
+                  return alert('내용을 입력해주세요.');
                 }
           var body = [
             { name: "file", content: imgPath, type: "FILE" },
@@ -135,7 +135,7 @@
             body:body,
             succ: function (body) {
               console.log(body);
-              alert('성공');
+              alert('성공했습니다.');
               M.page.replace({
                 url:'./list.html',});
               var pagelist = M.info.stack();
@@ -146,7 +146,7 @@
             },
             error : function (body) {
               console.log(body);
-              alert('실패쓰');
+              alert('실패했습니다.');
             }
           })
         },
@@ -176,10 +176,10 @@
        var content = this.els.$contentIpt.val();
        var seqNo = M.data.global('seqNo');
        if (title == '') {
-               return alert('제목을 입력해주세요');
+               return alert('제목을 입력해주세요.');
              }
              if (content == '') {
-               return alert('내용을 입력해주세요');
+               return alert('내용을 입력해주세요.');
              }
        console.log(seqNo);
         $.sendHttp({
@@ -191,7 +191,7 @@
           'content': content,
         },
         succ: function (data) {
-          alert('어디한번 수정에 성공해보았습니다');
+          alert('수정 완료되었습니다.');
           M.page.replace({
             url : './list.html',
             });
@@ -201,7 +201,7 @@
         },
         error: function (data) {
           console.log(data);
-          alert('어림도없지 에러다');
+          alert('에러가 발생했습니다.');
         }
       });
 
@@ -213,10 +213,10 @@
       var content = this.els.$contentIpt.val();
       console.log(M.data.global('seqNo'));
       if (title == '') {
-        return alert('제목을 입력해주세요');
+        return alert('제목을 입력해주세요.');
       }
       if (content == '') {
-        return alert('내용을 입력해주세요');
+        return alert('내용을 입력해주세요.');
       }
       $.sendHttp({
         path: SERVER_PATH.NOTICE_WRITE,
@@ -237,7 +237,7 @@
         },
         error: function (data) {
           console.log(data);
-          alert('글쓰기 실패입니다. 다시 작성해 주세요.');
+          alert('글쓰기 실패입니다. 다시 작성해주세요.');
         }
       });
     }

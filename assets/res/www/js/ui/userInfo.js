@@ -47,7 +47,8 @@
           console.log(data);
           self.els.$userNm.val(data.userNm);
           self.els.$birth.val(data.birthDate.substring(0, 4) + "-" + data.birthDate.substring(4, 6) + "-" + data.birthDate.substring(6, 8));
-          self.els.$phoneIpt.val(data.cellPhone.substring(0, 3) + "-" + data.cellPhone.substring(3, 7) + "-" + data.cellPhone.substring(7, ));
+ //         self.els.$phoneIpt.val(data.cellPhone.substring(0, 3) + "-" + data.cellPhone.substring(3, 7) + "-" + data.cellPhone.substring(7, ));
+          self.els.$phoneIpt.val(data.cellPhone);
           self.els.$emailIpt.val(data.email);
         },
         error: function (data) {
@@ -84,7 +85,7 @@
       this.els.$outBtn.on('click', function () {
         M.pop.alert({
           title: '확인',
-          message: '진짜 탈퇴하시겠습니까?',
+          message: '정말 탈퇴하시겠습니까?',
           buttons: ['확인', '취소'],
           callback: function (index) {
             if (index == 0) {
@@ -137,15 +138,15 @@
       var regExpEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 
       if (email.length < 6 || !regExpEmail.test(email)) {
-        alert('메일형식이 맞지 않습니다.')
+        alert('메일 형식이 맞지 않습니다.')
         return;
       }
 
-      if (phone == '') {
-        return alert('전화번호를 입력해주세요');
-      }
       if (email == '') {
-        return alert('이메일을 입력해주세요');
+        return alert('메일을 입력해주세요');
+      }
+      if (phone == '') {
+        return alert('휴대폰 번호를 입력해주세요');
       }
       $.sendHttp({
         path: SERVER_PATH.UPDATE,
@@ -163,7 +164,7 @@
         },
         error: function (data) {
           console.log(data);
-          alert('수정에 실패하였습니다');
+          alert('수정에 실패하였습니다. 다시 확인해주세요.');
         }
       });
 
@@ -191,7 +192,7 @@
         },
         error: function (data) {
           console.log(data);
-          alert('비밀번호가 일치하지 않습니다. 다시 입력해주세요.');
+          alert('비밀번호가 일치하지 않습니다.');
         }
       });
     },

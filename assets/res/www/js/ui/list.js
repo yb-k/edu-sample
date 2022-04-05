@@ -146,12 +146,13 @@
             });
             $("#card").append(items);
             console.log(seqNum);
-            if (count == 0 || seqNum <= 6) {
+//            if (count == 0 || seqNum <= 6) {
+            if ( seqNum <= 6) {
               document.getElementById("more-btn").style.display = "none";
             }
           },
           error: function (data) {
-            console.log(data);
+            console.log(data);console.log(count);
             alert("리스트를 가져오지 못했습니다.");
           },
         });
