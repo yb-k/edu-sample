@@ -16,14 +16,14 @@
   var SERVER_PATH = module.SERVER_PATH = {
     LOGIN: "api/member/login", //로그인
     DUPLICATE: "api/member/duplicate", //아이디 중복 체크
-    JOIN: "api/member/join", //회원가입
-    FIND_ID: "api/member/findId", //아이디 찾기
-    FIND: "api/member/find", //비밀번호 변경 전 개인정보 확인
-    PASSWORD: "api/member/password", //비밀번호 변경
-    OUT: "api/member/out", //회원 탈퇴
-    INFO: "api/member/info", //회원 정보 조회
-    UPDATE: "api/member/update", //회원 정보 수정
-    CHECK_PASSWORD: "api/member/chkPwd", //회원 비밀번호 확인
+    JOIN: "api/member/join", //회원가입000
+    FIND_ID: "api/member/findId", //아이디 찾기000
+    FIND: "api/member/find", //비밀번호 변경 전 개인정보 확인000
+    PASSWORD: "api/member/password", //비밀번호 변경000
+    OUT: "api/member/out", //회원 탈퇴000
+    INFO: "api/member/info", //회원 정보 조회000
+    UPDATE: "api/member/update", //회원 정보 수정000
+    CHECK_PASSWORD: "api/member/chkPwd", //회원 비밀번호 확인xxx없음
 
     NOTICE_LIST: "api/notice/list", //게시글 리스트
     NOTICE_DETAIL: "api/notice/detail", //게시글 상세
